@@ -1,0 +1,50 @@
+# Alzheimer's Disease Detection Task Configuration
+# Used by: scanvidence.tasks.AlzheimersTask.from_config()
+
+task: alzheimers
+
+data:
+  dataset: ADNI
+  root: ${ADNI_DATA_ROOT}
+  split_seed: 42
+  ratios: [0.7, 0.15, 0.15]
+
+preprocessing:
+  transforms:
+    - skull_strip:
+        method: threshold
+    - normalize:
+        method: zscore
+    - registration:
+        method: affine
+        template: null  # use default MNI152
+
+model:
+  type: AlzheimersClassifier
+  backbone: resnet50
+  num_classes: 3  # CN (cognitively normal), MCI, AD
+  pretrained: true
+
+calibration:
+  method: temperature_scaling
+
+xai:
+  methods:
+    - gradcam:
+        target_layer: null
+    - shap:
+        method: deep
+    - lime:
+        num_samples: 1000
+
+evaluation:
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1
+    - auroc
+  statistical_tests:
+    - delong
+    - mcnemar
+  bootstrap_samples: 1000
