@@ -1,0 +1,22 @@
+name: Nightly (slow tests)
+
+# Runs tests marked @pytest.mark.slow — integration-style tests that touch
+# real (small, CI-safe) sample volumes end-to-end. Still no GPU here; GPU-
+# marked tests stay skipped and only ever run on the lab machine.
+# Also runnable on demand: Actions tab -> Nightly (slow tests) -> Run workflow.
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+jobs:
+  slow-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -e ".[dev,segmentation]"
+      - run: pytest -m "slow and not gpu" --maxfail=1

@@ -1,0 +1,27 @@
+# Maps to the track ownership in the sprint plan. Update the handles
+# below with real GitHub usernames — Anas's is filled in from his profile,
+# the rest are placeholders.
+#
+# CODEOWNERS doesn't replace review judgment — it just makes sure the
+# person who owns a track is auto-requested when it changes.
+
+# Default: team lead reviews as a backstop.
+*                                           @Gitanaskhan26
+
+/scanvidence/data/                         @Gitanaskhan26
+/scanvidence/evaluation/                   @Gitanaskhan26
+/scanvidence/tasks/                        @Gitanaskhan26
+
+/scanvidence/models/classification/        @ali-hasan-handle
+/scanvidence/preprocessing/                @ali-hasan-handle
+
+/scanvidence/models/segmentation/          @ahmad-rahman-handle
+
+/scanvidence/radiomics/                    @abdul-malik-handle
+/scanvidence/xai/                          @abdul-malik-handle
+/scanvidence/calibration/                  @abdul-malik-handle
+
+/scanvidence/quantum/                      @member5-handle
+/docs/                                     @member5-handle
+
+/scanvidence/api/                          @Gitanaskhan26

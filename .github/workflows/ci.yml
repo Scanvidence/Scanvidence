@@ -1,0 +1,54 @@
+name: CI
+
+# Runs on every PR and every push to main. Deliberately does NOT try to
+# train real models — GitHub-hosted runners have no GPU, so anything here
+# tests logic (splitting, metrics, QUBO formulation, config loading) on
+# tiny synthetic inputs, not model performance. Real training happens on
+# the lab GPU / Colab and gets logged to W&B; see nightly.yml for the
+# slow/integration tier.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -e ".[dev]"
+      - run: ruff check .
+      - run: ruff format --check .
+      - run: mypy scanvidence --ignore-missing-imports
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install -e ".[dev]"
+      # -m "not slow and not gpu": the fast tier only. This must include
+      # tests/test_data/test_splitting.py every time — that test is the one
+      # correctness guarantee the whole evaluation plan depends on.
+      - run: pytest -m "not slow and not gpu" --cov=scanvidence --cov-report=xml
+      - uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage.xml
+        continue-on-error: true # don't block merges on the upload step itself
+
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t scanvidence:ci .
