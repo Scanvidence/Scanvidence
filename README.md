@@ -141,7 +141,7 @@ The library follows a **pgmpy-style** architecture:
 ## Ethics and Scope
 
 - **No real patient data** — public benchmarks only (BraTS/BraTS-GLI,
-  TCGA-GBM/LGG, Figshare for tumors; OASIS and ADNI for Alzheimer's
+  TCGA-GBM/LGG, Figshare for tumors; OASIS for Alzheimer's
   disease), each used under its own license with attribution and no
   redistribution of raw scans.
 - **Research use only** — every demo output carries a "RESEARCH USE ONLY
