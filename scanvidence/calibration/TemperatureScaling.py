@@ -1,7 +1,5 @@
 """Temperature scaling calibration."""
 
-import numpy as np
-
 from .base import BaseCalibrator
 
 

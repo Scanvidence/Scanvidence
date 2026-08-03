@@ -2,8 +2,9 @@
 
 from fastapi import APIRouter, HTTPException
 
+from scanvidence.tasks import AlzheimersTask, BrainTumorTask
+
 from .schemas import DetectionRequest, DetectionResponse
-from scanvidence.tasks import BrainTumorTask, AlzheimersTask
 
 router = APIRouter(prefix="/api/v1")
 

@@ -29,9 +29,9 @@ class DICOMLoader(BaseLoader):
         metadata : dict
             Keys: ``spacing``, ``origin``, ``direction``, ``shape``.
         """
-        import SimpleITK as sitk
-        import numpy as np
         import os
+
+        import SimpleITK as sitk
 
         full_path = os.path.join(self.data_root, path)
         reader = sitk.ImageSeriesReader()
@@ -51,7 +51,4 @@ class DICOMLoader(BaseLoader):
 
         if not os.path.isdir(os.path.join(self.data_root, path)):
             return False
-        return any(
-            f.endswith(".dcm")
-            for f in os.listdir(os.path.join(self.data_root, path))
-        )
+        return any(f.endswith(".dcm") for f in os.listdir(os.path.join(self.data_root, path)))

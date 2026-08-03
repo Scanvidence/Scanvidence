@@ -23,15 +23,18 @@ class ADNIDataset(BaseDataset):
         for subject_dir in sorted(os.listdir(self.root)):
             subject_path = os.path.join(self.root, subject_dir)
             if os.path.isdir(subject_path):
-                records.append({
-                    "patient_id": subject_dir,
-                    "path": subject_path,
-                })
+                records.append(
+                    {
+                        "patient_id": subject_dir,
+                        "path": subject_path,
+                    }
+                )
         return records
 
     def load_case(self, record: dict):
         """Load an ADNI case."""
         import os
+
         import nibabel as nib
 
         path = record["path"]

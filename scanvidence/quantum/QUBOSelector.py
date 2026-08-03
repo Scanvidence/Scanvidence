@@ -1,7 +1,5 @@
 """QUBO-based quantum feature selection."""
 
-import numpy as np
-
 from .base import BaseSelector
 
 

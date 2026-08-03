@@ -30,8 +30,9 @@ class NIfTILoader(BaseLoader):
         metadata : dict
             Keys: ``affine``, ``header``, ``shape``.
         """
-        import nibabel as nib
         import os
+
+        import nibabel as nib
 
         full_path = os.path.join(self.data_root, path)
         img = nib.load(full_path)

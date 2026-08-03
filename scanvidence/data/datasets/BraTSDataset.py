@@ -23,17 +23,19 @@ class BraTSDataset(BaseDataset):
         for case_dir in sorted(os.listdir(self.root)):
             case_path = os.path.join(self.root, case_dir)
             if os.path.isdir(case_path):
-                records.append({
-                    "patient_id": case_dir,
-                    "path": case_path,
-                })
+                records.append(
+                    {
+                        "patient_id": case_dir,
+                        "path": case_path,
+                    }
+                )
         return records
 
     def load_case(self, record: dict):
         """Load a BraTS case with all modalities."""
         import os
+
         import nibabel as nib
-        import numpy as np
 
         path = record["path"]
         modalities = {}

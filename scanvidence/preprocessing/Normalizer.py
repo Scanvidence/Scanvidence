@@ -1,7 +1,5 @@
 """Intensity normalization for MRI volumes."""
 
-import numpy as np
-
 from .base import BaseTransform
 
 

@@ -1,7 +1,5 @@
 """Classification evaluation metrics."""
 
-import numpy as np
-
 from .base import BaseMetric
 
 

@@ -1,7 +1,5 @@
 """MC-Dropout uncertainty estimation."""
 
-import numpy as np
-
 from .base import BaseCalibrator
 
 

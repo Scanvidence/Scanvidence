@@ -1,7 +1,5 @@
 """Statistical hypothesis tests for model comparison."""
 
-import numpy as np
-
 from .base import BaseMetric
 
 
