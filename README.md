@@ -16,7 +16,7 @@ clinical deployment claims — all outputs are research artifacts.**
 |---|---|
 | **Open Source** | [![GitHub License](https://img.shields.io/github/license/Scanvidence/scanvidence)](https://github.com/Scanvidence/scanvidence/blob/main/LICENSE) |
 | **CI/CD** | [![CI](https://img.shields.io/github/actions/workflow/status/Scanvidence/scanvidence/ci.yml?logo=github)](https://github.com/Scanvidence/scanvidence/actions/workflows/ci.yml) [![Nightly](https://img.shields.io/github/actions/workflow/status/Scanvidence/scanvidence/nightly.yml?logo=github&label=nightly)](https://github.com/Scanvidence/scanvidence/actions/workflows/nightly.yml) [![codecov](https://codecov.io/gh/Scanvidence/scanvidence/graph/badge.svg)](https://codecov.io/gh/Scanvidence/scanvidence) |
-| **Code** | [![Python Versions](https://img.shields.io/pypi/pyversions/scanvidence)](https://pypi.org/project/scanvidence/) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) |
+| **Code** | [![Python Versions](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-3776AB)](pyproject.toml) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) |
 
 ## Key Features
 
@@ -58,6 +58,10 @@ results.
 ## Quickstart
 
 ### Installation
+
+The package is named **`scanvidence`** (import `scanvidence`) and requires
+**Python ≥ 3.10**. CI tests Python 3.10–3.12; 3.13 is supported per
+`pyproject.toml`.
 
 ```bash
 pip install -e ".[dev]"
