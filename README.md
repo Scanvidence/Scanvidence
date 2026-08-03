@@ -14,9 +14,9 @@ clinical deployment claims — all outputs are research artifacts.**
 
 |  | **[Documentation](docs/ARCHITECTURE.md)** · **[Contributing](CONTRIBUTING.md)** · **[Changelog](CHANGELOG.md)** |
 |---|---|
-| **Open Source** | [![GitHub License](https://img.shields.io/github/license/Scanvidence/scanvidence)](https://github.com/Scanvidence/scanvidence/blob/main/LICENSE) |
-| **CI/CD** | [![CI](https://img.shields.io/github/actions/workflow/status/Scanvidence/scanvidence/ci.yml?logo=github)](https://github.com/Scanvidence/scanvidence/actions/workflows/ci.yml) [![Nightly](https://img.shields.io/github/actions/workflow/status/Scanvidence/scanvidence/nightly.yml?logo=github&label=nightly)](https://github.com/Scanvidence/scanvidence/actions/workflows/nightly.yml) [![codecov](https://codecov.io/gh/Scanvidence/scanvidence/graph/badge.svg)](https://codecov.io/gh/Scanvidence/scanvidence) |
-| **Code** | [![Python Versions](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-3776AB)](pyproject.toml) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) |
+| **Open Source** | [![GitHub License](https://img.shields.io/github/license/Scanvidence/Scanvidence)](https://github.com/Scanvidence/Scanvidence/blob/main/LICENSE) |
+| **CI/CD** | [![CI](https://img.shields.io/github/actions/workflow/status/Scanvidence/Scanvidence/ci.yml?logo=github)](https://github.com/Scanvidence/Scanvidence/actions/workflows/ci.yml) [![Nightly](https://img.shields.io/github/actions/workflow/status/Scanvidence/Scanvidence/nightly.yml?logo=github&label=nightly)](https://github.com/Scanvidence/Scanvidence/actions/workflows/nightly.yml) [![codecov](https://codecov.io/gh/Scanvidence/Scanvidence/graph/badge.svg)](https://codecov.io/gh/Scanvidence/Scanvidence) |
+| **Code** | [![Python Versions](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-3776AB)](pyproject.toml) [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) |
 
 ## Key Features
 
@@ -60,8 +60,15 @@ results.
 ### Installation
 
 The package is named **`scanvidence`** (import `scanvidence`) and requires
-**Python ≥ 3.10**. CI tests Python 3.10–3.12; 3.13 is supported per
-`pyproject.toml`.
+**Python ≥ 3.10**. **CI tests every supported version — 3.10, 3.11, 3.12,
+3.13, and 3.14** — on every PR; `pyproject.toml` declares the same set in
+its classifiers.
+
+> **Note on the `radiomics` extra:** `pyradiomics` ships no wheels for any
+> Python ≥ 3.10, so the core pipeline installs everywhere but the
+> radiomics track needs a source build (numpy + C/C++ compiler) and is
+> only exercised on 3.10–3.12 in CI — install it on 3.13/3.14 via a
+> conda-forge environment or custom image instead.
 
 ```bash
 pip install -e ".[dev]"
@@ -209,7 +216,7 @@ describing what belongs there; that's the team's project work.
 - **Contributing Guide:** [CONTRIBUTING.md](CONTRIBUTING.md)
 - **Changelog:** [CHANGELOG.md](CHANGELOG.md)
 - **CI:** [.github/workflows/ci.yml](.github/workflows/ci.yml) · [.github/workflows/nightly.yml](.github/workflows/nightly.yml)
-- **Bug Reports and Feature Requests:** [GitHub Issues](https://github.com/Scanvidence/scanvidence/issues)
+- **Bug Reports and Feature Requests:** [GitHub Issues](https://github.com/Scanvidence/Scanvidence/issues)
 
 ## Contributing
 

@@ -15,6 +15,13 @@ result maps to an exact commit.
   `from tumorxai.xxx import ...`.
 
 ### Added
+- `scanvidence.__main__` — CLI entry point (`python -m scanvidence detect`)
+  so the Dockerfile's default command works.
+- `scanvidence/py.typed` — PEP 561 marker for typed-package consumers.
+- `scanvidence.models` re-exports `TumorClassifier`, `AlzheimersClassifier`,
+  and `TumorSegmentor` (matching the documented imports).
+- Python 3.13 and 3.14: added to CI test matrix and classifiers;
+  documented in README (radiomics extra excluded from 3.13/3.14 CI).
 - `scanvidence.data.datasets.OASISDataset` — OASIS-1/2/3/4 adapter
   (primary dataset for the Alzheimer's track), with `references.bib`
   entries (Marcus 2007/2010, LaMontagne 2019).
