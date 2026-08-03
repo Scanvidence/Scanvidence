@@ -1,0 +1,36 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.4
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-merge-conflict
+      # Catches an accidental `git add` of a downloaded MRI volume or
+      # checkpoint before it ever reaches a PR.
+      - id: check-added-large-files
+        args: [--maxkb=5000]
+
+  # Strips output cells before commit — exploratory notebooks are welcome,
+  # but embedded MRI images and dataset previews in committed outputs are not.
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.7.1
+    hooks:
+      - id: nbstripout
+
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy
+        entry: mypy scanvidence --ignore-missing-imports
+        language: system
+        pass_filenames: false
+        types: [python]

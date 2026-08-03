@@ -1,0 +1,114 @@
+[project]
+name = "scanvidence"
+version = "0.1.0"
+description = "Explainable, uncertainty-aware medical imaging detection for brain tumors and Alzheimer's disease with quantum-vs-classical feature-selection ablation"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+  { name = "Anas Khalid" },
+  { name = "Ali Hasan" },
+  { name = "Ahmad Rahman" },
+  { name = "Abdul Malik" },
+  { name = "Reem Hamraz" },
+  { name = "Maaz Siddqui" },
+]
+classifiers = [
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Intended Audience :: Education",
+  "Intended Audience :: Science/Research",
+  "Operating System :: Unix",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: MacOS",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+
+# Core: needed by every branch (data, preprocessing, classification, radiomics, stats).
+# Kept deliberately separate from the optional extras below so `pip install scanvidence`
+# doesn't drag in Qiskit/D-Wave/nnU-Net for someone who only wants the classification track.
+dependencies = [
+  "torch>=2.1",
+  "monai>=1.3",
+  "nibabel>=5.2",
+  "SimpleITK>=2.3",
+  "scikit-learn>=1.4",
+  "scipy>=1.12",
+  "xgboost>=2.0",
+  "pyradiomics>=3.0",
+  "captum>=0.7",
+  "shap>=0.45",
+  "lime>=0.2",
+  "numpy>=1.26",
+  "pandas>=2.2",
+  "pydantic>=2.6",
+  "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+# Heaviest, most fragile deps isolated behind an extra — the stretch objective
+# should never be able to break `pip install` for the core pipeline.
+quantum = ["qiskit>=1.0", "dwave-ocean-sdk>=6.0", "pennylane>=0.35"]
+segmentation = ["nnunetv2>=2.2"]
+demo = ["streamlit>=1.32"]
+api = ["fastapi>=0.110", "uvicorn>=0.29"]
+tracking = ["wandb>=0.16", "mlflow>=2.11"]
+dev = [
+  "pytest>=8.0",
+  "pytest-cov>=4.1",
+  "pytest-mock>=3.12",
+  "ruff>=0.4",
+  "mypy>=1.9",
+  "pre-commit>=3.6",
+]
+docs = ["sphinx>=7.2", "furo>=2024.1.29", "myst-parser>=2.0"]
+all = ["scanvidence[quantum,segmentation,demo,api,tracking,dev,docs]"]
+
+[project.urls]
+Homepage = "https://github.com/Scanvidence"
+Repository = "https://github.com/Scanvidence/scanvidence"
+Documentation = "https://github.com/Scanvidence/scanvidence#readme"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+exclude = ["tests"]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+exclude = ["notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "NPY", "SIM"]
+ignore = ["E203"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["scanvidence"]
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+disallow_untyped_defs = false
+# Tightened per-module as code stabilizes — see CONTRIBUTING.md.
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+  "slow: long-running tests (real training runs) — not run on every PR",
+  "gpu: requires a GPU — skipped in standard CI, run manually or nightly",
+]
+addopts = "-v --strict-markers"
+
+[tool.coverage.run]
+source = ["scanvidence"]
+omit = ["*/demo/*"]
