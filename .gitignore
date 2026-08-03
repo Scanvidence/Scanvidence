@@ -1,0 +1,51 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+htmlcov/
+.coverage
+
+# --- Datasets: never commit, on two grounds at once ---
+# (1) BraTS/TCGA/Figshare license terms forbid redistributing raw scans.
+# (2) They're huge (~150GB budget per the proposal) — git is the wrong tool.
+# Use scripts/download_data.py to populate these locally; only checksums
+# and access-date logs belong in version control.
+data/raw/
+data/processed/
+data/interim/
+*.nii
+*.nii.gz
+*.dcm
+*.mha
+
+# --- Model artifacts: log to W&B/MLflow, not git ---
+checkpoints/
+*.pt
+*.pth
+*.ckpt
+*.onnx
+
+# --- Experiment tracking local state ---
+wandb/
+mlruns/
+mlartifacts/
+
+# --- Secrets: IBM Quantum / D-Wave / W&B tokens live in .env, never in code ---
+.env
+*.token
+*credentials*
+
+# --- Notebooks: outputs stripped by pre-commit, but ignore checkpoints ---
+.ipynb_checkpoints/
+
+# --- OS / editor ---
+.DS_Store
+.vscode/
+.idea/
