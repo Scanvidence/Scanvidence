@@ -40,7 +40,7 @@ pre-commit install
 pytest -m "not slow"
 ```
 
-Optional extras: `quantum`, `segmentation`, `demo`, `api`, `tracking`, `docs`.
+Optional extras: `radiomics`, `quantum`, `segmentation`, `demo`, `api`, `tracking`, `docs`.
 
 ### Examples
 

@@ -39,7 +39,6 @@ dependencies = [
   "scikit-learn>=1.4",
   "scipy>=1.12",
   "xgboost>=2.0",
-  "pyradiomics>=3.0",
   "captum>=0.7",
   "shap>=0.45",
   "lime>=0.2",
@@ -50,6 +49,11 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# pyradiomics is NOT in core: it ships no wheels for Python >= 3.10 and its
+# source build needs numpy + a C/C++ compiler in the build environment, which
+# breaks pip's isolated builds on CI. Install the `radiomics` extra where a
+# compiler and old toolchain are available (e.g. conda-forge / custom images).
+radiomics = ["pyradiomics>=3.0"]
 # Heaviest, most fragile deps isolated behind an extra — the stretch objective
 # should never be able to break `pip install` for the core pipeline.
 quantum = ["qiskit>=1.0", "dwave-ocean-sdk>=6.0", "pennylane>=0.35"]
@@ -63,10 +67,11 @@ dev = [
   "pytest-mock>=3.12",
   "ruff>=0.4",
   "mypy>=1.9",
+  "types-PyYAML>=6.0",
   "pre-commit>=3.6",
 ]
 docs = ["sphinx>=7.2", "furo>=2024.1.29", "myst-parser>=2.0"]
-all = ["scanvidence[quantum,segmentation,demo,api,tracking,dev,docs]"]
+all = ["scanvidence[quantum,segmentation,radiomics,demo,api,tracking,dev,docs]"]
 
 [project.urls]
 Homepage = "https://github.com/Scanvidence"
@@ -95,8 +100,11 @@ ignore = ["E203"]
 [tool.ruff.lint.isort]
 known-first-party = ["scanvidence"]
 
+[tool.ruff.lint.per-file-ignores]
+# Re-exports in package __init__ files are intentional public API surface.
+"scanvidence/**/__init__.py" = ["F401"]
+
 [tool.mypy]
-python_version = "3.10"
 ignore_missing_imports = true
 disallow_untyped_defs = false
 # Tightened per-module as code stabilizes — see CONTRIBUTING.md.
