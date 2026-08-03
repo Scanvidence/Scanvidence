@@ -17,6 +17,11 @@ result maps to an exact commit.
 ### Added
 - `docs/references.bib` — BibTeX bibliography for datasets, methods, and
   evaluation, with pgmpy-style keys and pipeline-stage keywords.
+- README: research design section documenting hypotheses H1a–H3, the
+  pre-specified evaluation protocol, ethics/scope, and reproducibility
+  commitments from the research proposal.
+- `docs/ARCHITECTURE.md`: subpackage → hypothesis map and evaluation
+  protocol section.
 - Unified architecture for **brain tumor** and **Alzheimer's disease** detection.
 - `scanvidence.global_vars` — pgmpy-style global Config singleton and logger.
 - `scanvidence.base.types` — shared Pydantic types (`ScanInput`, `DetectionResult`, `XAIResult`).

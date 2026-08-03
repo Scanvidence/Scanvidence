@@ -13,13 +13,19 @@ Scan Input → Preprocess → Model → Calibrate → Explain → Evaluate
                                            (stretch objective)
 ```
 
+The **unified architecture** serves both detection domains — brain tumor
+and Alzheimer's disease — with the same composable pipeline: parallel
+classification, segmentation, and radiomics branches share one
+preprocessing front end, and the QUBO branch is optional and never gates
+the core pipeline.
+
 ## Subpackage Map
 
 | Pipeline Stage | Package | Purpose |
 |---|---|---|
 | Global config | `scanvidence.global_vars` | Config singleton, logger, data home |
 | Shared types | `scanvidence.base` | `ScanInput`, `DetectionResult`, `XAIResult` |
-| Data handling | `scanvidence.data` | Loaders (NIfTI, DICOM), datasets (BraTS, ADNI), patient-level splitting |
+| Data handling | `scanvidence.data` | Loaders (NIfTI, DICOM), datasets (BraTS, ADNI, TCGA, Figshare), patient-level splitting |
 | Preprocess | `scanvidence.preprocessing` | Skull stripping, normalization, registration, composable Pipeline |
 | Models — classification | `scanvidence.models.classification` | `TumorClassifier`, `AlzheimersClassifier` |
 | Models — segmentation | `scanvidence.models.segmentation` | `TumorSegmentor` (nnU-Net) |
@@ -80,6 +86,36 @@ H1a and H1b are non-inferiority claims measured on a *locked* test
 partition; that only means anything if `patient_level_split` genuinely
 never leaks a patient across partitions. Treat changes to this module with
 the same weight as changes to the pre-specified decision rules themselves.
+
+## Subpackage → Hypothesis Map
+
+| Subpackage | Proposal hypothesis / claim |
+|---|---|
+| `scanvidence.data.splitting` | Leakage-safe 70/15/15 locked partitions for H1a, H1b |
+| `scanvidence.models.classification` | H1a — calibrated vs. uncalibrated classification (ΔAUC ≥ −0.02) |
+| `scanvidence.models.segmentation` | H1b — nnU-Net baseline (ΔDice ≥ 0.02); SwinUNETR optional comparator |
+| `scanvidence.xai` | H2a — spatial validity (IoU, pointing game, FFR vs. shuffled); H2b — SHAP ablation faithfulness |
+| `scanvidence.calibration` | H1a prerequisite — temperature scaling / Platt / isotonic on the calibration subset; ECE, Brier |
+| `scanvidence.quantum` | H3 — QUBO vs. classical selectors; stability via mean pairwise Jaccard |
+| `scanvidence.radiomics` | H2b, H3 — fixed radiomics feature budget (≤ 50 candidates) |
+| `scanvidence.evaluation` | All — DeLong, McNemar, Wilcoxon, 2,000-resample bootstrap CIs, Holm correction |
+
+## Evaluation Protocol (as Pre-specified in the Proposal)
+
+- Stratified **patient-level** train/validation/test partitions (70/15/15
+  where cohort size permits); no patient in more than one partition.
+- 5-fold stratified **group** cross-validation *inside training only* for
+  model selection; a separate calibration subset within validation.
+- Locked test set used only for final reporting: ROC-AUC with paired
+  DeLong tests, per-patient errors with paired McNemar tests, Dice /
+  Hausdorff with paired Wilcoxon signed-rank tests, primary-metric CIs
+  from 2,000 stratified patient-bootstrap resamples.
+- Holm-adjusted _p_-values at two-sided α = 0.05 within each endpoint
+  family; the one-sided non-inferiority tests (H1a, H1b) are the
+  exception.
+- Prospective power check on eligible patient counts; if underpowered,
+  report achieved CI width and "non-inferiority not demonstrated" —
+  decision rules are never revised after observing results.
 
 ## Why a Package, Not Notebooks
 

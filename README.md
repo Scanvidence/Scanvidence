@@ -2,12 +2,15 @@
 
 Explainable, uncertainty-aware medical imaging detection — a unified
 platform for **brain tumor** and **Alzheimer's disease** detection, with a
-quantum-vs-classical feature-selection ablation. Every pipeline stage
-(data, preprocessing, models, radiomics, XAI, calibration, evaluation) is
-composable, modular, and backed by a strict patient-level data-splitting
-guarantee. Public-benchmark-data only (BraTS, ADNI).
+quantum-vs-classical feature-selection ablation. Every prediction is
+accompanied by calibrated confidence, uncertainty flags, and
+quantitatively validated explanations, and every claim is backed by
+locked patient-level test partitions and pre-specified statistical tests.
 
-Part of the [Scanvidence](https://github.com/Scanvidence) organization.
+Part of the [Scanvidence](https://github.com/Scanvidence) organization —
+final-year research project (Integral University, Lucknow), supervised by
+Dr. Roshan Jahan. **Public benchmark data only: no real patient data, no
+clinical deployment claims — all outputs are research artifacts.**
 
 |  | **[Documentation](docs/ARCHITECTURE.md)** · **[Contributing](CONTRIBUTING.md)** · **[Changelog](CHANGELOG.md)** |
 |---|---|
@@ -19,16 +22,38 @@ Part of the [Scanvidence](https://github.com/Scanvidence) organization.
 
 | Feature | Description |
 |--------|-------------|
-| [**Task-level API**](scanvidence/tasks/) | End-to-end orchestrators (`BrainTumorTask`, `AlzheimersTask`) that wire preprocessing → model → calibration → XAI into one `run()` call. |
-| [**Data Loaders & Splitting**](scanvidence/data/) | BraTS and ADNI loaders with strict **patient-level splitting** — no patient's records ever appear in more than one partition. |
+| [**Task-level API**](scanvidence/tasks/) | End-to-end orchestrators (`BrainTumorTask`, `AlzheimersTask`) that wire preprocessing → model → calibration → XAI → evaluation into one `run()` call. |
+| [**Data Loaders & Splitting**](scanvidence/data/) | BraTS, ADNI, TCGA, and Figshare loaders with strict **patient-level splitting** — no patient's records ever appear in more than one partition. |
 | [**Preprocessing**](scanvidence/preprocessing/) | Skull stripping, normalization, registration, and a composable `Pipeline`. |
-| [**Model Zoo**](scanvidence/models/) | Classification (tumor, Alzheimer's) and segmentation model wrappers. |
-| [**Radiomics**](scanvidence/radiomics/) | PyRadiomics feature extraction from segmentation masks. |
-| [**Explainability (XAI)**](scanvidence/xai/) | Grad-CAM, SHAP, and LIME with quantitative validation of explanations. |
-| [**Uncertainty Calibration**](scanvidence/calibration/) | Temperature scaling and MC-Dropout for well-calibrated, uncertainty-aware predictions. |
-| [**Quantum Feature Selection**](scanvidence/quantum/) | QUBO-based feature selection — quantum-vs-classical ablation (stretch objective, optional extra). |
-| [**Evaluation**](scanvidence/evaluation/) | Metrics with bootstrap CIs and paired statistical tests (DeLong, McNemar). |
-| [**Deployment**](scanvidence/api/) | FastAPI REST API for clinical deployment and a Streamlit research demo. |
+| [**Model Zoo**](scanvidence/models/) | 2D slice classifiers (ResNet, DenseNet, EfficientNet, ViT) and 3D nnU-Net segmentation. |
+| [**Radiomics**](scanvidence/radiomics/) | PyRadiomics feature extraction (first-order, shape, GLCM, GLRLM, GLSZM, GLDM) from segmentation masks. |
+| [**Explainability (XAI)**](scanvidence/xai/) | Grad-CAM, Grad-CAM++, Integrated Gradients, SHAP, and LIME — validated quantitatively against tumor masks, not visual plausibility. |
+| [**Uncertainty Calibration**](scanvidence/calibration/) | Temperature scaling, Platt scaling, isotonic regression, and MC-Dropout (ECE, Brier, reliability diagrams). |
+| [**Quantum Feature Selection**](scanvidence/quantum/) | QUBO-based feature selection (IBM Quantum / D-Wave / classical fallback) vs. LASSO, RFE, MI, genetic algorithms, simulated annealing. |
+| [**Evaluation**](scanvidence/evaluation/) | Bootstrap CIs, DeLong, McNemar, Wilcoxon signed-rank, Holm correction — the pre-specified protocol from the research proposal. |
+| [**Deployment**](scanvidence/api/) | FastAPI REST API and a Streamlit research demo ("RESEARCH USE ONLY" banner). |
+
+## Research Design
+
+The pipeline is built to answer five pre-specified, falsifiable
+hypotheses from the research proposal:
+
+| Hypothesis | Claim | Decision rule |
+|---|---|---|
+| **H1a** | Classification non-inferiority: calibrated vs. uncalibrated classifier | One-sided α = 0.025; paired 97.5% bootstrap bound on ΔAUC, margin −0.02 |
+| **H1b** | Segmentation non-inferiority: explanation-ready workflow vs. nnU-Net baseline | Paired 97.5% bootstrap bound on ΔDice, margin 0.02 |
+| **H2a** | Spatial explanation validity: Grad-CAM / Grad-CAM++ / Integrated Gradients focus on tumor regions | Heatmap–mask IoU, pointing-game accuracy, false-focus rate vs. spatially shuffled baseline |
+| **H2b** | Feature-attribution validity: SHAP is a faithful feature-level explanation | Top-k ablation faithfulness, bootstrap rank stability (never compared to image masks) |
+| **H3** | Quantum (QUBO) feature selection matches classical baselines on a fixed feature budget (≤ 50 features) | Stability via mean pairwise Jaccard across folds + downstream performance; null results are complete findings |
+
+Every result uses a **locked test partition** (70/15/15, stratified
+patient-level), 5-fold stratified group cross-validation inside training
+only, 2,000 stratified patient-bootstrap resamples, and Holm-adjusted
+_p_-values within each endpoint family. A prospective power check runs
+once eligible patient counts are confirmed; if the test cohort is
+underpowered, the margins are retained and non-inferiority is reported as
+not demonstrated — the decision rule is never changed after seeing
+results.
 
 ## Quickstart
 
@@ -37,7 +62,7 @@ Part of the [Scanvidence](https://github.com/Scanvidence) organization.
 ```bash
 pip install -e ".[dev]"
 pre-commit install
-pytest -m "not slow"
+pytest -m "not slow and not gpu"
 ```
 
 Optional extras: `radiomics`, `quantum`, `segmentation`, `demo`, `api`, `tracking`, `docs`.
@@ -59,7 +84,7 @@ result.uncertainty  # MC-Dropout estimate
 result.explanations  # Grad-CAM / SHAP / LIME outputs
 ```
 
-#### Component-level API (Alzheimer's disease)
+#### Task-level API (Alzheimer's disease)
 
 ```python
 from scanvidence.tasks import AlzheimersTask
@@ -78,7 +103,7 @@ train, val, test = patient_level_split(records, ratios=(0.7, 0.15, 0.15), seed=4
 # No patient appears in more than one partition — guaranteed.
 ```
 
-#### Quantum-vs-classical feature-selection ablation
+#### Quantum-vs-classical feature-selection ablation (H3)
 
 ```python
 from scanvidence.quantum import QUBOSelector
@@ -90,6 +115,9 @@ selected = qubo.fit_select(features, labels)
 ```
 
 ## Architecture
+
+The **unified architecture** serves both detection domains with the same
+composable pipeline:
 
 ```
 Scan Input → Preprocess → Model → Calibrate → Explain → Evaluate
@@ -104,6 +132,30 @@ The library follows a **pgmpy-style** architecture:
 - `__init__.py` files re-export key symbols for clean imports
 - Global config via `scanvidence.global_vars` (device, backend, dtype)
 - One class per file, PascalCase filenames for class files
+- Parallel classification / segmentation / radiomics branches with a
+  shared preprocessing front end — the QUBO branch is optional and never
+  gates the core pipeline
+
+## Ethics and Scope
+
+- **No real patient data** — public benchmarks only (BraTS/BraTS-GLI,
+  TCGA-GBM/LGG, Figshare, ADNI), each used under its own license with
+  attribution and no redistribution of raw scans.
+- **Research use only** — every demo output carries a "RESEARCH USE ONLY
+  — NOT A DIAGNOSIS" banner.
+- **Out of scope this phase** — real patient data, hospital partnerships,
+  ethics-committee-gated clinical validation, fMRI analysis. The
+  regulatory path forward (ICMR guidelines, CDSCO SaMD classification,
+  DPDP Act) is documented in the proposal as future work, not obligation.
+
+## Reproducibility
+
+- Fixed seeds across Python, NumPy, PyTorch, and CUDA; deterministic
+  convolution algorithms where compatible.
+- Docker image with pinned dependency versions; versioned configs and
+  experiment logs (W&B / MLflow).
+- Negative results are logged, not hidden — including a QUBO ablation
+  that ties or loses.
 
 ## Why no GPU jobs in CI
 
