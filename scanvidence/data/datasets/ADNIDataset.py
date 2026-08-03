@@ -34,15 +34,17 @@ class ADNIDataset(BaseDataset):
     def load_case(self, record: dict):
         """Load an ADNI case."""
         import os
+        from typing import cast
 
         import nibabel as nib
+        from nibabel import Nifti1Image
 
         path = record["path"]
         # Find the first NIfTI file in the subject directory
         for root_dir, _, files in os.walk(path):
             for f in sorted(files):
                 if f.endswith((".nii", ".nii.gz")):
-                    img = nib.load(os.path.join(root_dir, f))
+                    img = cast(Nifti1Image, nib.load(os.path.join(root_dir, f)))
                     return img.get_fdata(), {
                         "patient_id": record["patient_id"],
                         "filename": f,

@@ -1,5 +1,7 @@
 """NIfTI (.nii / .nii.gz) scan loader."""
 
+from typing import cast
+
 from .base import BaseLoader
 
 
@@ -33,9 +35,10 @@ class NIfTILoader(BaseLoader):
         import os
 
         import nibabel as nib
+        from nibabel import Nifti1Image
 
         full_path = os.path.join(self.data_root, path)
-        img = nib.load(full_path)
+        img = cast(Nifti1Image, nib.load(full_path))
         return img.get_fdata(), {
             "affine": img.affine,
             "header": dict(img.header),

@@ -34,15 +34,17 @@ class BraTSDataset(BaseDataset):
     def load_case(self, record: dict):
         """Load a BraTS case with all modalities."""
         import os
+        from typing import cast
 
         import nibabel as nib
+        from nibabel import Nifti1Image
 
         path = record["path"]
         modalities = {}
         for f in sorted(os.listdir(path)):
             if f.endswith((".nii", ".nii.gz")):
                 key = f.replace(".nii.gz", "").replace(".nii", "")
-                img = nib.load(os.path.join(path, f))
+                img = cast(Nifti1Image, nib.load(os.path.join(path, f)))
                 modalities[key] = img.get_fdata()
 
         return modalities, {"patient_id": record["patient_id"]}
