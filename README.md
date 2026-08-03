@@ -53,10 +53,10 @@ from scanvidence.tasks import BrainTumorTask
 task = BrainTumorTask.from_config("configs/brain_tumor.yaml")
 result = task.run(scan_path="patient_001.nii.gz")
 
-result.prediction      # class label
-result.confidence      # calibrated probability
-result.uncertainty     # MC-Dropout estimate
-result.explanations    # Grad-CAM / SHAP / LIME outputs
+result.prediction  # class label
+result.confidence  # calibrated probability
+result.uncertainty  # MC-Dropout estimate
+result.explanations  # Grad-CAM / SHAP / LIME outputs
 ```
 
 #### Component-level API (Alzheimer's disease)

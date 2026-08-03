@@ -49,8 +49,8 @@ from scanvidence.xai.GradCAM import GradCAM  # extends BaseExplainer
 
 ```python
 # Clean imports via __init__.py
-from scanvidence.models import TumorClassifier       # not .classification.TumorClassifier
-from scanvidence.xai import GradCAM                   # not .xai.GradCAM.GradCAM
+from scanvidence.models import TumorClassifier  # not .classification.TumorClassifier
+from scanvidence.xai import GradCAM  # not .xai.GradCAM.GradCAM
 from scanvidence.tasks import BrainTumorTask
 ```
 
@@ -68,6 +68,7 @@ result = AlzheimersTask.from_config("configs/alzheimers.yaml").run("scan.nii.gz"
 
 ```python
 import scanvidence
+
 scanvidence.config.set_device("cuda:0")
 scanvidence.config.DTYPE = "float16"
 ```
