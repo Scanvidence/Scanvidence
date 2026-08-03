@@ -23,7 +23,7 @@ clinical deployment claims — all outputs are research artifacts.**
 | Feature | Description |
 |--------|-------------|
 | [**Task-level API**](scanvidence/tasks/) | End-to-end orchestrators (`BrainTumorTask`, `AlzheimersTask`) that wire preprocessing → model → calibration → XAI → evaluation into one `run()` call. |
-| [**Data Loaders & Splitting**](scanvidence/data/) | BraTS, ADNI, TCGA, and Figshare loaders with strict **patient-level splitting** — no patient's records ever appear in more than one partition. |
+| [**Data Loaders & Splitting**](scanvidence/data/) | BraTS, OASIS, ADNI, TCGA, and Figshare loaders with strict **patient-level splitting** — no patient's records ever appear in more than one partition. |
 | [**Preprocessing**](scanvidence/preprocessing/) | Skull stripping, normalization, registration, and a composable `Pipeline`. |
 | [**Model Zoo**](scanvidence/models/) | 2D slice classifiers (ResNet, DenseNet, EfficientNet, ViT) and 3D nnU-Net segmentation. |
 | [**Radiomics**](scanvidence/radiomics/) | PyRadiomics feature extraction (first-order, shape, GLCM, GLRLM, GLSZM, GLDM) from segmentation masks. |
@@ -89,6 +89,8 @@ result.explanations  # Grad-CAM / SHAP / LIME outputs
 ```python
 from scanvidence.tasks import AlzheimersTask
 
+# OASIS is the primary dataset for the Alzheimer's track (T1w MRI,
+# demented / nondemented labels).
 task = AlzheimersTask.from_config("configs/alzheimers.yaml")
 result = task.run(scan_path="subject_042.nii.gz")
 ```
@@ -139,8 +141,9 @@ The library follows a **pgmpy-style** architecture:
 ## Ethics and Scope
 
 - **No real patient data** — public benchmarks only (BraTS/BraTS-GLI,
-  TCGA-GBM/LGG, Figshare, ADNI), each used under its own license with
-  attribution and no redistribution of raw scans.
+  TCGA-GBM/LGG, Figshare for tumors; OASIS and ADNI for Alzheimer's
+  disease), each used under its own license with attribution and no
+  redistribution of raw scans.
 - **Research use only** — every demo output carries a "RESEARCH USE ONLY
   — NOT A DIAGNOSIS" banner.
 - **Out of scope this phase** — real patient data, hospital partnerships,

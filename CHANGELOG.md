@@ -15,6 +15,9 @@ result maps to an exact commit.
   `from tumorxai.xxx import ...`.
 
 ### Added
+- `scanvidence.data.datasets.OASISDataset` — OASIS-1/2/3/4 adapter
+  (primary dataset for the Alzheimer's track), with `references.bib`
+  entries (Marcus 2007/2010, LaMontagne 2019).
 - `docs/references.bib` — BibTeX bibliography for datasets, methods, and
   evaluation, with pgmpy-style keys and pipeline-stage keywords.
 - README: research design section documenting hypotheses H1a–H3, the

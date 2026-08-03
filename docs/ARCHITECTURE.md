@@ -25,7 +25,7 @@ the core pipeline.
 |---|---|---|
 | Global config | `scanvidence.global_vars` | Config singleton, logger, data home |
 | Shared types | `scanvidence.base` | `ScanInput`, `DetectionResult`, `XAIResult` |
-| Data handling | `scanvidence.data` | Loaders (NIfTI, DICOM), datasets (BraTS, ADNI, TCGA, Figshare), patient-level splitting |
+| Data handling | `scanvidence.data` | Loaders (NIfTI, DICOM), datasets (BraTS, OASIS, ADNI, TCGA, Figshare), patient-level splitting |
 | Preprocess | `scanvidence.preprocessing` | Skull stripping, normalization, registration, composable Pipeline |
 | Models — classification | `scanvidence.models.classification` | `TumorClassifier`, `AlzheimersClassifier` |
 | Models — segmentation | `scanvidence.models.segmentation` | `TumorSegmentor` (nnU-Net) |

@@ -6,8 +6,9 @@ from .base import BaseTask
 class AlzheimersTask(BaseTask):
     """End-to-end Alzheimer's disease detection pipeline.
 
-    Orchestrates structural MRI loading, preprocessing, AD stage
-    classification, calibration, and XAI explanation generation.
+    Orchestrates structural MRI loading (OASIS primary, ADNI
+    secondary), preprocessing, AD stage classification, calibration,
+    and XAI explanation generation.
 
     Parameters
     ----------
