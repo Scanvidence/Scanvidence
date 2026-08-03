@@ -15,6 +15,8 @@ result maps to an exact commit.
   `from tumorxai.xxx import ...`.
 
 ### Added
+- `docs/references.bib` — BibTeX bibliography for datasets, methods, and
+  evaluation, with pgmpy-style keys and pipeline-stage keywords.
 - Unified architecture for **brain tumor** and **Alzheimer's disease** detection.
 - `scanvidence.global_vars` — pgmpy-style global Config singleton and logger.
 - `scanvidence.base.types` — shared Pydantic types (`ScanInput`, `DetectionResult`, `XAIResult`).

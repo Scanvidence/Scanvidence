@@ -122,6 +122,7 @@ describing what belongs there; that's the team's project work.
 ### Resources and Links
 
 - **Architecture Notes:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
+- **References (BibTeX):** [docs/references.bib](docs/references.bib)
 - **Configuration Examples:** [configs/brain_tumor.yaml](configs/brain_tumor.yaml) · [configs/alzheimers.yaml](configs/alzheimers.yaml)
 - **Contributing Guide:** [CONTRIBUTING.md](CONTRIBUTING.md)
 - **Changelog:** [CHANGELOG.md](CHANGELOG.md)

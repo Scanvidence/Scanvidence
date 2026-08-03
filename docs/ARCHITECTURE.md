@@ -88,3 +88,13 @@ outputs via `nbstripout`. But anything a metric, hypothesis test, or the
 demo depends on belongs in `scanvidence/` as an importable, tested module.
 The rule of thumb: if a number from it goes into the thesis, it isn't
 allowed to live only in a notebook cell.
+
+## References
+
+The full bibliography for every method and benchmark used in the pipeline
+— BraTS/ADNI, preprocessing, segmentation, classification, radiomics,
+calibration, XAI, quantum feature selection, and statistical evaluation —
+lives in [`docs/references.bib`](references.bib), in BibTeX format. Key
+conventions follow the pgmpy project: readable `<author>_<year>` keys and
+a `keyword` field that groups entries by pipeline stage. Cite these when
+writing up results; keep new citations here, not only in thesis drafts.

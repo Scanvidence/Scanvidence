@@ -1,0 +1,403 @@
+% =============================================================================
+% Scanvidence bibliography
+%
+% Conventions:
+%   - Keys use a readable `<author>[_<coauthor>]_<year>` form. For
+%     same-author/same-year collisions, append a/b. URL-only references use
+%     `<source>_<descriptor>`.
+%   - The `keyword` field controls section placement on the rendered
+%     bibliography page. Multi-keyword entries are comma-separated and
+%     rendered in every matching section.
+%   - Sections follow the pipeline stages: datasets, preprocessing,
+%     segmentation, classification, radiomics, calibration, XAI, quantum,
+%     evaluation.
+% =============================================================================
+
+
+% -----------------------------------------------------------------------------
+% Foundations
+% -----------------------------------------------------------------------------
+
+@book{koller_friedman_2009,
+  author    = {Koller, Daphne and Friedman, Nir},
+  title     = {Probabilistic Graphical Models: Principles and Techniques},
+  publisher = {MIT Press},
+  year      = {2009},
+  isbn      = {978-0-262-01319-2},
+  keyword   = {foundations}
+}
+
+@book{pearl_2009,
+  author    = {Pearl, Judea},
+  title     = {Causality: Models, Reasoning, and Inference},
+  publisher = {Cambridge University Press},
+  edition   = {2nd},
+  year      = {2009},
+  doi       = {10.1017/CBO9780511803161},
+  keyword   = {foundations}
+}
+
+
+% -----------------------------------------------------------------------------
+% Datasets and benchmarks
+% -----------------------------------------------------------------------------
+
+@article{menze_2015,
+  author    = {Menze, Bjoern H. and Jakab, Andras and Bauer, Stefan and Kalpathy-Cramer, Jayashree and Farahani, Keyvan and Kirby, Justin and Burren, Yuliya and Porz, Nicole and Slotboom, Johannes and Wiest, Roland and others},
+  title     = {The Multimodal Brain Tumor Image Segmentation Benchmark ({BRATS})},
+  journal   = {IEEE Transactions on Medical Imaging},
+  volume    = {34},
+  number    = {10},
+  pages     = {1993--2024},
+  year      = {2015},
+  doi       = {10.1109/TMI.2014.2377694},
+  keyword   = {datasets_and_benchmarks}
+}
+
+@article{bakas_2017,
+  author    = {Bakas, Spyridon and Akbari, Hamed and Sotiras, Aristeidis and Bilello, Michel and Rozycki, Martin and Kirby, Justin S. and Freymann, John B. and Farahani, Keyvan and Davatzikos, Christos},
+  title     = {Advancing {The Cancer Genome Atlas} Glioma {MRI} Collections with Expert Segmentation Labels and Radiomic Features},
+  journal   = {Scientific Data},
+  volume    = {4},
+  pages     = {170117},
+  year      = {2017},
+  doi       = {10.1038/sdata.2017.117},
+  keyword   = {datasets_and_benchmarks, radiomics}
+}
+
+@misc{baid_2021,
+  author    = {Baid, Ujjwal and Ghodasara, Satyam and Mohan, Suyash and Bilello, Michel and Calabrese, Evan and Colak, Errol and Farahani, Keyvan and Kalpathy-Cramer, Jayashree and Kitamura, Felipe C. and Pati, Sarthak and others},
+  title     = {The {RSNA-ASNR-MICCAI BraTS} 2021 Benchmark on Brain Tumor Segmentation and Radiogenomic Classification},
+  year      = {2021},
+  note      = {arXiv:2107.02314},
+  doi       = {10.48550/arXiv.2107.02314},
+  keyword   = {datasets_and_benchmarks}
+}
+
+@article{jack_2008,
+  author    = {Jack, Clifford R. and Bernstein, Matt A. and Fox, Nick C. and Thompson, Paul and Alexander, Gene and Harvey, Danielle and Borowski, Bret and Britson, Paula J. and Whitwell, Jennifer L. and Ward, Chadwick and others},
+  title     = {The {Alzheimer's Disease Neuroimaging Initiative (ADNI)}: {MRI} Methods},
+  journal   = {Journal of Magnetic Resonance Imaging},
+  volume    = {27},
+  number    = {4},
+  pages     = {685--691},
+  year      = {2008},
+  doi       = {10.1002/jmri.21049},
+  keyword   = {datasets_and_benchmarks}
+}
+
+@article{mueller_2005,
+  author    = {Mueller, Susanne G. and Weiner, Michael W. and Thal, Leon J. and Petersen, Ronald C. and Jack, Clifford R. and Jagust, William and Trojanowski, John Q. and Toga, Arthur W. and Beckett, Laurel},
+  title     = {Ways Toward an Early Diagnosis in {Alzheimer's} Disease: {The Alzheimer's Disease Neuroimaging Initiative (ADNI)}},
+  journal   = {Alzheimer's \& Dementia},
+  volume    = {1},
+  number    = {1},
+  pages     = {55--66},
+  year      = {2005},
+  doi       = {10.1016/j.jalz.2005.06.003},
+  keyword   = {datasets_and_benchmarks}
+}
+
+
+% -----------------------------------------------------------------------------
+% Preprocessing
+% -----------------------------------------------------------------------------
+
+@article{smith_2002,
+  author    = {Smith, Stephen M.},
+  title     = {Fast Robust Automated Brain Extraction},
+  journal   = {Human Brain Mapping},
+  volume    = {17},
+  number    = {3},
+  pages     = {143--155},
+  year      = {2002},
+  doi       = {10.1002/hbm.10062},
+  keyword   = {preprocessing}
+}
+
+@article{segonne_2004,
+  author    = {S{\'e}gonne, Florent and Dale, Anders M. and Busa, Evelina and Glessner, Michael and Salat, David and Hahn, Horst K. and Fischl, Bruce},
+  title     = {A Hybrid Approach to the Skull Stripping Problem in {MRI}},
+  journal   = {NeuroImage},
+  volume    = {22},
+  number    = {3},
+  pages     = {1060--1075},
+  year      = {2004},
+  doi       = {10.1016/j.neuroimage.2004.03.032},
+  keyword   = {preprocessing}
+}
+
+@article{avants_2008,
+  author    = {Avants, Brian B. and Epstein, Charles L. and Grossman, Murray and Gee, James C.},
+  title     = {Symmetric Diffeomorphic Image Registration with Cross-Correlation: Evaluating Automated Labeling of Elderly and Neurodegenerative Brain},
+  journal   = {Medical Image Analysis},
+  volume    = {12},
+  number    = {1},
+  pages     = {26--41},
+  year      = {2008},
+  doi       = {10.1016/j.media.2007.06.004},
+  keyword   = {preprocessing}
+}
+
+@article{klein_2009,
+  author    = {Klein, Arno and Andersson, Jesper and Ardekani, Babak A. and Ashburner, John and Avants, Brian and Chiang, Ming-Chang and Christensen, Gary E. and Collins, D. Louis and Gee, James and Hellier, Pierre and others},
+  title     = {Evaluation of 14 Nonlinear Deformation Algorithms Applied to Human Brain {MRI} Registration},
+  journal   = {NeuroImage},
+  volume    = {46},
+  number    = {3},
+  pages     = {786--802},
+  year      = {2009},
+  doi       = {10.1016/j.neuroimage.2008.12.037},
+  keyword   = {preprocessing}
+}
+
+@article{nyul_2000,
+  author    = {Ny{\'u}l, L{\'a}szl{\'o} G. and Udupa, Jayaram K. and Zhang, Xuan},
+  title     = {New Variants of a Method of {MRI} Scale Standardization},
+  journal   = {IEEE Transactions on Medical Imaging},
+  volume    = {19},
+  number    = {2},
+  pages     = {143--150},
+  year      = {2000},
+  doi       = {10.1109/42.836373},
+  keyword   = {preprocessing}
+}
+
+
+% -----------------------------------------------------------------------------
+% Segmentation
+% -----------------------------------------------------------------------------
+
+@inproceedings{ronneberger_2015,
+  author    = {Ronneberger, Olaf and Fischer, Philipp and Brox, Thomas},
+  title     = {{U-Net}: Convolutional Networks for Biomedical Image Segmentation},
+  booktitle = {Medical Image Computing and Computer-Assisted Intervention (MICCAI 2015)},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {9351},
+  pages     = {234--241},
+  publisher = {Springer},
+  year      = {2015},
+  doi       = {10.1007/978-3-319-24574-4_28},
+  keyword   = {segmentation}
+}
+
+@article{isensee_2021,
+  author    = {Isensee, Fabian and Jaeger, Paul F. and Kohl, Simon A. A. and Petersen, Jens and Maier-Hein, Klaus H.},
+  title     = {{nnU-Net}: A Self-Configuring Method for Deep Learning-Based Biomedical Image Segmentation},
+  journal   = {Nature Methods},
+  volume    = {18},
+  pages     = {203--211},
+  year      = {2021},
+  doi       = {10.1038/s41592-020-01008-z},
+  keyword   = {segmentation}
+}
+
+
+% -----------------------------------------------------------------------------
+% Classification architectures
+% -----------------------------------------------------------------------------
+
+@inproceedings{he_2016,
+  author    = {He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
+  title     = {Deep Residual Learning for Image Recognition},
+  booktitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages     = {770--778},
+  year      = {2016},
+  doi       = {10.1109/CVPR.2016.90},
+  keyword   = {classification_architectures}
+}
+
+@inproceedings{dosovitskiy_2021,
+  author    = {Dosovitskiy, Alexey and Beyer, Lucas and Kolesnikov, Alexander and Weissenborn, Dirk and Zhai, Xiaohua and Unterthiner, Thomas and Dehghani, Mostafa and Minderer, Matthias and Heigold, Georg and Gelly, Sylvain and others},
+  title     = {An Image is Worth {16x16} Words: Transformers for Image Recognition at Scale},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2021},
+  note      = {arXiv:2010.11929},
+  url       = {https://arxiv.org/abs/2010.11929},
+  keyword   = {classification_architectures}
+}
+
+
+% -----------------------------------------------------------------------------
+% Radiomics
+% -----------------------------------------------------------------------------
+
+@article{lambin_2012,
+  author    = {Lambin, Philippe and Rios-Velazquez, Emmanuel and Leijenaar, Ralph and Carvalho, Sara and van Stiphout, Ruud G. P. M. and Granton, Patrick and Zegers, Catharina M. L. and Gillies, Robert and Boellard, Ronald and Dekker, Andre and others},
+  title     = {Radiomics: Extracting More Information from Medical Images Using Advanced Feature Analysis},
+  journal   = {European Journal of Cancer},
+  volume    = {48},
+  number    = {4},
+  pages     = {441--446},
+  year      = {2012},
+  doi       = {10.1016/j.ejca.2011.11.036},
+  keyword   = {radiomics}
+}
+
+@article{vangriethuysen_2017,
+  author    = {van Griethuysen, Joost J. M. and Fedorov, Andriy and Parmar, Chintan and Hosny, Ahmed and Aucoin, Nicole and Narayan, Vivek and Beets-Tan, Regina G. H. and Fillion-Robin, Jean-Christophe and Pieper, Steve and Aerts, Hugo J. W. L.},
+  title     = {Computational Radiomics System to Decode the Radiographic Phenotype},
+  journal   = {Cancer Research},
+  volume    = {77},
+  number    = {21},
+  pages     = {e104--e107},
+  year      = {2017},
+  doi       = {10.1158/0008-5472.CAN-17-0339},
+  keyword   = {radiomics}
+}
+
+
+% -----------------------------------------------------------------------------
+% Uncertainty and calibration
+% -----------------------------------------------------------------------------
+
+@inproceedings{guo_2017,
+  author    = {Guo, Chuan and Pleiss, Geoff and Sun, Yu and Weinberger, Kilian Q.},
+  title     = {On Calibration of Modern Neural Networks},
+  booktitle = {Proceedings of the 34th International Conference on Machine Learning (ICML)},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {70},
+  pages     = {1321--1330},
+  year      = {2017},
+  url       = {https://proceedings.mlr.press/v70/guo17a.html},
+  keyword   = {uncertainty_and_calibration}
+}
+
+@inproceedings{gal_ghahramani_2016,
+  author    = {Gal, Yarin and Ghahramani, Zoubin},
+  title     = {Dropout as a {Bayesian} Approximation: Representing Model Uncertainty in Deep Learning},
+  booktitle = {Proceedings of the 33rd International Conference on Machine Learning (ICML)},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {48},
+  pages     = {1050--1059},
+  year      = {2016},
+  url       = {https://proceedings.mlr.press/v48/gal16.html},
+  keyword   = {uncertainty_and_calibration}
+}
+
+@inproceedings{kendall_gal_2017,
+  author    = {Kendall, Alex and Gal, Yarin},
+  title     = {What Uncertainties Do We Need in {Bayesian} Deep Learning for Computer Vision?},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {30},
+  pages     = {5574--5584},
+  year      = {2017},
+  note      = {arXiv:1703.04977},
+  url       = {https://arxiv.org/abs/1703.04977},
+  keyword   = {uncertainty_and_calibration}
+}
+
+
+% -----------------------------------------------------------------------------
+% Explainable AI
+% -----------------------------------------------------------------------------
+
+@inproceedings{selvaraju_2017,
+  author    = {Selvaraju, Ramprasaath R. and Cogswell, Michael and Das, Abhishek and Vedantam, Ramakrishna and Parikh, Devi and Batra, Dhruv},
+  title     = {{Grad-CAM}: Visual Explanations from Deep Networks via Gradient-Based Localization},
+  booktitle = {Proceedings of the IEEE International Conference on Computer Vision (ICCV)},
+  pages     = {618--626},
+  year      = {2017},
+  doi       = {10.1109/ICCV.2017.74},
+  keyword   = {explainable_ai}
+}
+
+@inproceedings{ribeiro_2016,
+  author    = {Ribeiro, Marco Tulio and Singh, Sameer and Guestrin, Carlos},
+  title     = {Why Should {I} Trust {You}?: Explaining the Predictions of Any Classifier},
+  booktitle = {Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining (KDD)},
+  pages     = {1135--1144},
+  year      = {2016},
+  doi       = {10.1145/2939672.2939778},
+  keyword   = {explainable_ai}
+}
+
+@inproceedings{lundberg_lee_2017,
+  author    = {Lundberg, Scott M. and Lee, Su-In},
+  title     = {A Unified Approach to Interpreting Model Predictions},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {30},
+  pages     = {4765--4774},
+  year      = {2017},
+  note      = {arXiv:1705.07874},
+  url       = {https://arxiv.org/abs/1705.07874},
+  keyword   = {explainable_ai}
+}
+
+
+% -----------------------------------------------------------------------------
+% Quantum feature selection (stretch objective)
+% -----------------------------------------------------------------------------
+
+@article{lucas_2014,
+  author    = {Lucas, Andrew},
+  title     = {Ising Formulations of Many {NP} Problems},
+  journal   = {Frontiers in Physics},
+  volume    = {2},
+  pages     = {5},
+  year      = {2014},
+  doi       = {10.3389/fphy.2014.00005},
+  keyword   = {quantum_feature_selection}
+}
+
+@article{glover_2019,
+  author    = {Glover, Fred and Kochenberger, Gary and Du, Yu},
+  title     = {Quantum Bridge Analytics {I}: A Tutorial on Formulating and Using {QUBO} Models},
+  journal   = {4OR - A Quarterly Journal of Operations Research},
+  volume    = {17},
+  number    = {4},
+  pages     = {335--371},
+  year      = {2019},
+  doi       = {10.1007/s10288-019-00424-y},
+  keyword   = {quantum_feature_selection}
+}
+
+@misc{date_potok_2018,
+  author    = {Date, Prasanna and Potok, Thomas},
+  title     = {Adiabatic Quantum Optimization for Multi-Objective Feature Selection},
+  year      = {2018},
+  note      = {arXiv:1805.03500},
+  doi       = {10.48550/arXiv.1805.03500},
+  keyword   = {quantum_feature_selection}
+}
+
+
+% -----------------------------------------------------------------------------
+% Statistical evaluation
+% -----------------------------------------------------------------------------
+
+@article{efron_1979,
+  author    = {Efron, Bradley},
+  title     = {Bootstrap Methods: Another Look at the Jackknife},
+  journal   = {The Annals of Statistics},
+  volume    = {7},
+  number    = {1},
+  pages     = {1--26},
+  year      = {1979},
+  doi       = {10.1214/aos/1176344552},
+  keyword   = {statistical_evaluation}
+}
+
+@article{delong_1988,
+  author    = {DeLong, Elizabeth R. and DeLong, David M. and Clarke-Pearson, Daniel L.},
+  title     = {Comparing the Areas Under Two or More Correlated Receiver Operating Characteristic Curves: A Nonparametric Approach},
+  journal   = {Biometrics},
+  volume    = {44},
+  number    = {3},
+  pages     = {837--845},
+  year      = {1988},
+  doi       = {10.2307/2531595},
+  keyword   = {statistical_evaluation}
+}
+
+@article{dietterich_1998,
+  author    = {Dietterich, Thomas G.},
+  title     = {Approximate Statistical Tests for Comparing Supervised Classification Learning Algorithms},
+  journal   = {Neural Computation},
+  volume    = {10},
+  number    = {7},
+  pages     = {1895--1923},
+  year      = {1998},
+  doi       = {10.1162/089976698300017197},
+  keyword   = {statistical_evaluation}
+}
