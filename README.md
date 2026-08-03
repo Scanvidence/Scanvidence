@@ -60,8 +60,15 @@ results.
 ### Installation
 
 The package is named **`scanvidence`** (import `scanvidence`) and requires
-**Python ≥ 3.10**. CI tests Python 3.10–3.12; 3.13 is supported per
-`pyproject.toml`.
+**Python ≥ 3.10**. **CI tests every supported version — 3.10, 3.11, 3.12,
+3.13, and 3.14** — on every PR; `pyproject.toml` declares the same set in
+its classifiers.
+
+> **Note on the `radiomics` extra:** `pyradiomics` ships no wheels for any
+> Python ≥ 3.10, so the core pipeline installs everywhere but the
+> radiomics track needs a source build (numpy + C/C++ compiler) and is
+> only exercised on 3.10–3.12 in CI — install it on 3.13/3.14 via a
+> conda-forge environment or custom image instead.
 
 ```bash
 pip install -e ".[dev]"

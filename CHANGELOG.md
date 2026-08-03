@@ -15,6 +15,8 @@ result maps to an exact commit.
   `from tumorxai.xxx import ...`.
 
 ### Added
+- Python 3.13 and 3.14: added to CI test matrix and classifiers;
+  documented in README (radiomics extra excluded from 3.13/3.14 CI).
 - `scanvidence.data.datasets.OASISDataset` — OASIS-1/2/3/4 adapter
   (primary dataset for the Alzheimer's track), with `references.bib`
   entries (Marcus 2007/2010, LaMontagne 2019).
