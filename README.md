@@ -125,11 +125,45 @@ selected = qubo.fit_select(features, labels)
 The **unified architecture** serves both detection domains with the same
 composable pipeline:
 
-```
-Scan Input → Preprocess → Model → Calibrate → Explain → Evaluate
-                                                  ↑
-                                        Quantum Feature Selection
-                                           (stretch objective)
+``` mermaid
+flowchart TD
+    subgraph Data & Splitting
+        A[Scan Input <br/> BraTS, OASIS, etc.] --> B[Patient-Level Splitting]
+    end
+
+    subgraph Shared Front-End
+        B --> C[Preprocessing Pipeline <br/> Skull Strip, Normalize, Register]
+    end
+
+    subgraph Parallel Branches
+        C --> D[2D Classification <br/> ResNet, ViT]
+        C --> E[3D Segmentation <br/> nnU-Net]
+        E --> F[Radiomics Extraction <br/> PyRadiomics]
+    end
+
+    subgraph Calibration & Optimization
+        D --> G[Uncertainty Calibration <br/> MC-Dropout, Temp Scaling]
+        F --> H[Feature Selection]
+        H -. Stretch Objective .-> I[Quantum QUBO]
+        H --> J[Classical baselines <br/> LASSO, RFE]
+    end
+
+    subgraph Explainability & Validation
+        G --> K[XAI Module <br/> Grad-CAM, LIME, SHAP]
+        E --> K
+        I -.-> K
+        J --> K
+        
+        K --> L[Evaluation <br/> Locked Partitions, Stat Tests]
+    end
+
+    subgraph Deployment
+        L --> M[Task-Level API <br/> BrainTumorTask, AlzheimersTask]
+        M --> N[Streamlit Demo / FastAPI]
+    end
+
+    classDef stretch stroke-dasharray: 5 5, fill:#f4f4f4, stroke:#666, stroke-width:2px;
+    class I stretch;
 ```
 
 The library follows a **pgmpy-style** architecture:
