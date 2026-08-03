@@ -3,7 +3,7 @@
 from abc import ABC, abstractmethod
 from typing import Any
 
-from scanvidence.base.types import DetectionResult
+from scanvidence.base.types import DetectionResult, XAIResult
 
 
 class BaseTask(ABC):
@@ -73,10 +73,13 @@ class BaseTask(ABC):
         preprocessed = self.preprocess(scan_path)
         prediction = self.predict(preprocessed)
         explanations = self.explain(preprocessed, prediction)
+        xai_results = [
+            exp if isinstance(exp, XAIResult) else XAIResult(**exp) for exp in explanations
+        ]
         return DetectionResult(
             task=self.__class__.__name__,
             prediction=prediction.get("label", "unknown"),
             confidence=prediction.get("confidence", 0.0),
             uncertainty=prediction.get("uncertainty"),
-            explanations=explanations,
+            explanations=xai_results,
         )

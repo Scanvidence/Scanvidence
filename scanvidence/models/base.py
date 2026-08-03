@@ -40,15 +40,14 @@ class BaseModel(ABC):
             If the model configuration is invalid.
         """
         if self._model is None:
-            raise ValueError(
-                "Model not built. Call build() before using the model."
-            )
+            raise ValueError("Model not built. Call build() before using the model.")
 
     def save(self, path: str) -> None:
         """Save model weights and config to disk."""
         import torch
 
         self.check_model()
+        assert self._model is not None
         torch.save(
             {"config": self.config, "state_dict": self._model.state_dict()},
             path,
@@ -61,4 +60,5 @@ class BaseModel(ABC):
         checkpoint = torch.load(path, map_location="cpu", weights_only=False)
         self.config = checkpoint["config"]
         self.build()
+        assert self._model is not None
         self._model.load_state_dict(checkpoint["state_dict"])
