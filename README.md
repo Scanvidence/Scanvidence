@@ -145,7 +145,7 @@ flowchart LR
     D --> G[Uncertainty Calibration <br/> MC-Dropout, Temp Scaling]
     F --> H[Feature Selection]
     
-    H -. Stretch Objective .-> I[Quantum QUBO]
+    H --> I[Quantum QUBO]
     H --> J[Classical baselines <br/> LASSO, RFE]
     
     G --> K[XAI Module <br/> Grad-CAM, LIME, SHAP]
