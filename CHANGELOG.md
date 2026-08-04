@@ -9,6 +9,11 @@ result maps to an exact commit.
 ### Changed
 - **BREAKING**: Renamed package from `tumor-xai` / `tumorxai` to `scanvidence`
   (aligns with the Scanvidence GitHub organization).
+- README: documented the planned compute split — training on the college
+  NVIDIA A1000 8GB GPU (Docker or pinned venv), development on personal
+  Mac/Windows machines (native venv, no GPU) — with the VRAM implications
+  for nnU-Net patches and heavy 3D comparators, and a Windows (WSL2) /
+  Linux Docker quickstart.
 - Switched from `src/` layout to flat layout (`scanvidence/` at repo root),
   matching the pgmpy structural pattern.
 - All imports now use `from scanvidence.xxx import ...` instead of

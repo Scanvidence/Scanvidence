@@ -198,8 +198,54 @@ The library follows a **pgmpy-style** architecture:
 
 GitHub-hosted runners don't have GPUs. `ci.yml` tests **logic** — data
 splitting, metric math, config loading, QUBO formulation — on tiny
-synthetic inputs, in seconds, on every PR. Real training runs locally or
-on the lab GPU/Colab and gets logged to W&B/MLflow.
+synthetic inputs, in seconds, on every PR. Real training runs on the
+college NVIDIA A1000 8GB GPU (see below) and gets logged to W&B/MLflow.
+
+## Hardware and Training
+
+This is the project's planned compute split, and it shapes what the
+timeline estimates in the research proposal can promise:
+
+- **Training — college NVIDIA A1000 8GB GPU.** All GPU work runs here,
+  preferably inside the Docker image (pinned torch + CUDA 12.1) so every
+  teammate trains in the same world. A pinned venv from the same
+  `requirements.txt` is fine where Docker is unavailable.
+- **Development — personal Mac/Windows machines.** Code, tests, docs,
+  and demo development need no GPU: `pip install -e ".[dev]"` works
+  natively. The Docker image is CUDA-only and cannot run on Apple
+  Silicon Macs.
+
+What 8 GB of VRAM means for the pipeline:
+
+- 2D classification (ResNet, DenseNet, EfficientNet, ViT), calibration
+  (MC-Dropout, temperature scaling), and XAI inference run comfortably
+  at 8 GB — the H1a/H2 endpoint families are unaffected.
+- 3D nnU-Net on BraTS (H1b) runs, but nnU-Net auto-adapts its patch
+  size to the available memory. Expect smaller patches and slower folds
+  than the ≥16 GB planning estimate in the proposal — the plans,
+  checkpoints, and per-fold logs record the actual resolution used.
+- Heavy 3D comparators (e.g. SwinUNETR) likely exceed 8 GB; treat them
+  as a stretch objective only if a larger GPU becomes available.
+
+### Docker on Windows (WSL2) or Linux
+
+```bash
+# From the repo root, build once:
+docker build -t scanvidence .
+
+# Train / run a scan with GPU access:
+docker run --gpus all \
+  -v "$(pwd)/outputs:/app/outputs" \
+  -v "$(pwd)/data:/data" \
+  scanvidence detect --task brain_tumor \
+    --config configs/brain_tumor.yaml --scan /data/patient_001.nii.gz
+```
+
+On Windows this needs: Docker Desktop with the **WSL2 backend**, the
+NVIDIA driver installed on Windows, and the **NVIDIA Container Toolkit**
+installed inside WSL2 — then `--gpus all` works. On Linux, install the
+Container Toolkit for your distro and use the same command. Outputs
+written by the container land in `outputs/` via the volume mount.
 
 ## Status
 
