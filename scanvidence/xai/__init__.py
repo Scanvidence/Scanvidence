@@ -6,3 +6,8 @@ metrics here, never judged by whether a heatmap "looks right."
 """
 
 from .base import BaseExplainer
+from .GradCAM import GradCAM
+from .LIMEExplainer import LIMEExplainer
+from .SHAPExplainer import SHAPExplainer
+
+__all__ = ["BaseExplainer", "GradCAM", "LIMEExplainer", "SHAPExplainer"]

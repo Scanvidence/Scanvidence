@@ -4,3 +4,7 @@ pre-specified non-inferiority decision rules (H1a, H1b).
 """
 
 from .base import BaseMetric
+from .ClassificationMetrics import ClassificationMetrics
+from .StatisticalTests import StatisticalTests
+
+__all__ = ["BaseMetric", "ClassificationMetrics", "StatisticalTests"]

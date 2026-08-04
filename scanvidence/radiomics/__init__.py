@@ -4,3 +4,6 @@ and the variance/mutual-information pre-filter down to the QUBO budget.
 """
 
 from .base import BaseExtractor
+from .PyRadiomicsExtractor import PyRadiomicsExtractor
+
+__all__ = ["BaseExtractor", "PyRadiomicsExtractor"]

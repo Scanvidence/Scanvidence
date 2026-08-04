@@ -5,3 +5,6 @@ in the core pipeline imports from this package.
 """
 
 from .base import BaseSelector
+from .QUBOSelector import QUBOSelector
+
+__all__ = ["BaseSelector", "QUBOSelector"]
