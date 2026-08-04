@@ -14,12 +14,27 @@ result maps to an exact commit.
   Mac/Windows machines (native venv, no GPU) — with the VRAM implications
   for nnU-Net patches and heavy 3D comparators, and a Windows (WSL2) /
   Linux Docker quickstart.
+- Canonical contributor instructions moved to `DEVELOPMENT.md`; `AGENTS.md`
+  now points there (same rules, single source of truth).
+- Package `__init__.py` re-exports for concrete classes so the documented
+  imports work: `calibration` (TemperatureScaling, MCDropout), `evaluation`
+  (ClassificationMetrics, StatisticalTests), `quantum` (QUBOSelector),
+  `preprocessing` (Pipeline, Normalizer, SkullStripper, Registration),
+  `xai` (GradCAM, SHAPExplainer, LIMEExplainer), `radiomics`
+  (PyRadiomicsExtractor), `api` (create_app) — all with `__all__`.
 - Switched from `src/` layout to flat layout (`scanvidence/` at repo root),
   matching the pgmpy structural pattern.
 - All imports now use `from scanvidence.xxx import ...` instead of
   `from tumorxai.xxx import ...`.
 
 ### Added
+- Test suites for calibration, evaluation, quantum, preprocessing, API
+  endpoints, and the CLI entry point — the fast tier grew from 14 to 45
+  tests (still seconds, still no GPU or real data).
+- `.codecov.yml` coverage gate: project coverage drift (auto target, 1%
+  threshold) and patch coverage (60%) checks on every PR.
+- Dev extras now include `fastapi` and `httpx` so the API tests run in
+  the standard `pip install -e ".[dev]"` environment.
 - `AGENTS.md` — agent-focused working instructions (commands,
   conventions, safety rules, CI gotchas).
 - Org logo (`logo/logo.jpg`) in the README header, pgmpy-style.
