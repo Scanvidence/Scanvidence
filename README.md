@@ -1,11 +1,11 @@
-# Scanvidence
-
-Explainable, uncertainty-aware medical imaging detection — a unified
-platform for **brain tumor** and **Alzheimer's disease** detection, with a
-quantum-vs-classical feature-selection ablation. Every prediction is
-accompanied by calibrated confidence, uncertainty flags, and
-quantitatively validated explanations, and every claim is backed by
-locked patient-level test partitions and pre-specified statistical tests.
+<a href="https://github.com/Scanvidence"><img src="https://raw.githubusercontent.com/Scanvidence/Scanvidence/main/logo/logo.jpg" width="175" align="left" /></a>
+Scanvidence is an explainable, uncertainty-aware medical imaging
+detection platform — a unified architecture for **brain tumor** and
+**Alzheimer's disease** detection, with a quantum-vs-classical
+feature-selection ablation. Every prediction is accompanied by calibrated
+confidence, uncertainty flags, and quantitatively validated explanations,
+and every claim is backed by locked patient-level test partitions and
+pre-specified statistical tests.
 
 Part of the [Scanvidence](https://github.com/Scanvidence) organization —
 final-year research project (Integral University, Lucknow), supervised by

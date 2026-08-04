@@ -15,6 +15,9 @@ result maps to an exact commit.
   `from tumorxai.xxx import ...`.
 
 ### Added
+- `AGENTS.md` — agent-focused working instructions (commands,
+  conventions, safety rules, CI gotchas).
+- Org logo (`logo/logo.jpg`) in the README header, pgmpy-style.
 - `scanvidence.__main__` — CLI entry point (`python -m scanvidence detect`)
   so the Dockerfile's default command works.
 - `scanvidence/py.typed` — PEP 561 marker for typed-package consumers.
