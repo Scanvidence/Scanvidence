@@ -1,0 +1,13 @@
+# Coverage gate: prevent silent drift in the project-wide coverage as
+# stubs get implemented. "auto" means the target is the coverage of the
+# base commit, so merging something that lowers coverage fails the check.
+# The threshold absorbs run-to-run noise from concurrency/order changes.
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 1%
+    patch:
+      default:
+        target: 60%
