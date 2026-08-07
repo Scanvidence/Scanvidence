@@ -6,22 +6,22 @@
 # person who owns a track is auto-requested when it changes.
 
 # Default: team lead reviews as a backstop.
-*                                           @Gitanaskhan26, @ReemHamraz
+*                                           @Gitanaskhan26 @ReemHamraz
 
-/scanvidence/data/                         @Gitanaskhan26, @ReemHamraz
-/scanvidence/evaluation/                   @Gitanaskhan26, @ReemHamraz
-/scanvidence/tasks/                        @Gitanaskhan26, @ReemHamraz
+/scanvidence/data/                         @Gitanaskhan26 @ReemHamraz
+/scanvidence/evaluation/                   @Gitanaskhan26 @ReemHamraz
+/scanvidence/tasks/                        @Gitanaskhan26 @ReemHamraz
 
-/scanvidence/models/classification/        @Gitanaskhan26, @ReemHamraz
-/scanvidence/preprocessing/                @Gitanaskhan26, @ReemHamraz
+/scanvidence/models/classification/        @Gitanaskhan26 @ReemHamraz
+/scanvidence/preprocessing/                @Gitanaskhan26 @ReemHamraz
 
-/scanvidence/models/segmentation/          @Gitanaskhan26, @ReemHamraz
+/scanvidence/models/segmentation/          @Gitanaskhan26 @ReemHamraz
 
-/scanvidence/radiomics/                    @Gitanaskhan26, @ReemHamraz
-/scanvidence/xai/                          @Gitanaskhan26, @ReemHamraz
-/scanvidence/calibration/                  @Gitanaskhan26, @ReemHamraz
+/scanvidence/radiomics/                    @Gitanaskhan26 @ReemHamraz
+/scanvidence/xai/                          @Gitanaskhan26 @ReemHamraz
+/scanvidence/calibration/                  @Gitanaskhan26 @ReemHamraz
 
-/scanvidence/quantum/                      @Gitanaskhan26, @ReemHamraz
-/docs/                                     @Gitanaskhan26, @ReemHamraz
+/scanvidence/quantum/                      @Gitanaskhan26 @ReemHamraz
+/docs/                                     @Gitanaskhan26 @ReemHamraz
 
-/scanvidence/api/                          @Gitanaskhan26, @ReemHamraz
+/scanvidence/api/                          @Gitanaskhan26 @ReemHamraz
