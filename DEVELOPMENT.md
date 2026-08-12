@@ -54,6 +54,7 @@ not to maximize accuracy numbers.**
 | `scanvidence/data/` | Loaders, dataset adapters (BraTS, OASIS, TCGA, Figshare), `splitting.py` (safety-critical). |
 | `scanvidence/preprocessing/` | SkullStripper, Normalizer, Registration, composable `Pipeline`. |
 | `scanvidence/models/` | Classification + segmentation wrappers; `TumorClassifier`, `AlzheimersClassifier`, `TumorSegmentor` re-exported at package level. |
+| `scanvidence/training/` | Segmentation training: `SegResNetB0`-compatible `BraTSPatchDataset`, Dice+CE `SegmentationLoss`, ET/TC/WT `Metrics`, `SegmentationTrainer`, `python -m scanvidence.training` CLI (overfit / pilot / train). |
 | `scanvidence/radiomics/` | PyRadiomics extraction (stub; pyradiomics is an optional extra). |
 | `scanvidence/xai/` | GradCAM, SHAPExplainer, LIMEExplainer. |
 | `scanvidence/calibration/` | TemperatureScaling, MCDropout. |

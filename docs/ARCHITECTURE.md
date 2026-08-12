@@ -29,7 +29,8 @@ the core pipeline.
 | Preprocess | `scanvidence.preprocessing` | Skull stripping, normalization, registration, composable Pipeline |
 | Models — classification | `scanvidence.models.classification` | `TumorClassifier`, `AlzheimersClassifier` |
 | Models — segmentation | `scanvidence.models.segmentation` | `TumorSegmentor` (nnU-Net) |
-| Models — backbone | `scanvidence.models.backbone` | Shared architectures (ResNet, ViT) |
+| Models — backbone | `scanvidence.models.backbone` | Shared architectures (ResNet, ViT); `SegResNetB0` reference segmentation CNN |
+| Models — training | `scanvidence.training` | `BraTSPatchDataset` (96-cubed patching), Dice+CE loss, ET/TC/WT Dice, `SegmentationTrainer`, training CLI |
 | Radiomics | `scanvidence.radiomics` | PyRadiomics feature extraction |
 | Calibration | `scanvidence.calibration` | Temperature scaling, MC-Dropout |
 | Quantum (stretch) | `scanvidence.quantum` | QUBO feature selection |
