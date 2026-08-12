@@ -199,14 +199,14 @@ The library follows a **pgmpy-style** architecture:
 GitHub-hosted runners don't have GPUs. `ci.yml` tests **logic** — data
 splitting, metric math, config loading, QUBO formulation — on tiny
 synthetic inputs, in seconds, on every PR. Real training runs on the
-college NVIDIA A1000 8GB GPU (see below) and gets logged to W&B/MLflow.
+college NVIDIA T1000 8GB GPU (see below) and gets logged to W&B/MLflow.
 
 ## Hardware and Training
 
 This is the project's planned compute split, and it shapes what the
 timeline estimates in the research proposal can promise:
 
-- **Training — college NVIDIA A1000 8GB GPU.** All GPU work runs here,
+- **Training — college NVIDIA T1000 8GB GPU.** All GPU work runs here,
   preferably inside the Docker image (pinned torch + CUDA 12.1) so every
   teammate trains in the same world. A pinned venv from the same
   `requirements.txt` is fine where Docker is unavailable.
@@ -216,6 +216,11 @@ timeline estimates in the research proposal can promise:
   Silicon Macs.
 
 What 8 GB of VRAM means for the pipeline:
+
+- The T1000 (TU117, compute capability 7.5) has no tensor cores. AMP is
+  still useful for activation-memory reduction, but speedups vs FP32 are
+  workload-dependent and must be measured instead of assumed.
+- TF32 acceleration paths are not available on this hardware.
 
 - 2D classification (ResNet, DenseNet, EfficientNet, ViT), calibration
   (MC-Dropout, temperature scaling), and XAI inference run comfortably

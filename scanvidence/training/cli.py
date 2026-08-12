@@ -42,6 +42,7 @@ from scanvidence.data import assert_no_leakage, patient_level_split
 from scanvidence.data.datasets import BraTSDataset
 from scanvidence.models.backbone import SegResNetB0
 from scanvidence.training.BraTSPatchDataset import BraTSPatchDataset
+from scanvidence.training.Loss import SegmentationLoss
 from scanvidence.training.SegmentationTrainer import SegmentationTrainer
 
 ENV_DATA_ROOT = "BRATS_DATA_ROOT"
@@ -236,6 +237,14 @@ def _build_model_and_trainer(
             "run_meta": run_meta,
         },
     )
+    if args.command == "overfit":
+        # Overfit gate must keep gradients on minority classes to verify memorization.
+        trainer.loss_fn = SegmentationLoss(
+            dice_weight=1.0,
+            ce_weight=0.5,
+            smooth=1e-5,
+            ignore_empty_classes=False,
+        )
     return model, trainer
 
 
@@ -245,9 +254,13 @@ def _hardware_info() -> dict[str, str]:
         "device": "cuda" if torch.cuda.is_available() else "cpu",
     }
     if torch.cuda.is_available():
-        info["gpu_name"] = torch.cuda.get_device_name(0)
+        gpu_name = torch.cuda.get_device_name(0)
+        info["gpu_name"] = gpu_name
         props = torch.cuda.get_device_properties(0)
         info["gpu_mem_bytes"] = str(props.total_memory)
+        info["gpu_compute_capability"] = f"{props.major}.{props.minor}"
+        # NVIDIA T1000 (TU117, cc 7.5) ships without tensor cores.
+        info["gpu_has_tensor_cores"] = "false" if "t1000" in gpu_name.lower() else "unknown"
     return info
 
 
@@ -280,6 +293,8 @@ def _run(args: argparse.Namespace) -> int:
     if args.command == "overfit":
         train = sorted(train, key=lambda r: r["patient_id"])[:2]
         val = []
+        args.epochs = max(args.epochs, 300)
+        args.lr = 3e-4
         print(f"overfit gate: training on {len(train)} cases only.")
     elif args.max_cases:
         train = train[: args.max_cases]
@@ -291,32 +306,19 @@ def _run(args: argparse.Namespace) -> int:
     use_cuda = torch.cuda.is_available()
     _set_seed(args.seed, args.deterministic)
 
-    train_loader = _make_loader(
-        train,
-        patch=args.patch,
-        seed=args.seed,
-        workers=args.workers,
-        shuffle=True,
-        augment=args.augment,
-        foreground_prob=args.foreground_prob,
-        remap_legacy_four=args.remap_legacy_four,
-        use_cuda=use_cuda,
-    )
-    val_loader = _make_loader(
-        val,
-        patch=args.patch,
-        seed=args.seed,
-        workers=args.workers,
-        shuffle=False,
-        augment=False,
-        foreground_prob=0.3,
-        remap_legacy_four=args.remap_legacy_four,
-        use_cuda=use_cuda,
-    )
     if args.command == "overfit":
-        # The 2-case gate measures memorization, so train and gate must
-        # see the SAME patch content. DataLoader ordering is irrelevant
-        # (patch content is seeded per index); augmentation must not be.
+        # Overfit contract: train and gate observe the same, tumor-centered patches.
+        train_loader = _make_loader(
+            train,
+            patch=args.patch,
+            seed=args.seed,
+            workers=args.workers,
+            shuffle=False,
+            augment=False,
+            foreground_prob=1.0,
+            remap_legacy_four=args.remap_legacy_four,
+            use_cuda=use_cuda,
+        )
         val_loader = _make_loader(
             train,
             patch=args.patch,
@@ -324,7 +326,30 @@ def _run(args: argparse.Namespace) -> int:
             workers=args.workers,
             shuffle=False,
             augment=False,
+            foreground_prob=1.0,
+            remap_legacy_four=args.remap_legacy_four,
+            use_cuda=use_cuda,
+        )
+    else:
+        train_loader = _make_loader(
+            train,
+            patch=args.patch,
+            seed=args.seed,
+            workers=args.workers,
+            shuffle=True,
+            augment=args.augment,
             foreground_prob=args.foreground_prob,
+            remap_legacy_four=args.remap_legacy_four,
+            use_cuda=use_cuda,
+        )
+        val_loader = _make_loader(
+            val,
+            patch=args.patch,
+            seed=args.seed,
+            workers=args.workers,
+            shuffle=False,
+            augment=False,
+            foreground_prob=0.3,
             remap_legacy_four=args.remap_legacy_four,
             use_cuda=use_cuda,
         )
@@ -345,7 +370,7 @@ def _run(args: argparse.Namespace) -> int:
         achieved = history.best_val_dice
         ok = achieved >= args.overfit_dice
         print(
-            f"overfit gate: train ET/TC/WT Dice {achieved:.4f} "
+            f"overfit gate: val ET/TC/WT Dice {achieved:.4f} "
             f"(required >= {args.overfit_dice:.2f}) -> {'PASS' if ok else 'FAIL'}"
         )
         return 0 if ok else 1

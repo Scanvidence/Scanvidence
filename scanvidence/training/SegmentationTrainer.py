@@ -64,6 +64,11 @@ class SegmentationTrainer(BaseTrainer):
             self.model.parameters(), lr=self.lr, weight_decay=self.weight_decay
         )
         self.use_amp = self.amp and self.device.type == "cuda"
+        if self.device.type == "cuda":
+            # Keep backend behavior explicit on no-tensor-core workstations
+            # (e.g. T1000): AMP is for memory headroom, not TF32 speed paths.
+            torch.backends.cuda.matmul.allow_tf32 = False
+            torch.backends.cudnn.allow_tf32 = False
         try:
             self.scaler = torch.amp.GradScaler("cuda", enabled=self.use_amp)
         except TypeError:  # torch < 2.3

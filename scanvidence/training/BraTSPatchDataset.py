@@ -214,7 +214,6 @@ class BraTSPatchDataset(Dataset):
         if rng.random() < self.foreground_prob and np.any(seg > 0):
             fg = np.argwhere(seg > 0)
             center = fg[rng.integers(0, len(fg))]
-            center = np.clip(center, lo, hi[0])
         else:
             center = np.asarray([rng.integers(int(lo), int(v)) for v in hi])
         center = np.clip(center, lo, hi)

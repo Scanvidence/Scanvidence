@@ -21,7 +21,7 @@ pipeline required by the Scanvidence work plan.
   applied *identically* to all modalities and the mask.
 - `SegmentationLoss` — combined soft Dice + cross‑entropy (empty‑class ignored).
 - `regional_dice` / `mean_regional_dice` — ET/TC/WT Dice with the BraTS empty‑region convention.
-- `SegmentationTrainer` — AdamW, AMP (off on T1000), gradient accumulation,
+- `SegmentationTrainer` — AdamW, AMP (memory optimization on T1000; benchmark FP16 vs FP32 for speed), gradient accumulation,
   clip‑after‑unscaling, checkpointing, profiling (`--profile-steps`), deterministic RNG.
 - `cli.py` — CLI entry point `python -m scanvidence.training {overfit|pilot|train}` with:
   - `--data-root`, `--track`, `--patch`, `--accum`, `--amp`/`--no-amp`,
