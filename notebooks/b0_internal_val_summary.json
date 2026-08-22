@@ -1,0 +1,27 @@
+{
+  "model": "SegResNetB0",
+  "checkpoint": "runs/full-b0-seed17/best.pt",
+  "n_cases": 20,
+  "device": "cuda",
+  "ET": {
+    "mean": 0.7425,
+    "std": 0.2742,
+    "min": 0.0,
+    "max": 0.9521,
+    "constant_mean": 0.05
+  },
+  "TC": {
+    "mean": 0.7993,
+    "std": 0.2323,
+    "min": 0.0,
+    "max": 0.9791,
+    "constant_mean": 0.05
+  },
+  "WT": {
+    "mean": 0.8513,
+    "std": 0.1331,
+    "min": 0.5236,
+    "max": 0.9758,
+    "constant_mean": 0.0
+  }
+}

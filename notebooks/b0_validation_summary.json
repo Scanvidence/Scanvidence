@@ -1,0 +1,30 @@
+{
+  "model": "B0 (SegResNetB0)",
+  "checkpoint": "runs/full-b0-seed17/best.pt",
+  "n_cases": 20,
+  "device": "cuda",
+  "seed": 17,
+  "split": "data/manifests/split_v1.json",
+  "split_hash": "",
+  "ET": {
+    "mean": 0.7188,
+    "std": 0.2907,
+    "min": 0.0,
+    "max": 0.9541,
+    "constant_mean": 0.0
+  },
+  "TC": {
+    "mean": 0.759,
+    "std": 0.2604,
+    "min": 0.0,
+    "max": 0.9772,
+    "constant_mean": 0.0
+  },
+  "WT": {
+    "mean": 0.8321,
+    "std": 0.2037,
+    "min": 0.0891,
+    "max": 0.9769,
+    "constant_mean": 0.0
+  }
+}
