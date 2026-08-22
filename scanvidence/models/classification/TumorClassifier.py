@@ -72,17 +72,14 @@ class TumorClassifier(BaseModel):
         mode = self.config.get("input_mode", "roi")
         try:
             ClassificationMode(mode)
-        except ValueError:
+        except ValueError as exc:
             valid = [m.value for m in ClassificationMode]
-            raise ValueError(
-                f"Invalid input_mode '{mode}'. Must be one of {valid}."
-            )
+            raise ValueError(f"Invalid input_mode '{mode}'. Must be one of {valid}.") from exc
 
         num_classes = self.config.get("num_classes", 3)
         if num_classes != len(TUMOR_TYPES):
             raise ValueError(
-                f"num_classes must be {len(TUMOR_TYPES)} for tumor typing, "
-                f"got {num_classes}."
+                f"num_classes must be {len(TUMOR_TYPES)} for tumor typing, got {num_classes}."
             )
 
     def build(self):

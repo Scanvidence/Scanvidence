@@ -35,8 +35,8 @@ class TestExtractRoiBoundingBox:
         bbox = extract_roi_bounding_box(mask, padding_pct=0.10)
         assert bbox is not None
         z_min, z_max, y_min, y_max, x_min, x_max = bbox
-        # Original: 5-14, span=9, pad=0.9≈0 → but 10% of 9 = 0
-        # Actually 10% of (14-5)=9 → int(0.9) = 0. Let's use a bigger range.
+        # Original: 5-14, span=9, pad=0.9â‰ˆ0 â†’ but 10% of 9 = 0
+        # Actually 10% of (14-5)=9 â†’ int(0.9) = 0. Let's use a bigger range.
         # Just check that bbox is at least as large as the tumor
         assert z_min <= 5
         assert z_max >= 14
@@ -60,13 +60,13 @@ class TestCropVolume:
     """Tests for crop_volume."""
 
     def test_crop_3d(self):
-        vol = np.random.rand(10, 10, 10)
+        vol = np.random.default_rng(0).random((10, 10, 10))
         bbox = (2, 5, 3, 7, 1, 8)
         cropped = crop_volume(vol, bbox)
         assert cropped.shape == (4, 5, 8)  # z:2-5, y:3-7, x:1-8
 
     def test_crop_4d_channels_first(self):
-        vol = np.random.rand(4, 10, 10, 10)  # 4 MRI sequences
+        vol = np.random.default_rng(0).random((4, 10, 10, 10))  # 4 MRI sequences
         bbox = (2, 5, 3, 7, 1, 8)
         cropped = crop_volume(vol, bbox)
         assert cropped.shape == (4, 4, 5, 8)  # channels preserved
@@ -79,12 +79,12 @@ class TestCropVolume:
         assert cropped[0, 0, 0] == vol[1, 1, 1]
 
     def test_none_bbox_raises(self):
-        vol = np.random.rand(10, 10, 10)
+        vol = np.random.default_rng(0).random((10, 10, 10))
         with pytest.raises(ValueError, match="No bounding box"):
             crop_volume(vol, None)
 
     def test_unsupported_dims_raises(self):
-        vol = np.random.rand(10, 10)  # 2D
+        vol = np.random.default_rng(0).random((10, 10))  # 2D
         bbox = (2, 5, 3, 7, 1, 8)
         with pytest.raises(ValueError, match="Unsupported volume dimensions"):
             crop_volume(vol, bbox)

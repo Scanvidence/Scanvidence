@@ -1,7 +1,6 @@
 """Tests for BraTS 2023 label validation and region extraction."""
 
 import numpy as np
-import pytest
 
 from scanvidence.preprocessing.LabelUnifier import (
     BRATS_LABELS,

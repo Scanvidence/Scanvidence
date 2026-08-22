@@ -24,7 +24,7 @@ class BiasFieldCorrection(BaseTransform):
         Default: {"iters": [50, 50, 50, 50], "tol": 0.0}.
     """
 
-    def __init__(self, shrink_factor: int = 4, convergence: dict = None):
+    def __init__(self, shrink_factor: int = 4, convergence: dict | None = None):
         super().__init__()
         self.shrink_factor = shrink_factor
         self.convergence = convergence or {"iters": [50, 50, 50, 50], "tol": 0.0}
@@ -51,10 +51,10 @@ class BiasFieldCorrection(BaseTransform):
 
         # Convert numpy array to SimpleITK image
         image_sitk = sitk.GetImageFromArray(array)
-        
+
         # Apply spacing if available
-        if 'spacing' in metadata:
-            image_sitk.SetSpacing(metadata['spacing'])
+        if "spacing" in metadata:
+            image_sitk.SetSpacing(metadata["spacing"])
 
         # Cast to Float32 for N4 filter
         image_f32 = sitk.Cast(image_sitk, sitk.sitkFloat32)
@@ -69,7 +69,7 @@ class BiasFieldCorrection(BaseTransform):
 
         # Initialize N4 filter
         corrector = sitk.N4BiasFieldCorrectionImageFilter()
-        
+
         iters = self.convergence.get("iters", [50, 50, 50, 50])
         tol = self.convergence.get("tol", 0.0)
         corrector.SetMaximumNumberOfIterations(iters)
@@ -84,6 +84,6 @@ class BiasFieldCorrection(BaseTransform):
 
         # Convert back to numpy array
         corrected_array = sitk.GetArrayFromImage(corrected_image)
-        
-        metadata['n4_bias_corrected'] = True
+
+        metadata["n4_bias_corrected"] = True
         return corrected_array, metadata
