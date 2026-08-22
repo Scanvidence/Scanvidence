@@ -81,7 +81,8 @@ class SegmentationTrainer(BaseTrainer):
         """Capture RNG state so resumed runs can be deterministic."""
         return {
             "python": random.getstate(),
-            "numpy": np.random.get_state(),
+            # Legacy numpy state: checkpoints must stay loadable by np.random.set_state.
+            "numpy": np.random.get_state(),  # noqa: NPY002
             "torch_cpu": torch.get_rng_state(),
             "torch_cuda": torch.cuda.get_rng_state_all() if torch.cuda.is_available() else None,
         }

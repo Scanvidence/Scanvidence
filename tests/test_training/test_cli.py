@@ -22,6 +22,116 @@ def test_unknown_subcommand_is_an_argparse_error():
     assert exc.value.code == 2
 
 
+def test_train_accepts_resume_flag():
+    from scanvidence.training.cli import _build_parser
+
+    args = _build_parser().parse_args(["train", "--data-root", "/tmp", "--resume", "run.pt"])
+    assert args.resume == "run.pt"
+    assert args.command == "train"
+
+
+def test_train_accepts_resume_flag_without_path():
+    from scanvidence.training.cli import _build_parser
+
+    args = _build_parser().parse_args(["train", "--data-root", "/tmp", "--resume"])
+    assert args.resume == "AUTO"
+    assert args.command == "train"
+
+
+def test_run_train_auto_resume_uses_out_dir_checkpoint(monkeypatch, tmp_path):
+    import argparse
+    from pathlib import Path
+
+    import torch
+
+    import scanvidence.training.cli as cli
+
+    class _DummyOptimizer:
+        def load_state_dict(self, _state):
+            return None
+
+    class _DummyModel:
+        parameter_count = 1
+
+        def load_state_dict(self, _state):
+            return None
+
+    class _DummyHistory:
+        best_val_dice = 0.5
+        best_epoch = 1
+        step_time_s = [0.01]
+
+    class _DummyTrainer:
+        def __init__(self):
+            self.optimizer = _DummyOptimizer()
+            self.scaler = None
+            self.device = torch.device("cpu")
+
+        def fit(self, **_kwargs):
+            return _DummyHistory()
+
+    data_root = tmp_path / "data"
+    data_root.mkdir()
+    out_dir = tmp_path / "runs" / "b0"
+    record = {
+        "patient_id": "p1",
+        "available_sequences": ["t1n", "t1c", "t2w", "t2f"],
+        "seg_path": "seg.nii.gz",
+    }
+
+    monkeypatch.setattr(cli.BraTSDataset, "discover", lambda self: [record])
+    monkeypatch.setattr(cli, "_usable_records", lambda records: (records, 0))
+    monkeypatch.setattr(cli, "_run_common", lambda _args, _usable: ({"split": {}}, [record], []))
+    monkeypatch.setattr(cli, "_set_seed", lambda *_args, **_kwargs: None)
+    monkeypatch.setattr(cli, "_make_loader", lambda *_args, **_kwargs: object())
+    monkeypatch.setattr(cli, "_hardware_info", lambda: {})
+    monkeypatch.setattr(cli, "set_rng_states", lambda _state: None)
+    monkeypatch.setattr(
+        cli, "_build_model_and_trainer", lambda *_args, **_kwargs: (_DummyModel(), _DummyTrainer())
+    )
+
+    loaded_paths: list[str] = []
+
+    def _fake_torch_load(path, *args, **kwargs):
+        loaded_paths.append(str(path))
+        return {"state_dict": {}, "optimizer": {}, "epoch": 10, "rng": None}
+
+    monkeypatch.setattr(cli.torch, "load", _fake_torch_load)
+
+    args = argparse.Namespace(
+        command="train",
+        data_root=str(data_root),
+        track="GLI",
+        patch=96,
+        accum=8,
+        amp=True,
+        max_grad_norm=1.0,
+        lr=1e-4,
+        weight_decay=1e-5,
+        seed=17,
+        workers=0,
+        out_dir=str(out_dir),
+        val_frac=0.2,
+        widths="16,32,64,128",
+        num_classes=4,
+        dropout=0.0,
+        foreground_prob=0.5,
+        augment=True,
+        log_every=0,
+        profile_steps=0,
+        remap_legacy_four=False,
+        deterministic=True,
+        max_mem_fraction=0.0,
+        epochs=2,
+        max_cases=0,
+        resume="AUTO",
+    )
+
+    code = cli._run(args)
+    assert code == 0
+    assert loaded_paths == [str(Path(out_dir) / "best.pt")]
+
+
 @pytest.mark.slow
 def test_overfit_gate_passes_and_writes_run_json(synthetic_brats, tmp_path):
     root, _ = synthetic_brats

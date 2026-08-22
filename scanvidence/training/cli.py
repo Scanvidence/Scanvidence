@@ -123,8 +123,7 @@ def _build_parser() -> argparse.ArgumentParser:
         type=str,
         default=None,
         help=(
-            "Path to checkpoint to resume from (must contain state_dict, optimizer, "
-            "scaler, rng)"
+            "Path to checkpoint to resume from (must contain state_dict, optimizer, scaler, rng)"
         ),
     )
 
@@ -132,6 +131,17 @@ def _build_parser() -> argparse.ArgumentParser:
     train.add_argument("--epochs", type=int, default=100)
     train.add_argument(
         "--max-cases", type=int, default=0, help="0 = use every usable training case."
+    )
+    train.add_argument(
+        "--resume",
+        type=str,
+        default=None,
+        nargs="?",
+        const="AUTO",
+        help=(
+            "Resume from checkpoint. Pass an explicit path or use --resume "
+            "with no value to load <out-dir>/best.pt."
+        ),
     )
     return parser
 
@@ -147,11 +157,22 @@ def _set_seed(seed: int, deterministic: bool) -> None:
 
 def set_rng_states(state: dict[str, Any]) -> None:
     """Restore Python, NumPy, and torch RNG states."""
+
+    def _as_cpu_bytetensor(value: Any) -> torch.Tensor:
+        tensor = value if isinstance(value, torch.Tensor) else torch.as_tensor(value)
+        return tensor.detach().to(device="cpu", dtype=torch.uint8).contiguous()
+
     random.setstate(state["python"])
-    np.random.set_state(state["numpy"])
-    torch.set_rng_state(state["torch_cpu"])
+    np.random.set_state(state["numpy"])  # noqa: NPY002  (checkpoint stores legacy state)
+
+    torch_cpu = _as_cpu_bytetensor(state["torch_cpu"])
+    torch.set_rng_state(torch_cpu)
+
     cuda_state = state.get("torch_cuda")
     if torch.cuda.is_available() and cuda_state is not None:
+        if not isinstance(cuda_state, (list, tuple)):
+            cuda_state = [cuda_state]
+        cuda_state = [_as_cpu_bytetensor(v) for v in cuda_state]
         torch.cuda.set_rng_state_all(cuda_state)
 
 
@@ -378,25 +399,29 @@ def _run(args: argparse.Namespace) -> int:
     optimizer = trainer.optimizer
     scaler = trainer.scaler
     scheduler = None
+    out_dir = Path(args.out_dir)
     resume_path = getattr(args, "resume", None)
+    if resume_path == "AUTO":
+        resume_path = str(out_dir / "best.pt")
     if resume_path is not None:
         ckpt = torch.load(resume_path, map_location=trainer.device, weights_only=False)
         model.load_state_dict(ckpt["state_dict"])
         if optimizer is None:
             raise RuntimeError("trainer optimizer is not initialized")
-        optimizer.load_state_dict(ckpt["optimizer"])
-        if "scaler" in ckpt and scaler is not None:
+        optimizer_state = ckpt.get("optimizer")
+        if optimizer_state is not None:
+            optimizer.load_state_dict(optimizer_state)
+        if ckpt.get("scaler") is not None and scaler is not None:
             scaler.load_state_dict(ckpt["scaler"])
         if "scheduler" in ckpt and scheduler is not None:
             scheduler.load_state_dict(ckpt["scheduler"])
-        if "rng" in ckpt:
+        if isinstance(ckpt.get("rng"), dict):
             set_rng_states(ckpt["rng"])
         start_epoch = int(ckpt.get("epoch", 0)) + 1
-        print(f"resuming from {resume_path} at epoch {start_epoch}")
+        print(f"Resuming from epoch {start_epoch}")
     else:
         start_epoch = 0
 
-    out_dir = Path(args.out_dir)
     history = trainer.fit(
         train_loader=train_loader,
         val_loader=val_loader,
