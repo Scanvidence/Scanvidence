@@ -10,6 +10,7 @@ before ``clip_grad_norm_``).
 from __future__ import annotations
 
 import json
+import random
 import time
 from pathlib import Path
 from typing import Any
@@ -63,6 +64,7 @@ class SegmentationTrainer(BaseTrainer):
         self.optimizer = torch.optim.AdamW(
             self.model.parameters(), lr=self.lr, weight_decay=self.weight_decay
         )
+        self.scheduler: Any | None = None
         self.use_amp = self.amp and self.device.type == "cuda"
         if self.device.type == "cuda":
             # Keep backend behavior explicit on no-tensor-core workstations
@@ -75,12 +77,43 @@ class SegmentationTrainer(BaseTrainer):
             self.scaler = torch.cuda.amp.GradScaler(enabled=self.use_amp)
         self.model = self.model.to(self.device)
 
+    def get_rng_states(self) -> dict[str, Any]:
+        """Capture RNG state so resumed runs can be deterministic."""
+        return {
+            "python": random.getstate(),
+            "numpy": np.random.get_state(),
+            "torch_cpu": torch.get_rng_state(),
+            "torch_cuda": torch.cuda.get_rng_state_all() if torch.cuda.is_available() else None,
+        }
+
+    def save_checkpoint(self, path: str, epoch: int, best_val_dice: float) -> None:
+        """Persist full optimizer/scaler/RNG state for resume-capable checkpoints."""
+        optimizer = self.optimizer
+        if optimizer is None:
+            raise RuntimeError("optimizer must be initialized before saving checkpoint")
+        scaler = self.scaler
+        scheduler = self.scheduler
+        torch.save(
+            {
+                "epoch": epoch,
+                "state_dict": self.model.state_dict(),
+                "optimizer": optimizer.state_dict(),
+                "scaler": scaler.state_dict() if scaler is not None else None,
+                "scheduler": scheduler.state_dict() if scheduler is not None else None,
+                "rng": self.get_rng_states(),
+                "config": self.config,
+                "best_val_dice": best_val_dice,
+            },
+            path,
+        )
+
     def fit(
         self,
         train_loader: Any,
         val_loader: Any,
         epochs: int,
         *,
+        start_epoch: int = 0,
         out_dir: str | Path | None = None,
         log_every: int = 20,
         profile_steps: int = 0,
@@ -94,7 +127,9 @@ class SegmentationTrainer(BaseTrainer):
             Batch-1 patch loaders (required by the work plan's memory
             budget: accumulation supplies the effective batch size).
         epochs : int
-            Number of epochs.
+            Target final epoch number.
+        start_epoch : int
+            Last completed epoch when resuming from a checkpoint.
         out_dir : str, Path or None
             Where to write ``best.pt``, ``run.json`` and the metrics log.
             If None, checkpoints and logs are skipped.
@@ -121,7 +156,7 @@ class SegmentationTrainer(BaseTrainer):
         if profile_steps > 0:
             self._profile(loader_iter, profile_steps, out_dir)
 
-        for epoch in range(1, epochs + 1):
+        for epoch in range(start_epoch + 1, epochs + 1):
             epoch_start = time.monotonic()
             self.model.train()
             running_loss: list[float] = []

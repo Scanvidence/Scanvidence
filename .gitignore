@@ -37,6 +37,13 @@ wandb/
 mlruns/
 mlartifacts/
 
+# --- Profiler dumps and lockfiles: huge or machine-local ---
+*.trace.json
+uv.lock
+
+# --- Notebook-rendered figures: regenerate from the seeded notebook ---
+notebooks/*.png
+
 # --- Secrets: IBM Quantum / D-Wave / W&B tokens live in .env, never in code ---
 .env
 *.token

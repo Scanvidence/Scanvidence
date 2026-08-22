@@ -118,6 +118,15 @@ def _build_parser() -> argparse.ArgumentParser:
     pilot = sub.add_parser("pilot", parents=[parent], help="Small controlled run.")
     pilot.add_argument("--epochs", type=int, default=30)
     pilot.add_argument("--max-cases", type=int, default=100)
+    pilot.add_argument(
+        "--resume",
+        type=str,
+        default=None,
+        help=(
+            "Path to checkpoint to resume from (must contain state_dict, optimizer, "
+            "scaler, rng)"
+        ),
+    )
 
     train = sub.add_parser("train", parents=[parent], help="Main B0 training run.")
     train.add_argument("--epochs", type=int, default=100)
@@ -134,6 +143,16 @@ def _set_seed(seed: int, deterministic: bool) -> None:
         torch.cuda.manual_seed_all(seed)
         torch.backends.cudnn.deterministic = deterministic
         torch.backends.cudnn.benchmark = not deterministic
+
+
+def set_rng_states(state: dict[str, Any]) -> None:
+    """Restore Python, NumPy, and torch RNG states."""
+    random.setstate(state["python"])
+    np.random.set_state(state["numpy"])
+    torch.set_rng_state(state["torch_cpu"])
+    cuda_state = state.get("torch_cuda")
+    if torch.cuda.is_available() and cuda_state is not None:
+        torch.cuda.set_rng_state_all(cuda_state)
 
 
 def _partition_hashes(partition: list[dict]) -> str:
@@ -356,11 +375,33 @@ def _run(args: argparse.Namespace) -> int:
 
     run_meta["hardware"] = _hardware_info()
     model, trainer = _build_model_and_trainer(args, run_meta)
+    optimizer = trainer.optimizer
+    scaler = trainer.scaler
+    scheduler = None
+    resume_path = getattr(args, "resume", None)
+    if resume_path is not None:
+        ckpt = torch.load(resume_path, map_location=trainer.device, weights_only=False)
+        model.load_state_dict(ckpt["state_dict"])
+        if optimizer is None:
+            raise RuntimeError("trainer optimizer is not initialized")
+        optimizer.load_state_dict(ckpt["optimizer"])
+        if "scaler" in ckpt and scaler is not None:
+            scaler.load_state_dict(ckpt["scaler"])
+        if "scheduler" in ckpt and scheduler is not None:
+            scheduler.load_state_dict(ckpt["scheduler"])
+        if "rng" in ckpt:
+            set_rng_states(ckpt["rng"])
+        start_epoch = int(ckpt.get("epoch", 0)) + 1
+        print(f"resuming from {resume_path} at epoch {start_epoch}")
+    else:
+        start_epoch = 0
+
     out_dir = Path(args.out_dir)
     history = trainer.fit(
         train_loader=train_loader,
         val_loader=val_loader,
         epochs=args.epochs,
+        start_epoch=start_epoch,
         out_dir=out_dir,
         log_every=args.log_every,
         profile_steps=args.profile_steps,
