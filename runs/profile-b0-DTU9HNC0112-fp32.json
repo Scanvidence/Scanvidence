@@ -1,0 +1,12 @@
+{
+  "host": "DTU9HNC0112",
+  "gpu": "NVIDIA T1000 8GB",
+  "visible_gb": 8.0,
+  "precision": "fp32",
+  "allocated_gb": 0.92,
+  "reserved_gb": 1.09,
+  "step_ms": 639.1,
+  "pass_90pct": true,
+  "torch": "2.13.0+cu126",
+  "cuda": "12.6"
+}

@@ -1,0 +1,25 @@
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  
+enumerate(DataLoader)#_MultiProcessingDataLoaderIter...        13.86%        1.989s        13.86%        1.989s     198.877ms            10  
+                                            aten::empty         0.25%      35.229ms         0.25%      35.229ms      10.271us          3430  
+                                             aten::set_         0.00%     102.900us         0.00%     102.900us       5.145us            20  
+                                               aten::to         0.01%     878.200us         0.25%      36.045ms      42.208us           854  
+                    Optimizer.zero_grad#AdamW.zero_grad         0.19%      26.656ms         0.19%      26.656ms       2.666ms            10  
+                                           aten::conv3d         0.01%       1.389ms        13.72%        1.969s       7.876ms           250  
+                                      aten::convolution         0.05%       6.476ms        15.15%        2.173s       7.494ms           290  
+                                     aten::_convolution         0.64%      91.606ms        15.10%        2.167s       7.472ms           290  
+                               aten::mkldnn_convolution        11.90%        1.708s        11.94%        1.713s       9.518ms           180  
+                                      aten::as_strided_         0.03%       3.851ms         0.03%       3.851ms       4.813us           800  
+                                          aten::resize_         0.10%      13.936ms         0.10%      13.936ms      11.423us          1220  
+                                       aten::group_norm         0.01%       1.418ms         2.04%     293.008ms       1.831ms           160  
+                                aten::native_group_norm         1.99%     285.419ms         2.03%     291.589ms       1.822ms           160  
+                                             aten::relu         0.02%       2.465ms         1.38%     197.527ms       1.235ms           160  
+                                        aten::clamp_min         1.36%     195.062ms         1.36%     195.062ms       1.219ms           160  
+                                              aten::add         1.06%     152.045ms         1.06%     152.151ms     945.039us           161  
+                                       aten::max_pool3d         0.00%     254.300us         0.65%      92.823ms       2.321ms            40  
+                          aten::max_pool3d_with_indices         0.63%      90.232ms         0.65%      92.569ms       2.314ms            40  
+                                      aten::slow_conv3d         0.00%     347.900us         1.72%     246.111ms       3.516ms            70  
+                              aten::slow_conv3d_forward         1.57%     224.890ms         1.71%     245.763ms       3.511ms            70  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 14.347s

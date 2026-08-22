@@ -1,0 +1,55 @@
+{
+  "config": {
+    "lr": 0.0001,
+    "weight_decay": 1e-05,
+    "amp": true,
+    "grad_accum_steps": 8,
+    "max_grad_norm": 1.0,
+    "patch_size": 96,
+    "foreground_prob": 0.5,
+    "run_meta": {
+      "cmd": "pilot --data-root C:\\Users\\NCC-HPC8\\Desktop\\BraTSGLI\\data\\ASNR-MICCAI-BraTS2023-GLI-Challenge-TrainingData\\ASNR-MICCAI-BraTS2023-GLI-Challenge-TrainingData --max-cases 100 --epochs 35 --val-frac 0.2 --seed 17 --out-dir runs\\pilot-b0-100-gpu-resume --resume runs\\pilot-b0-100-gpu\\best_resumable.pt",
+      "seed": 17,
+      "split": {
+        "ratios": [
+          0.8,
+          0.2,
+          0.0
+        ],
+        "train_cases": 1001,
+        "val_cases": 250,
+        "train_hash": "af30600f456d6b740298fed5fc70ab582c9124fb623b28e2d84f4d40c28a4621",
+        "val_hash": "2bf3b55166b87576fc1fe72416310fea98f7fb8c45f5aae85aa30c8981ff289e",
+        "commit_me_when_frozen": true
+      },
+      "hardware": {
+        "torch": "2.13.0+cu126",
+        "device": "cuda",
+        "gpu_name": "NVIDIA T1000 8GB",
+        "gpu_mem_bytes": "8589606912",
+        "gpu_compute_capability": "7.5",
+        "gpu_has_tensor_cores": "false"
+      },
+      "architecture": {
+        "name": "SegResNetB0",
+        "widths": [
+          16,
+          32,
+          64,
+          128
+        ],
+        "in_channels": 4,
+        "num_classes": 4,
+        "dropout": 0.0,
+        "parameter_count": 1599420
+      }
+    }
+  },
+  "device": "cuda:0",
+  "measured": {
+    "best_val_dice": 0.4981932151760078,
+    "best_epoch": 33,
+    "mean_step_time_s": 1.0298570132499298,
+    "total_wall_s": 413.36129520000395
+  }
+}

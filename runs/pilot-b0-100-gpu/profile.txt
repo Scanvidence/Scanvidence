@@ -1,0 +1,26 @@
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                                                   Name    Self CPU %      Self CPU   CPU total %     CPU total  CPU time avg     Self CUDA   Self CUDA %    CUDA total  CUDA time avg    # of Calls  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+                             aten::convolution_backward         2.08%     262.479ms         3.60%     454.975ms       1.569ms        7.422s        76.30%        7.440s      25.656ms           290  
+sm75_xmma_dgrad_implicit_gemm_f16f16_f16f32_f32_nhwc...         0.00%       0.000us         0.00%       0.000us       0.000us        3.641s        37.43%        3.641s      40.457ms            90  
+sm75_xmma_wgrad_implicit_gemm_indexed_f16f16_f16f32_...         0.00%       0.000us         0.00%       0.000us       0.000us        2.801s        28.79%        2.801s      28.005ms           100  
+                                aten::cudnn_convolution         0.71%      89.482ms         2.33%     294.612ms       1.178ms        1.558s        16.02%        1.776s       7.105ms           250  
+sm75_xmma_fprop_implicit_gemm_indexed_wo_smem_f16f16...         0.00%       0.000us         0.00%       0.000us       0.000us     539.628ms         5.55%     539.628ms      10.793ms            50  
+sm75_xmma_fprop_implicit_gemm_indexed_wo_smem_f16f16...         0.00%       0.000us         0.00%       0.000us       0.000us     513.922ms         5.28%     513.922ms      25.696ms            20  
+sm75_xmma_dgrad_implicit_gemm_f16f16_f16f32_f32_nhwc...         0.00%       0.000us         0.00%       0.000us       0.000us     259.541ms         2.67%     259.541ms      12.977ms            20  
+sm75_xmma_fprop_implicit_gemm_indexed_wo_smem_f16f16...         0.00%       0.000us         0.00%       0.000us       0.000us     233.157ms         2.40%     233.157ms       3.886ms            60  
+                                            aten::copy_         0.06%       8.068ms        44.35%        5.609s       3.042ms     174.400ms         1.79%     175.503ms      95.175us          1844  
+_ZN5cudnn19engines_precompiled16nchwToNhwcKernelI6__...         0.00%       0.000us         0.00%       0.000us       0.000us     168.865ms         1.74%     168.865ms     134.020us          1260  
+sm75_xmma_dgrad_implicit_gemm_f16f16_f16f32_f32_nhwc...         0.00%       0.000us         0.00%       0.000us       0.000us     156.462ms         1.61%     156.462ms       3.129ms            50  
+                                  Lazy Function Loading         0.05%       6.434ms         0.05%       6.434ms      41.241us     127.271ms         1.31%     127.271ms     815.842us           156  
+                       Runtime Triggered Module Loading        11.38%        1.439s        11.38%        1.439s      11.797ms     121.637ms         1.25%     121.637ms     997.024us           122  
+                                aten::native_group_norm         0.04%       4.964ms         0.17%      21.994ms     137.465us     119.998ms         1.23%     125.710ms     785.690us           160  
+                       aten::native_group_norm_backward         0.05%       6.406ms         0.12%      15.118ms      94.487us     118.783ms         1.22%     118.783ms     742.396us           160  
+sm75_xmma_wgrad_implicit_gemm_indexed_f16f16_f16f32_...         0.00%       0.000us         0.00%       0.000us       0.000us     109.252ms         1.12%     109.252ms       2.731ms            40  
+sm75_xmma_fprop_implicit_gemm_f16f16_f16f32_f32_nhwc...         0.00%       0.000us         0.00%       0.000us       0.000us      84.970ms         0.87%      84.970ms       4.248ms            20  
+_ZN2at6native27unrolled_elementwise_kernelIZZZNS0_23...         0.00%       0.000us         0.00%       0.000us       0.000us      84.020ms         0.86%      84.020ms      93.252us           901  
+_ZN2at6native59_GLOBAL__N__d7ce03a1_20_group_norm_ke...         0.00%       0.000us         0.00%       0.000us       0.000us      73.353ms         0.75%      73.353ms     458.456us           160  
+                                             aten::add_         0.02%       2.653ms         0.09%      11.063ms      23.538us      73.328ms         0.75%      75.694ms     161.051us           470  
+-------------------------------------------------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  ------------  
+Self CPU time total: 12.648s
+Self CUDA time total: 9.727s

@@ -1,0 +1,14 @@
+{
+  "onnx": {
+    "providers": [
+      "AzureExecutionProvider",
+      "CPUExecutionProvider"
+    ],
+    "max_abs_diff": 0.000196,
+    "parity_patches": "10/10"
+  },
+  "coreml": {
+    "converted": false,
+    "error": "No module named 'coremltools'"
+  }
+}
