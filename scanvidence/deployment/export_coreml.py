@@ -1,9 +1,11 @@
 import argparse
-import torch
-import coremltools as ct
 from pathlib import Path
 
-from scanvidence.models.backbone.SegResNetB0 import SegResNetB0
+import coremltools as ct
+import torch
+
+from scanvidence.models.backbone import SegResNetB0
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -15,15 +17,15 @@ def main():
     out_path.mkdir(parents=True, exist_ok=True)
 
     print(f"Loading checkpoint from {args.checkpoint}...")
-    checkpoint = torch.load(args.checkpoint, map_location="cpu", weights_only=True)
-    
+    checkpoint = torch.load(args.checkpoint, map_location="cpu", weights_only=False)
+
     model = SegResNetB0(in_channels=4, num_classes=4)
-    
-    if isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
-        model.load_state_dict(checkpoint["model_state_dict"])
+
+    if isinstance(checkpoint, dict) and "state_dict" in checkpoint:
+        model.load_state_dict(checkpoint["state_dict"])
     else:
         model.load_state_dict(checkpoint)
-        
+
     model.eval()
 
     dummy_input = torch.randn(1, 4, 96, 96, 96)
@@ -40,6 +42,7 @@ def main():
     save_path = out_path / "B0_coreml.mlpackage"
     mlmodel.save(str(save_path))
     print(f"Core ML export successful! Saved to {save_path}")
+
 
 if __name__ == "__main__":
     main()

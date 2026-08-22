@@ -1,8 +1,10 @@
 import argparse
-import torch
 from pathlib import Path
 
-from scanvidence.models.backbone.SegResNetB0 import SegResNetB0
+import torch
+
+from scanvidence.models.backbone import SegResNetB0
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -14,15 +16,16 @@ def main():
     out_path.mkdir(parents=True, exist_ok=True)
 
     print(f"Loading checkpoint from {args.checkpoint}...")
-    checkpoint = torch.load(args.checkpoint, map_location="cpu", weights_only=True)
-    
+    checkpoint = torch.load(args.checkpoint, map_location="cpu", weights_only=False)
+
     model = SegResNetB0(in_channels=4, num_classes=4)
-    
-    if isinstance(checkpoint, dict) and "model_state_dict" in checkpoint:
-        model.load_state_dict(checkpoint["model_state_dict"])
+
+    if isinstance(checkpoint, dict) and "state_dict" in checkpoint:
+        model.load_state_dict(checkpoint["state_dict"])
     else:
+        # Fallback if someone saves just the raw state_dict without metadata
         model.load_state_dict(checkpoint)
-        
+
     model.eval()
 
     dummy_input = torch.randn(1, 4, 96, 96, 96)
@@ -34,13 +37,14 @@ def main():
         dummy_input,
         str(save_path),
         export_params=True,
-        opset_version=14,
+        opset_version=17,
         do_constant_folding=True,
         input_names=["input_volume"],
         output_names=["output_logits"],
-        dynamic_axes=None
+        dynamic_axes=None,
     )
     print(f"ONNX export successful! Saved to {save_path}")
+
 
 if __name__ == "__main__":
     main()
