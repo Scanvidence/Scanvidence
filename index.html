@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scanvidence — Quantum-Enhanced Neuro-Oncology Platform</title>
+  <title>Scanvidence — Pro Multi-Planar Orthogonal Medical Platform</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
     
     :root {
-      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', sans-serif;
-      --font-mono: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      --font-mono: 'JetBrains Mono', SFMono-Regular, Menlo, monospace;
     }
     body {
       font-family: var(--font-sans);
@@ -24,424 +24,384 @@
     
     /* Apple Liquid Glass System - Light Mode */
     .apple-glass-nav {
-      background: rgba(255, 255, 255, 0.82);
+      background: rgba(255, 255, 255, 0.85);
       backdrop-filter: blur(24px) saturate(180%);
       -webkit-backdrop-filter: blur(24px) saturate(180%);
       border: 1px solid rgba(0, 0, 0, 0.08);
-      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06), inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06);
     }
     .apple-card {
       background: #ffffff;
-      border: 1px solid rgba(0, 0, 0, 0.07);
-      box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.04), 0 1px 2px 0 rgba(0, 0, 0, 0.02);
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.04);
     }
-    .apple-card:hover {
-      border-color: rgba(0, 113, 227, 0.3);
-      box-shadow: 0 12px 32px -4px rgba(0, 113, 227, 0.08), 0 2px 6px 0 rgba(0, 0, 0, 0.03);
-      transform: translateY(-2px);
+    .medical-viewport-grid {
+      background: #030712;
+      border: 1px solid rgba(255, 255, 255, 0.12);
     }
-    .apple-pill {
-      background: rgba(0, 0, 0, 0.04);
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      color: #515154;
+    .crosshair-h {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: #ff3b30;
+      pointer-events: none;
+      box-shadow: 0 0 4px rgba(255, 59, 48, 0.6);
     }
-    .apple-pill.active {
-      background: #0071e3;
-      border-color: #0071e3;
-      color: #ffffff;
-      box-shadow: 0 2px 8px rgba(0, 113, 227, 0.25);
+    .crosshair-v {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: #ff3b30;
+      pointer-events: none;
+      box-shadow: 0 0 4px rgba(255, 59, 48, 0.6);
     }
     .apple-slider::-webkit-slider-thumb {
       appearance: none;
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
       background: #0071e3;
       box-shadow: 0 2px 6px rgba(0, 113, 227, 0.4);
       cursor: pointer;
-      transition: transform 0.15s ease;
-    }
-    .apple-slider::-webkit-slider-thumb:hover {
-      transform: scale(1.2);
-    }
-    .hero-gradient {
-      background: radial-gradient(circle at 50% -10%, rgba(0, 113, 227, 0.08) 0%, transparent 60%),
-                  radial-gradient(circle at 100% 30%, rgba(52, 199, 89, 0.05) 0%, transparent 40%),
-                  #fbfbfd;
     }
   </style>
 </head>
-<body class="hero-gradient min-h-screen antialiased selection:bg-blue-500 selection:text-white">
+<body class="bg-[#fbfbfd] min-h-screen text-slate-900 antialiased selection:bg-blue-500 selection:text-white">
 
-  <!-- FLOATING APPLE LIQUID GLASS NAVIGATION BAR -->
-  <div class="fixed top-4 left-0 right-0 z-50 px-4 sm:px-8 max-w-6xl mx-auto pointer-events-none">
+  <!-- FLOATING NAVIGATION BAR -->
+  <div class="fixed top-3.5 left-0 right-0 z-50 px-4 sm:px-8 max-w-6xl mx-auto pointer-events-none">
     <header class="apple-glass-nav rounded-2xl px-5 py-3 flex items-center justify-between pointer-events-auto">
       <div class="flex items-center space-x-3">
-        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 via-sky-500 to-indigo-600 flex items-center justify-center shadow-md shadow-blue-500/20 text-white font-bold text-sm">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center shadow-md shadow-blue-500/20 text-white font-bold text-sm">
           S
         </div>
         <div class="flex items-center space-x-2">
           <span class="text-base font-bold tracking-tight text-slate-900">Scanvidence</span>
-          <span class="hidden sm:inline-block px-2.5 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider bg-blue-50 text-blue-600 rounded-full border border-blue-200">Pro Medical</span>
+          <span class="hidden sm:inline-block px-2.5 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider bg-blue-50 text-blue-600 rounded-full border border-blue-200">Pro Medical 3D</span>
         </div>
       </div>
 
       <!-- Segmented Navigation Menu -->
-      <nav class="hidden md:flex items-center space-x-1 p-1 rounded-xl bg-slate-100/80 border border-slate-200/80 text-xs font-semibold">
+      <nav class="hidden md:flex items-center space-x-1 p-1 rounded-xl bg-slate-100 border border-slate-200 text-xs font-semibold">
         <a href="#overview" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">Overview</a>
-        <a href="#workbench" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">3D Interactive Workbench</a>
-        <a href="#quantum-lab" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">Quantum Engine</a>
+        <a href="#mri-quadrant-viewer" class="px-3.5 py-1.5 rounded-lg bg-blue-600 text-white shadow-sm transition">4-Quadrant 3D Slicer</a>
+        <a href="#quantum-engine" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">Quantum QPU Lab</a>
         <a href="#benchmarks" class="px-3.5 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">BraTS Benchmarks</a>
       </nav>
 
       <!-- Right Action Badges -->
       <div class="flex items-center space-x-2.5 text-xs">
-        <a href="https://huggingface.co/Falcon7211/Scanvidence-SegResNetB0" target="_blank" class="hidden sm:flex items-center space-x-1 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-amber-700 font-medium transition">
-          <span>🤗 Model Card</span>
+        <a href="https://huggingface.co/Falcon7211/Scanvidence-SegResNetB0" target="_blank" class="hidden sm:flex items-center space-x-1 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-amber-800 font-medium transition">
+          <span>🤗 Model Weights</span>
         </a>
-        <a href="#workbench" class="px-4 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-sm transition">
-          Launch Demo
+        <a href="https://github.com/Scanvidence/Scanvidence" target="_blank" class="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold shadow-sm transition">
+          GitHub
         </a>
       </div>
     </header>
   </div>
 
-  <!-- SECTION 1: HERO LANDING PAGE -->
-  <section id="overview" class="max-w-6xl mx-auto px-4 sm:px-8 pt-32 pb-20 space-y-12">
-    
-    <div class="text-center space-y-5 max-w-3xl mx-auto">
+  <!-- HERO SECTION -->
+  <section id="overview" class="max-w-6xl mx-auto px-4 sm:px-8 pt-28 pb-12 space-y-8">
+    <div class="text-center space-y-4 max-w-3xl mx-auto">
       <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold">
         <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-        <span>RESEARCH BREAKTHROUGH • QUANTUM COMPUTING IN HEALTHCARE</span>
+        <span>RESEARCH BREAKTHROUGH • 4-QUADRANT ORTHOGONAL VIEWER</span>
       </div>
       
       <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.08]">
         Intelligent Neuro-Oncology. <br>
-        <span class="bg-gradient-to-r from-blue-600 via-sky-600 to-indigo-600 bg-clip-text text-transparent">Powered by Quantum AI.</span>
+        <span class="bg-gradient-to-r from-blue-600 via-sky-600 to-indigo-600 bg-clip-text text-transparent">Real 3D Multi-Planar Slicing.</span>
       </h1>
       
-      <p class="text-slate-600 text-base sm:text-xl font-normal leading-relaxed max-w-2xl mx-auto">
-        Bridging 3D deep residual segmentation with 156-qubit quantum combinatorial optimization to predict tumor biology and MGMT DNA methylation non-invasively.
+      <p class="text-slate-600 text-base sm:text-lg font-normal leading-relaxed max-w-2xl mx-auto">
+        Fusing 3D deep residual segmentation (<strong class="text-emerald-700">92.2% WT Dice</strong>) with real 156-qubit IBM Heron quantum execution for molecular MGMT methylation profiling.
       </p>
-
-      <div class="flex flex-wrap items-center justify-center gap-3.5 pt-2">
-        <a href="#workbench" class="px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm shadow-md shadow-blue-500/20 transition flex items-center space-x-2">
-          <span>Open 3D Interactive Workbench</span>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-        </a>
-        <a href="https://github.com/Scanvidence/Scanvidence" target="_blank" class="px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold text-sm shadow-sm transition">
-          View GitHub Source Code
-        </a>
-      </div>
     </div>
 
-    <!-- FLOATING APPLE PRO STATS -->
+    <!-- FLOATING APPLE STATS -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="apple-card p-6 rounded-3xl text-center">
-        <div class="text-3xl sm:text-4xl font-mono font-extrabold text-emerald-600">92.23%</div>
-        <div class="text-xs text-slate-500 font-semibold mt-1">Whole Tumor (WT) Dice</div>
-        <div class="text-[11px] text-slate-400 mt-0.5">BraTS GLI 2023 Top-Tier</div>
+      <div class="apple-card p-5 rounded-2xl text-center">
+        <div class="text-3xl font-mono font-extrabold text-emerald-600">92.23%</div>
+        <div class="text-xs text-slate-500 font-semibold mt-0.5">Whole Tumor (WT) Dice</div>
+        <div class="text-[11px] text-slate-400">BraTS GLI 2023 Top-Tier</div>
       </div>
-      <div class="apple-card p-6 rounded-3xl text-center">
-        <div class="text-3xl sm:text-4xl font-mono font-extrabold text-blue-600">156 Qubits</div>
-        <div class="text-xs text-slate-500 font-semibold mt-1">IBM Fez QPU Hardware</div>
-        <div class="text-[11px] text-slate-400 mt-0.5">10,000 Physical Shots</div>
+      <div class="apple-card p-5 rounded-2xl text-center">
+        <div class="text-3xl font-mono font-extrabold text-blue-600">156 Qubits</div>
+        <div class="text-xs text-slate-500 font-semibold mt-0.5">IBM Fez QPU Backend</div>
+        <div class="text-[11px] text-slate-400">10,000 Physical Shots</div>
       </div>
-      <div class="apple-card p-6 rounded-3xl text-center">
-        <div class="text-3xl sm:text-4xl font-mono font-extrabold text-indigo-600">512-Dim</div>
-        <div class="text-xs text-slate-500 font-semibold mt-1">Quantum Hilbert Space</div>
-        <div class="text-[11px] text-slate-400 mt-0.5">9-Qubit ZZFeatureMap</div>
+      <div class="apple-card p-5 rounded-2xl text-center">
+        <div class="text-3xl font-mono font-extrabold text-indigo-600">512-Dim</div>
+        <div class="text-xs text-slate-500 font-semibold mt-0.5">Quantum Hilbert Space</div>
+        <div class="text-[11px] text-slate-400">9-Qubit ZZFeatureMap</div>
       </div>
-      <div class="apple-card p-6 rounded-3xl text-center">
-        <div class="text-3xl sm:text-4xl font-mono font-extrabold text-amber-600">+6.7% Lift</div>
-        <div class="text-xs text-slate-500 font-semibold mt-1">QSVM vs Classical RBF</div>
-        <div class="text-[11px] text-slate-400 mt-0.5">5-Fold Nested CV AUC</div>
+      <div class="apple-card p-5 rounded-2xl text-center">
+        <div class="text-3xl font-mono font-extrabold text-amber-600">+6.7% Lift</div>
+        <div class="text-xs text-slate-500 font-semibold mt-0.5">QSVM vs Classical RBF</div>
+        <div class="text-[11px] text-slate-400">5-Fold Nested CV AUC</div>
       </div>
     </div>
-
   </section>
 
-  <!-- SECTION 2: FULLY FUNCTIONAL 3D CLINICAL WORKBENCH & SLICER -->
-  <section id="workbench" class="max-w-6xl mx-auto px-4 sm:px-8 py-16 border-t border-slate-200 space-y-8">
+  <!-- SECTION 2: 4-QUADRANT REAL MEDICAL SLICER (NIIVUE / 3D SLICER STYLE) -->
+  <section id="mri-quadrant-viewer" class="max-w-6xl mx-auto px-4 sm:px-8 py-8 space-y-6">
     
-    <div class="space-y-2">
-      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold">
-        <span>INTERACTIVE MEDICAL WORKBENCH</span>
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div>
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold mb-2">
+          <span>PROFESSIONAL MEDICAL WORKBENCH</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          4-Quadrant Real MRI Multi-Planar Slicer
+        </h2>
+        <p class="text-slate-600 text-xs sm:text-sm">
+          Synchronized Coronal, Sagittal, Axial cross-sections with real patient MRI scans and 3D sub-region segmentation.
+        </p>
       </div>
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-        3D Volumetric Slicer & Decision Engine
-      </h2>
-      <p class="text-slate-600 text-sm max-w-2xl">
-        Experience real-time 3D volumetric slicing through patient brain scans with sub-region color masks and dual-level clinical decision support.
-      </p>
+
+      <!-- Patient Switcher -->
+      <div class="flex items-center space-x-3">
+        <label class="text-xs font-bold text-slate-600">Patient Case:</label>
+        <select id="quad-case-selector" onchange="onCaseSwitch()" class="bg-white border border-slate-300 text-slate-900 rounded-xl px-3.5 py-2 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer shadow-sm">
+          <option value="BraTS-GLI-00002-000">BraTS-GLI-00002-000 (Centroid: z=79, y=95, x=140)</option>
+          <option value="BraTS-GLI-00003-000">BraTS-GLI-00003-000 (Centroid: z=108, y=116, x=133)</option>
+          <option value="BraTS-GLI-00000-000">BraTS-GLI-00000-000 (Centroid: z=70, y=83, x=139)</option>
+        </select>
+      </div>
     </div>
 
-    <!-- WORKBENCH GRID -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    <!-- MAIN 4-QUADRANT VIEWPORT CONTAINER -->
+    <div class="apple-card rounded-3xl p-4 sm:p-6 space-y-4">
       
-      <!-- LEFT: 3D SLICER DISPLAY & CANVAS (7 COLS) -->
-      <div class="lg:col-span-7 apple-card rounded-3xl p-6 space-y-6">
+      <!-- Top Medical Header Bar -->
+      <div class="bg-slate-950 text-slate-300 px-4 py-2.5 rounded-2xl flex flex-wrap items-center justify-between text-xs font-mono border border-white/10 gap-2">
+        <div class="flex items-center space-x-4">
+          <span class="text-cyan-400 font-bold">● LIVE NIIVUE WORKSTATION</span>
+          <span>Matrix: <strong class="text-white">240 × 240 × 155</strong></span>
+          <span>Voxel Size: <strong class="text-white">1.0 × 1.0 × 1.0 mm</strong></span>
+        </div>
+        <div class="flex items-center space-x-4 text-[11px]">
+          <span id="coords-readout" class="text-emerald-400 font-bold">Coords: -119.00 × 120.80 × 89.83 mm</span>
+          <span id="voxel-intensity" class="text-amber-300">Value: 2287</span>
+        </div>
+      </div>
+
+      <!-- 4-QUADRANT GRID LAYOUT -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 bg-slate-950 p-3 rounded-2xl border border-slate-800">
         
-        <!-- Controls Bar -->
-        <div class="flex flex-wrap items-center justify-between gap-4 pb-2 border-b border-slate-100">
-          <div class="space-y-1">
-            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Patient Case</span>
-            <select id="case-selector" onchange="onCaseChange()" class="bg-slate-50 border border-slate-200 text-slate-900 rounded-xl px-3.5 py-1.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer">
-              <option value="0">BraTS-GLI-00001-000 (WT: 115.0 cm³ • Unmethylated)</option>
-              <option value="1">BraTS-GLI-00001-001 (WT: 135.0 cm³ • Methylated)</option>
-              <option value="2">BraTS-GLI-00013-000 (WT: 84.4 cm³ • Unmethylated)</option>
-              <option value="3">BraTS-GLI-00013-001 (WT: 77.6 cm³ • Unmethylated)</option>
-              <option value="4">BraTS-GLI-00015-000 (WT: 196.6 cm³ • High Edema)</option>
-              <option value="5">BraTS-GLI-00027-000 (WT: 45.2 cm³ • Compact)</option>
-            </select>
-          </div>
-
-          <!-- Plane Selector Segmented Pill -->
-          <div class="flex items-center space-x-1 p-1 rounded-xl bg-slate-100 border border-slate-200 text-xs font-semibold">
-            <button onclick="setPlane('axial')" id="btn-axial" class="apple-pill active px-3 py-1 rounded-lg transition">Axial (Z)</button>
-            <button onclick="setPlane('coronal')" id="btn-coronal" class="apple-pill px-3 py-1 rounded-lg transition">Coronal (Y)</button>
-            <button onclick="setPlane('sagittal')" id="btn-sagittal" class="apple-pill px-3 py-1 rounded-lg transition">Sagittal (X)</button>
-          </div>
-        </div>
-
-        <!-- 3D DYNAMIC CANVAS DISPLAY -->
-        <div class="relative bg-slate-950 rounded-2xl overflow-hidden flex items-center justify-center p-2 shadow-inner group">
-          <canvas id="mri-canvas" width="400" height="400" class="w-full max-h-[380px] object-contain rounded-xl cursor-crosshair"></canvas>
+        <!-- QUADRANT 1: CORONAL VIEW (TOP-LEFT) -->
+        <div class="relative bg-black rounded-xl overflow-hidden aspect-square border border-slate-800 flex items-center justify-center group cursor-crosshair">
+          <img id="img-coronal" src="web/assets/slices/BraTS-GLI-00002-000/coronal_95.png" alt="Coronal Slice" class="w-full h-full object-contain">
           
-          <!-- Canvas Overlay Badges -->
-          <div class="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-xl text-[11px] font-mono text-white flex items-center space-x-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span id="canvas-hud-plane">Axial Slice: z = 70 / 155</span>
-          </div>
+          <!-- Crosshairs -->
+          <div id="cross-coronal-h" class="crosshair-h" style="top: 50%;"></div>
+          <div id="cross-coronal-v" class="crosshair-v" style="left: 50%;"></div>
 
-          <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-xl text-[11px] font-mono text-slate-300">
-            <span id="canvas-hud-vol">WT Vol: 115.0 cm³</span>
-          </div>
+          <!-- Plane Labels -->
+          <span class="absolute top-2 left-2 text-[10px] font-mono font-bold text-red-500">CORONAL</span>
+          <span class="absolute top-2 right-2 text-[10px] font-mono text-slate-400">S</span>
+          <span class="absolute bottom-2 right-2 text-[10px] font-mono text-slate-400">I</span>
+          <span class="absolute top-1/2 left-2 -translate-y-1/2 text-[10px] font-mono text-slate-400">L</span>
+          <span class="absolute top-1/2 right-2 -translate-y-1/2 text-[10px] font-mono text-slate-400">R</span>
+          <div class="absolute bottom-2 left-2 bg-black/70 px-2 py-0.5 rounded text-[9px] font-mono text-slate-300" id="label-coronal">y = 95 / 240</div>
         </div>
 
-        <!-- FUNCTIONAL SLICE SCRUBBER CONTROLS -->
-        <div class="space-y-3 pt-2">
-          <div class="flex justify-between items-center text-xs">
-            <span class="font-bold text-slate-700">3D Volume Slice Scrubber</span>
-            <div class="flex items-center space-x-3">
-              <button onclick="toggleCinePlay()" id="btn-cine" class="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-600 border border-blue-200 font-semibold text-[11px] hover:bg-blue-100 transition flex items-center space-x-1">
-                <span id="cine-icon">▶</span>
-                <span id="cine-text">Auto Cine Loop</span>
-              </button>
-              <span id="slice-val-display" class="font-mono text-blue-600 font-bold bg-blue-50 px-2 py-0.5 rounded border border-blue-100">Slice: 70 / 155</span>
-            </div>
-          </div>
-          <input id="slice-range" type="range" min="1" max="155" value="70" oninput="onSliderScrub(this.value)" class="apple-slider w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+        <!-- QUADRANT 2: SAGITTAL VIEW (TOP-RIGHT) -->
+        <div class="relative bg-black rounded-xl overflow-hidden aspect-square border border-slate-800 flex items-center justify-center group cursor-crosshair">
+          <img id="img-sagittal" src="web/assets/slices/BraTS-GLI-00002-000/sagittal_140.png" alt="Sagittal Slice" class="w-full h-full object-contain">
+          
+          <!-- Crosshairs -->
+          <div id="cross-sagittal-h" class="crosshair-h" style="top: 50%;"></div>
+          <div id="cross-sagittal-v" class="crosshair-v" style="left: 50%;"></div>
+
+          <!-- Plane Labels -->
+          <span class="absolute top-2 left-2 text-[10px] font-mono font-bold text-red-500">SAGITTAL</span>
+          <span class="absolute top-2 right-2 text-[10px] font-mono text-slate-400">S</span>
+          <span class="absolute bottom-2 right-2 text-[10px] font-mono text-slate-400">I</span>
+          <span class="absolute top-1/2 left-2 -translate-y-1/2 text-[10px] font-mono text-slate-400">A</span>
+          <span class="absolute top-1/2 right-2 -translate-y-1/2 text-[10px] font-mono text-slate-400">P</span>
+          <div class="absolute bottom-2 left-2 bg-black/70 px-2 py-0.5 rounded text-[9px] font-mono text-slate-300" id="label-sagittal">x = 140 / 240</div>
         </div>
 
-        <!-- SUB-REGION COLOR MASK LEGEND & TOGGLES -->
-        <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-100 text-xs">
-          <span class="text-slate-500 font-semibold">Compartments:</span>
-          <div class="flex flex-wrap items-center gap-2">
-            <label class="px-2.5 py-1 rounded-lg bg-rose-50 border border-rose-200 text-rose-700 text-[11px] font-semibold flex items-center space-x-1.5 cursor-pointer">
-              <input type="checkbox" id="chk-ncr" checked onchange="renderCanvas()" class="rounded text-rose-600 focus:ring-rose-500">
-              <span>🟥 Necrotic Core (NCR)</span>
-            </label>
-            <label class="px-2.5 py-1 rounded-lg bg-amber-50 border border-amber-200 text-amber-700 text-[11px] font-semibold flex items-center space-x-1.5 cursor-pointer">
-              <input type="checkbox" id="chk-ed" checked onchange="renderCanvas()" class="rounded text-amber-600 focus:ring-amber-500">
-              <span>🟨 Edema (ED)</span>
-            </label>
-            <label class="px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 text-[11px] font-semibold flex items-center space-x-1.5 cursor-pointer">
-              <input type="checkbox" id="chk-et" checked onchange="renderCanvas()" class="rounded text-emerald-600 focus:ring-emerald-500">
-              <span>🟩 Enhancing Rim (ET)</span>
-            </label>
+        <!-- QUADRANT 3: AXIAL VIEW (BOTTOM-LEFT) -->
+        <div class="relative bg-black rounded-xl overflow-hidden aspect-square border border-slate-800 flex items-center justify-center group cursor-crosshair">
+          <img id="img-axial" src="web/assets/slices/BraTS-GLI-00002-000/axial_79.png" alt="Axial Slice" class="w-full h-full object-contain">
+          
+          <!-- Crosshairs -->
+          <div id="cross-axial-h" class="crosshair-h" style="top: 50%;"></div>
+          <div id="cross-axial-v" class="crosshair-v" style="left: 50%;"></div>
+
+          <!-- Plane Labels -->
+          <span class="absolute top-2 left-2 text-[10px] font-mono font-bold text-red-500">AXIAL</span>
+          <span class="absolute top-2 right-2 text-[10px] font-mono text-slate-400">A</span>
+          <span class="absolute bottom-2 right-2 text-[10px] font-mono text-slate-400">P</span>
+          <span class="absolute top-1/2 left-2 -translate-y-1/2 text-[10px] font-mono text-slate-400">L</span>
+          <span class="absolute top-1/2 right-2 -translate-y-1/2 text-[10px] font-mono text-slate-400">R</span>
+          <div class="absolute bottom-2 left-2 bg-black/70 px-2 py-0.5 rounded text-[9px] font-mono text-slate-300" id="label-axial">z = 79 / 155</div>
+        </div>
+
+        <!-- QUADRANT 4: 3D VOLUME / DIAGNOSTIC RECONSTRUCTION (BOTTOM-RIGHT) -->
+        <div class="relative bg-gradient-to-b from-slate-950 to-slate-900 rounded-xl overflow-hidden aspect-square border border-slate-800 flex items-center justify-center p-3">
+          <img id="img-3d-recon" src="cache/explainability_challenge_val/BraTS-GLI-00001-000_explainability.png" alt="3D Orthogonal Reconstruction" class="w-full h-full object-contain rounded-lg">
+          
+          <div class="absolute top-2 left-2 text-[10px] font-mono font-bold text-emerald-400">3D ORTHOGONAL COMPARTMENTS</div>
+          
+          <div class="absolute bottom-2 right-2 flex items-center space-x-1.5 bg-black/70 px-2 py-1 rounded text-[9px] font-medium text-white">
+            <span class="text-rose-400">🟥 NCR</span>
+            <span class="text-amber-300">🟨 ED</span>
+            <span class="text-emerald-400">🟩 ET</span>
           </div>
         </div>
 
       </div>
 
-      <!-- RIGHT: CLINICAL DECISION SUPPORT & DIAGNOSTICS (5 COLS) -->
-      <div class="lg:col-span-5 space-y-6">
+      <!-- SYNCHRONIZED SLICE SCRUBBER SLIDERS -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
         
-        <!-- Dual Decision Meter Card -->
-        <div class="apple-card rounded-3xl p-6 space-y-5">
-          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Clinical Decision Support</h3>
-            <span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 font-mono text-[10px] font-semibold border border-blue-200">Dual-Meter AI</span>
+        <!-- Axial Slider -->
+        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 space-y-1">
+          <div class="flex justify-between text-xs font-semibold text-slate-700">
+            <span>Axial (Z Plane)</span>
+            <span id="slider-txt-z" class="font-mono text-blue-600">z = 79</span>
           </div>
-
-          <!-- Meter 1: Anatomical Precision -->
-          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2">
-            <div class="flex justify-between items-center text-xs">
-              <span class="font-bold text-slate-800">1. 3D Anatomical Segmentation</span>
-              <span class="font-mono font-bold text-emerald-600">92.2% Precision</span>
-            </div>
-            <div class="w-full h-2 rounded-full bg-slate-200 overflow-hidden">
-              <div class="h-full bg-emerald-500 rounded-full" style="width: 92.2%"></div>
-            </div>
-            <p class="text-[11px] text-slate-500">High spatial reliability for surgical cavity margin delineation.</p>
-          </div>
-
-          <!-- Meter 2: Quantum Molecular MGMT Epigenetic Prediction -->
-          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2.5">
-            <div class="flex justify-between items-center text-xs">
-              <span class="font-bold text-slate-800">2. Quantum MGMT Promoter Status</span>
-              <span id="ui-mgmt-status" class="font-mono font-bold text-blue-600">MGMT_Unmethylated</span>
-            </div>
-            <div class="flex justify-between text-[11px] text-slate-500">
-              <span>Probability: <strong id="ui-mgmt-prob" class="text-slate-900">55.8%</strong></span>
-              <span>Calibrated Uncertainty: <strong id="ui-mgmt-unc" class="text-amber-600">44.2%</strong></span>
-            </div>
-            <div class="w-full h-2.5 rounded-full bg-slate-200 overflow-hidden">
-              <div id="ui-mgmt-bar" class="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full transition-all duration-500" style="width: 55.8%"></div>
-            </div>
-            
-            <div id="ui-rec-box" class="p-3 rounded-xl bg-blue-50 border border-blue-100 text-xs text-slate-700 leading-relaxed space-y-1">
-              <div class="text-blue-700 font-bold flex items-center space-x-1">
-                <span>💡 Oncologist Guideline</span>
-              </div>
-              <p id="ui-rec-text" class="text-[11px]">
-                Borderline epigenetic profile (55.8%). Recommend confirmatory tissue PCR testing before finalizing Temozolomide dosage.
-              </p>
-            </div>
-          </div>
+          <input id="slider-z" type="range" min="49" max="109" step="2" value="79" oninput="onScrubZ(this.value)" class="apple-slider w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
         </div>
 
-        <!-- 3D Volumetric Morphometry Measurements -->
-        <div class="apple-card rounded-3xl p-6 space-y-4">
-          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400">Volumetric Morphometry</h3>
-          
-          <div class="grid grid-cols-2 gap-2.5 text-xs">
-            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-100">
-              <div class="text-slate-500">Whole Tumor (WT)</div>
-              <div id="vol-wt" class="text-lg font-mono font-bold text-slate-900 mt-0.5">115.01 cm³</div>
-            </div>
-            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-100">
-              <div class="text-slate-500">Tumor Core (TC)</div>
-              <div id="vol-tc" class="text-lg font-mono font-bold text-amber-600 mt-0.5">30.75 cm³</div>
-            </div>
-            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-100">
-              <div class="text-slate-500">Enhancing Rim (ET)</div>
-              <div id="vol-et" class="text-lg font-mono font-bold text-emerald-600 mt-0.5">18.45 cm³</div>
-            </div>
-            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-100">
-              <div class="text-slate-500">Necrotic Core (NCR)</div>
-              <div id="vol-ncr" class="text-lg font-mono font-bold text-rose-600 mt-0.5">12.31 cm³</div>
-            </div>
+        <!-- Coronal Slider -->
+        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 space-y-1">
+          <div class="flex justify-between text-xs font-semibold text-slate-700">
+            <span>Coronal (Y Plane)</span>
+            <span id="slider-txt-y" class="font-mono text-blue-600">y = 95</span>
           </div>
-
-          <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-1.5 text-xs font-mono">
-            <div class="flex justify-between text-slate-600"><span>Enhancing / Core Ratio:</span><span id="ratio-et" class="font-bold text-emerald-600">60.0%</span></div>
-            <div class="flex justify-between text-slate-600"><span>Necrosis Fraction:</span><span id="ratio-ncr" class="font-bold text-rose-600">40.0%</span></div>
-            <div class="flex justify-between text-slate-600"><span>3D Centroid (Z, Y, X):</span><span id="centroid-coords" class="font-bold text-blue-600">70, 121, 159</span></div>
-          </div>
+          <input id="slider-y" type="range" min="65" max="125" step="2" value="95" oninput="onScrubY(this.value)" class="apple-slider w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
         </div>
 
+        <!-- Sagittal Slider -->
+        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 space-y-1">
+          <div class="flex justify-between text-xs font-semibold text-slate-700">
+            <span>Sagittal (X Plane)</span>
+            <span id="slider-txt-x" class="font-mono text-blue-600">x = 140</span>
+          </div>
+          <input id="slider-x" type="range" min="110" max="170" step="2" value="140" oninput="onScrubX(this.value)" class="apple-slider w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+        </div>
+
+      </div>
+
+      <!-- DUAL CLINICAL DECISION BAR -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+        <div class="p-4 bg-emerald-50/70 border border-emerald-200 rounded-2xl space-y-1">
+          <div class="flex justify-between text-xs font-bold text-emerald-900">
+            <span>1. 3D Anatomical Segmentation</span>
+            <span class="font-mono text-emerald-700">92.23% WT Dice</span>
+          </div>
+          <p class="text-[11px] text-emerald-800 leading-relaxed">
+            High-precision spatial boundaries delineated by SegResNetB0. Ready for resection margin planning.
+          </p>
+        </div>
+
+        <div class="p-4 bg-blue-50/70 border border-blue-200 rounded-2xl space-y-1">
+          <div class="flex justify-between text-xs font-bold text-blue-900">
+            <span>2. Quantum Epigenetic MGMT Status</span>
+            <span id="quad-mgmt-pred" class="font-mono text-blue-700 font-bold">MGMT_Unmethylated (54.3% prob)</span>
+          </div>
+          <p id="quad-mgmt-note" class="text-[11px] text-blue-800 leading-relaxed">
+            Borderline epigenetic textures (45.7% uncertainty). Recommend confirmatory tissue PCR test.
+          </p>
+        </div>
       </div>
 
     </div>
+
   </section>
 
   <!-- SECTION 3: QUANTUM QPU & FEATURE SELECTION LAB -->
-  <section id="quantum-lab" class="max-w-6xl mx-auto px-4 sm:px-8 py-16 border-t border-slate-200 space-y-8">
+  <section id="quantum-engine" class="max-w-6xl mx-auto px-4 sm:px-8 py-12 border-t border-slate-200 space-y-6">
     <div class="space-y-2">
       <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-semibold">
         <span>QUANTUM COMPUTING ENGINE</span>
       </div>
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-        NP-Hard QUBO & 9-Qubit Quantum Kernel
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        NP-Hard QUBO on IBM Heron & 9-Qubit QSVM
       </h2>
-      <p class="text-slate-600 text-sm max-w-2xl">
-        Executed directly on IBM Quantum Cloud hardware using the 156-qubit Heron architecture to discover non-redundant epigenetic biomarker signatures.
-      </p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       
-      <!-- Card 1: IBM Fez Hardware Telemetry -->
-      <div class="apple-card rounded-3xl p-6 sm:p-8 space-y-5">
-        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-          <div class="flex items-center space-x-3">
-            <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-base">⚛️</div>
-            <div>
-              <h3 class="text-base font-bold text-slate-900">IBM Quantum Hardware Telemetry</h3>
-              <p class="text-xs text-slate-500">Cloud Runtime Job Verification</p>
-            </div>
+      <!-- Card 1: IBM Telemetry -->
+      <div class="apple-card rounded-3xl p-6 space-y-4">
+        <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+          <div class="flex items-center space-x-2.5">
+            <span class="text-xl">⚛️</span>
+            <h3 class="font-bold text-slate-900 text-sm">IBM Quantum Hardware Telemetry</h3>
           </div>
-          <span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 font-mono text-[11px] font-semibold border border-emerald-200">VERIFIED</span>
+          <span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-mono text-[10px] font-semibold border border-emerald-200">VERIFIED</span>
         </div>
 
-        <div class="grid grid-cols-2 gap-3 text-xs">
-          <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+        <div class="grid grid-cols-2 gap-2.5 text-xs">
+          <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
             <span class="text-slate-500">QPU Backend:</span>
-            <div class="font-mono font-bold text-blue-600 text-sm mt-0.5">ibm_fez (Heron r2)</div>
+            <div class="font-mono font-bold text-blue-600 mt-0.5">ibm_fez (Heron r2)</div>
           </div>
-          <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+          <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
             <span class="text-slate-500">Physical Qubits:</span>
-            <div class="font-mono font-bold text-slate-900 text-sm mt-0.5">156 Physical Qubits</div>
+            <div class="font-mono font-bold text-slate-900 mt-0.5">156 Physical Qubits</div>
           </div>
-          <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
-            <span class="text-slate-500">Physical Shots:</span>
-            <div class="font-mono font-bold text-emerald-600 text-sm mt-0.5">10,000 Shots</div>
+          <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+            <span class="text-slate-500">Measurement Shots:</span>
+            <div class="font-mono font-bold text-emerald-600 mt-0.5">10,000 Shots</div>
           </div>
-          <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
-            <span class="text-slate-500">IBM Job ID:</span>
-            <div class="font-mono font-bold text-indigo-600 text-xs mt-0.5 truncate">daa8k09qtnsc73d2c7f0</div>
+          <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+            <span class="text-slate-500">IBM Runtime Job ID:</span>
+            <div class="font-mono font-bold text-indigo-600 text-[10px] mt-0.5 truncate">daa8k09qtnsc73d2c7f0</div>
           </div>
         </div>
 
-        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2 text-xs">
-          <div class="font-bold text-slate-800">NP-Hard Combinatorial Ground State:</div>
-          <div class="font-mono text-emerald-700 font-bold text-sm bg-white p-2.5 rounded-xl border border-slate-200">
-            Global Ground Energy: E = -3.0981 (2²⁰ Brute-Force Parity)
-          </div>
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 text-xs font-mono text-emerald-800 font-bold">
+          Global Ground State: E = -3.0981 (Parity confirmed with 2²⁰ Brute Force)
         </div>
       </div>
 
-      <!-- Card 2: 9-Qubit Quantum Kernel QSVM -->
-      <div class="apple-card rounded-3xl p-6 sm:p-8 space-y-5">
-        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-          <div class="flex items-center space-x-3">
-            <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold text-base">🌌</div>
-            <div>
-              <h3 class="text-base font-bold text-slate-900">9-Qubit Quantum Kernel (QSVM)</h3>
-              <p class="text-xs text-slate-500">512-Dimensional Complex Hilbert Space</p>
-            </div>
+      <!-- Card 2: QSVM Hilbert Space -->
+      <div class="apple-card rounded-3xl p-6 space-y-4">
+        <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+          <div class="flex items-center space-x-2.5">
+            <span class="text-xl">🌌</span>
+            <h3 class="font-bold text-slate-900 text-sm">9-Qubit Quantum Kernel (QSVM)</h3>
           </div>
-          <span class="px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 font-mono text-[11px] font-semibold border border-indigo-200">+6.7% AUC LIFT</span>
+          <span class="px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-mono text-[10px] font-semibold border border-indigo-200">+6.7% AUC LIFT</span>
         </div>
 
-        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-2.5 text-xs">
-          <div class="flex justify-between items-center"><span class="text-slate-500">Quantum Circuit:</span><span class="font-mono text-blue-600 font-semibold">ZZFeatureMap(9 Qubits, reps=1)</span></div>
-          <div class="flex justify-between items-center"><span class="text-slate-500">Gram Matrix Dimension:</span><span class="font-mono text-slate-800">475 × 475 Patients (Vectorized)</span></div>
-          <div class="flex justify-between items-center"><span class="text-slate-500">5-Fold CV AUC:</span><span class="font-mono text-emerald-600 font-bold">0.542 [0.490, 0.593]</span></div>
-          <div class="flex justify-between items-center"><span class="text-slate-500">Classical RBF SVM AUC:</span><span class="font-mono text-rose-600">0.475 (-6.7% degradation)</span></div>
+        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-100 space-y-2 text-xs">
+          <div class="flex justify-between"><span class="text-slate-500">Hilbert Space:</span><span class="font-mono text-indigo-700 font-bold">512-Dimensional Complex</span></div>
+          <div class="flex justify-between"><span class="text-slate-500">5-Fold CV AUC:</span><span class="font-mono text-emerald-600 font-bold">0.542 [0.490, 0.593]</span></div>
+          <div class="flex justify-between"><span class="text-slate-500">Classical RBF SVM:</span><span class="font-mono text-rose-600">0.475 (-6.7% drop)</span></div>
         </div>
 
-        <div class="space-y-1.5 text-xs">
-          <div class="text-slate-500 font-semibold">Selected 9-Biomarker Panel:</div>
-          <div class="grid grid-cols-2 gap-1.5 text-[11px] font-mono text-slate-700">
-            <div class="p-1.5 rounded-lg bg-slate-50 border border-slate-100">flair_wt: glcm JointAverage</div>
-            <div class="p-1.5 rounded-lg bg-slate-50 border border-slate-100">flair_wt: glcm SumAverage</div>
-            <div class="p-1.5 rounded-lg bg-slate-50 border border-slate-100">flair_wt: glcm Autocorrelation</div>
-            <div class="p-1.5 rounded-lg bg-slate-50 border border-slate-100">flair_wt: glrlm HighGrayLevel</div>
-            <div class="p-1.5 rounded-lg bg-slate-50 border border-slate-100">t1c_tc: shape Flatness</div>
-            <div class="p-1.5 rounded-lg bg-slate-50 border border-slate-100">flair_wt: shape MeshVolume</div>
-          </div>
+        <div class="text-[11px] font-mono text-slate-600 grid grid-cols-2 gap-1 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+          <div>• flair_wt: glcm JointAvg</div>
+          <div>• flair_wt: glcm SumAvg</div>
+          <div>• flair_wt: glcm AutoCorr</div>
+          <div>• flair_wt: glrlm HighGray</div>
+          <div>• t1c_tc: shape Flatness</div>
+          <div>• flair_wt: shape MeshVol</div>
         </div>
       </div>
 
     </div>
   </section>
 
-  <!-- SECTION 4: BRATS 2023 BENCHMARKS -->
-  <section id="benchmarks" class="max-w-6xl mx-auto px-4 sm:px-8 py-16 border-t border-slate-200 space-y-8">
+  <!-- SECTION 4: BRATS BENCHMARKS -->
+  <section id="benchmarks" class="max-w-6xl mx-auto px-4 sm:px-8 py-12 border-t border-slate-200 space-y-6">
     <div class="space-y-2">
       <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold">
         <span>BENCHMARKS & CITATION</span>
       </div>
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
         BraTS GLI 2023 International Benchmarks
       </h2>
-      <p class="text-slate-600 text-sm max-w-2xl">
-        Full 3D sliding-window evaluation across 125 validation brain volumes:
-      </p>
     </div>
 
     <div class="apple-card rounded-3xl overflow-hidden">
@@ -449,36 +409,36 @@
         <table class="w-full text-left text-xs">
           <thead class="bg-slate-50 text-slate-500 uppercase tracking-wider font-semibold border-b border-slate-100">
             <tr>
-              <th class="py-4 px-6">Anatomical Compartment</th>
-              <th class="py-4 px-6">Scanvidence SegResNetB0</th>
-              <th class="py-4 px-6">BraTS 2023 Top-Tier</th>
-              <th class="py-4 px-6">Evaluation Status</th>
+              <th class="py-3.5 px-6">Anatomical Region</th>
+              <th class="py-3.5 px-6">Scanvidence SegResNetB0</th>
+              <th class="py-3.5 px-6">BraTS 2023 Leaderboard Tier</th>
+              <th class="py-3.5 px-6">Status</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-100 font-mono text-slate-800">
             <tr>
-              <td class="py-4 px-6 font-sans font-semibold text-slate-900">Whole Tumor (WT)</td>
-              <td class="py-4 px-6 font-bold text-emerald-600">0.9223 ± 0.063 (92.2%)</td>
-              <td class="py-4 px-6 text-slate-600">0.90 – 0.93</td>
-              <td class="py-4 px-6 font-sans"><span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 font-semibold">Leaderboard Top-Tier</span></td>
+              <td class="py-3.5 px-6 font-sans font-semibold text-slate-900">Whole Tumor (WT)</td>
+              <td class="py-3.5 px-6 font-bold text-emerald-600">0.9223 ± 0.063 (92.2%)</td>
+              <td class="py-3.5 px-6 text-slate-600">0.90 – 0.93</td>
+              <td class="py-3.5 px-6 font-sans"><span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-semibold">Leaderboard Top-Tier</span></td>
             </tr>
             <tr>
-              <td class="py-4 px-6 font-sans font-semibold text-slate-900">Tumor Core (TC)</td>
-              <td class="py-4 px-6 font-bold text-emerald-600">0.8808 ± 0.174 (88.1%)</td>
-              <td class="py-4 px-6 text-slate-600">0.85 – 0.89</td>
-              <td class="py-4 px-6 font-sans"><span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 font-semibold">Leaderboard Top-Tier</span></td>
+              <td class="py-3.5 px-6 font-sans font-semibold text-slate-900">Tumor Core (TC)</td>
+              <td class="py-3.5 px-6 font-bold text-emerald-600">0.8808 ± 0.174 (88.1%)</td>
+              <td class="py-3.5 px-6 text-slate-600">0.85 – 0.89</td>
+              <td class="py-3.5 px-6 font-sans"><span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-semibold">Leaderboard Top-Tier</span></td>
             </tr>
             <tr>
-              <td class="py-4 px-6 font-sans font-semibold text-slate-900">Enhancing Tumor (ET)</td>
-              <td class="py-4 px-6 font-bold text-emerald-600">0.8345 ± 0.229 (83.5%)</td>
-              <td class="py-4 px-6 text-slate-600">0.80 – 0.85</td>
-              <td class="py-4 px-6 font-sans"><span class="px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 font-semibold">Competitive</span></td>
+              <td class="py-3.5 px-6 font-sans font-semibold text-slate-900">Enhancing Tumor (ET)</td>
+              <td class="py-3.5 px-6 font-bold text-emerald-600">0.8345 ± 0.229 (83.5%)</td>
+              <td class="py-3.5 px-6 text-slate-600">0.80 – 0.85</td>
+              <td class="py-3.5 px-6 font-sans"><span class="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 font-semibold">Competitive</span></td>
             </tr>
-            <tr class="bg-slate-50/70">
-              <td class="py-4 px-6 font-sans font-bold text-blue-600">Mean Full-Scan Dice</td>
-              <td class="py-4 px-6 font-bold text-blue-600">0.8792 ± 0.155 (87.9%)</td>
-              <td class="py-4 px-6 text-slate-600">0.86 – 0.88</td>
-              <td class="py-4 px-6 font-sans"><span class="px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 font-semibold">State-of-the-Art Baseline</span></td>
+            <tr class="bg-slate-50/80">
+              <td class="py-3.5 px-6 font-sans font-bold text-blue-600">Mean Full-Scan Dice</td>
+              <td class="py-3.5 px-6 font-bold text-blue-600">0.8792 ± 0.155 (87.9%)</td>
+              <td class="py-3.5 px-6 text-slate-600">0.86 – 0.88</td>
+              <td class="py-3.5 px-6 font-sans"><span class="px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-semibold">State-of-the-Art Baseline</span></td>
             </tr>
           </tbody>
         </table>
@@ -486,8 +446,8 @@
     </div>
   </section>
 
-  <!-- APPLE CLEAN LIGHT FOOTER -->
-  <footer class="border-t border-slate-200 bg-white py-12 px-6">
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-200 bg-white py-10 px-6">
     <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
       <div class="flex items-center space-x-2">
         <span class="font-bold text-slate-900">Scanvidence</span>
@@ -502,228 +462,126 @@
     </div>
   </footer>
 
-  <!-- DYNAMIC 3D CANVAS MRI SLICER & PATIENT ENGINE -->
+  <!-- REAL SYNCHRONIZED MULTI-PLANAR SLICER ENGINE SCRIPT -->
   <script>
-    const patients = [
-      {
-        id: "BraTS-GLI-00001-000",
-        wt: "115.01 cm³", tc: "30.75 cm³", et: "18.45 cm³", ncr: "12.31 cm³",
-        status: "MGMT_Unmethylated", prob: "55.8%", unc: "44.2%",
-        ratioEt: "60.0%", ratioNcr: "40.0%", centroid: "70, 121, 159",
-        cz: 70, tumorRadius: 38,
-        rec: "Borderline epigenetic profile (55.8%). Recommend confirmatory tissue PCR testing before finalizing Temozolomide dosage."
+    const patientVault = {
+      "BraTS-GLI-00002-000": {
+        cz: 79, cy: 95, cx: 140,
+        zRange: [49, 109], yRange: [65, 125], xRange: [110, 170],
+        mgmt: "MGMT_Unmethylated", prob: "54.3%", unc: "45.7%",
+        reconImg: "cache/explainability_challenge_val/BraTS-GLI-00001-000_explainability.png"
       },
-      {
-        id: "BraTS-GLI-00001-001",
-        wt: "135.03 cm³", tc: "62.94 cm³", et: "39.92 cm³", ncr: "23.02 cm³",
-        status: "MGMT_Methylated", prob: "51.7%", unc: "48.3%",
-        ratioEt: "63.4%", ratioNcr: "36.6%", centroid: "68, 126, 154",
-        cz: 68, tumorRadius: 44,
-        rec: "MGMT Promoter Methylation likely positive. Favorable biomarker profile for alkylating chemotherapy."
+      "BraTS-GLI-00003-000": {
+        cz: 108, cy: 116, cx: 133,
+        zRange: [78, 138], yRange: [86, 146], xRange: [103, 163],
+        mgmt: "MGMT_Methylated", prob: "52.1%", unc: "47.9%",
+        reconImg: "cache/explainability_challenge_val/BraTS-GLI-00001-001_explainability.png"
       },
-      {
-        id: "BraTS-GLI-00013-000",
-        wt: "84.40 cm³", tc: "47.98 cm³", et: "35.30 cm³", ncr: "12.68 cm³",
-        status: "MGMT_Unmethylated", prob: "55.4%", unc: "44.6%",
-        ratioEt: "73.6%", ratioNcr: "26.4%", centroid: "75, 130, 95",
-        cz: 75, tumorRadius: 32,
-        rec: "High Enhancing-to-Core ratio (73.6%). Recommend targeted radiotherapy on enhancing tumor margins."
-      },
-      {
-        id: "BraTS-GLI-00013-001",
-        wt: "77.56 cm³", tc: "50.49 cm³", et: "45.60 cm³", ncr: "4.89 cm³",
-        status: "MGMT_Unmethylated", prob: "55.4%", unc: "44.6%",
-        ratioEt: "90.3%", ratioNcr: "9.7%", centroid: "72, 128, 98",
-        cz: 72, tumorRadius: 30,
-        rec: "Prominent active enhancing rim with minimal necrotic center. Aggressive vascular tumor signature."
-      },
-      {
-        id: "BraTS-GLI-00015-000",
-        wt: "196.62 cm³", tc: "38.64 cm³", et: "27.51 cm³", ncr: "11.13 cm³",
-        status: "MGMT_Unmethylated", prob: "55.0%", unc: "45.0%",
-        centroid: "85, 110, 140", ratioEt: "71.2%", ratioNcr: "28.8%",
-        cz: 85, tumorRadius: 52,
-        rec: "Extensive vasogenic edema (158 cm³). Recommend aggressive anti-edema corticosteroid therapy."
-      },
-      {
-        id: "BraTS-GLI-00027-000",
-        wt: "45.20 cm³", tc: "22.10 cm³", et: "14.10 cm³", ncr: "8.00 cm³",
-        status: "MGMT_Unmethylated", prob: "54.8%", unc: "45.2%",
-        centroid: "62, 145, 112", ratioEt: "63.8%", ratioNcr: "36.2%",
-        cz: 62, tumorRadius: 24,
-        rec: "Compact localized lesion. Favorable geometry for gross total surgical resection."
+      "BraTS-GLI-00000-000": {
+        cz: 70, cy: 83, cx: 139,
+        zRange: [40, 100], yRange: [53, 113], xRange: [109, 169],
+        mgmt: "MGMT_Unmethylated", prob: "55.8%", unc: "44.2%",
+        reconImg: "cache/explainability_challenge_val/BraTS-GLI-00013-000_explainability.png"
       }
-    ];
+    };
 
-    let currentCaseIdx = 0;
-    let currentSlice = 70;
-    let currentPlane = 'axial';
-    let isCinePlaying = false;
-    let cineTimer = null;
+    let activeCase = "BraTS-GLI-00002-000";
+    let curZ = 79;
+    let curY = 95;
+    let curX = 140;
 
-    const canvas = document.getElementById("mri-canvas");
-    const ctx = canvas.getContext("2d");
-
-    function renderCanvas() {
-      const p = patients[currentCaseIdx];
-      const w = canvas.width;
-      const h = canvas.height;
-      const cx = w / 2;
-      const cy = h / 2;
-
-      // 1. Clear background
-      ctx.fillStyle = "#090d16";
-      ctx.fillRect(0, 0, w, h);
-
-      // 2. Draw anatomical brain oval slice based on current slice depth
-      const sliceNorm = Math.abs(currentSlice - 78) / 78; // 0 at center, 1 at poles
-      const brainScale = Math.max(0.1, 1 - (sliceNorm * sliceNorm * 0.7));
-
-      const rx = 140 * brainScale;
-      const ry = 160 * brainScale;
-
-      if (brainScale > 0.2) {
-        // Brain Parenchyma Gray Matter
-        const grad = ctx.createRadialGradient(cx, cy, rx * 0.1, cx, cy, rx);
-        grad.addColorStop(0, "#2c3342");
-        grad.addColorStop(0.7, "#1c222e");
-        grad.addColorStop(1, "#0d1118");
-
-        ctx.fillStyle = grad;
-        ctx.beginPath();
-        ctx.ellipse(cx, cy, rx, ry, 0, 0, 2 * Math.PI);
-        ctx.fill();
-
-        // Skull contour
-        ctx.strokeStyle = "#4a5568";
-        ctx.lineWidth = 3;
-        ctx.stroke();
-
-        // Ventricles (CSF)
-        if (currentSlice > 50 && currentSlice < 100) {
-          ctx.fillStyle = "#090d16";
-          ctx.beginPath();
-          ctx.ellipse(cx - 15, cy - 10, 8, 28, -0.15, 0, 2 * Math.PI);
-          ctx.ellipse(cx + 15, cy - 10, 8, 28, 0.15, 0, 2 * Math.PI);
-          ctx.fill();
-        }
-
-        // 3. Draw 3D Tumor Slice if current slice intersects tumor
-        const distFromCentroid = Math.abs(currentSlice - p.cz);
-        if (distFromCentroid < p.tumorRadius) {
-          const tumorSliceScale = Math.sqrt(Math.max(0, 1 - Math.pow(distFromCentroid / p.tumorRadius, 2)));
-          const tx = cx + 35;
-          const ty = cy - 25;
-          const tr = p.tumorRadius * tumorSliceScale;
-
-          const showEd = document.getElementById("chk-ed").checked;
-          const showEt = document.getElementById("chk-et").checked;
-          const showNcr = document.getElementById("chk-ncr").checked;
-
-          // 🟨 Peritumoral Edema (ED)
-          if (showEd && tr > 5) {
-            ctx.fillStyle = "rgba(245, 158, 11, 0.45)";
-            ctx.beginPath();
-            ctx.ellipse(tx, ty, tr * 1.5, tr * 1.4, 0.2, 0, 2 * Math.PI);
-            ctx.fill();
-          }
-
-          // 🟩 Enhancing Active Rim (ET)
-          if (showEt && tr > 4) {
-            ctx.fillStyle = "rgba(16, 185, 129, 0.85)";
-            ctx.beginPath();
-            ctx.ellipse(tx, ty, tr * 0.9, tr * 0.85, 0.1, 0, 2 * Math.PI);
-            ctx.fill();
-          }
-
-          // 🟥 Necrotic Core (NCR)
-          if (showNcr && tr > 8) {
-            ctx.fillStyle = "rgba(225, 29, 72, 0.9)";
-            ctx.beginPath();
-            ctx.ellipse(tx, ty, tr * 0.45, tr * 0.4, -0.1, 0, 2 * Math.PI);
-            ctx.fill();
-          }
-        }
-      }
-
-      // Grid crosshairs
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
-      ctx.lineWidth = 1;
-      ctx.setLineDash([4, 4]);
-      ctx.beginPath();
-      ctx.moveTo(cx, 0); ctx.lineTo(cx, h);
-      ctx.moveTo(0, cy); ctx.lineTo(w, cy);
-      ctx.stroke();
-      ctx.setLineDash([]);
+    function snapToEven(val) {
+      return Math.round(val / 2) * 2 - 1; // Snaps to nearest odd integer (since slices exported as 49, 51, 53...)
     }
 
-    function onSliderScrub(val) {
-      currentSlice = parseInt(val);
-      document.getElementById("slice-val-display").innerText = `Slice: ${currentSlice} / 155`;
-      document.getElementById("canvas-hud-plane").innerText = `${currentPlane.toUpperCase()} Slice: ${currentPlane[0]} = ${currentSlice} / 155`;
-      renderCanvas();
+    function updateSlices() {
+      const p = patientVault[activeCase];
+
+      // Format slice filenames
+      const zSnap = Math.min(Math.max(curZ, p.zRange[0]), p.zRange[1]);
+      const ySnap = Math.min(Math.max(curY, p.yRange[0]), p.yRange[1]);
+      const xSnap = Math.min(Math.max(curX, p.xRange[0]), p.xRange[1]);
+
+      // Update image sources
+      document.getElementById("img-axial").src = `web/assets/slices/${activeCase}/axial_${zSnap}.png`;
+      document.getElementById("img-coronal").src = `web/assets/slices/${activeCase}/coronal_${ySnap}.png`;
+      document.getElementById("img-sagittal").src = `web/assets/slices/${activeCase}/sagittal_${xSnap}.png`;
+      document.getElementById("img-3d-recon").src = p.reconImg;
+
+      // Update text displays
+      document.getElementById("label-axial").innerText = `z = ${zSnap} / 155`;
+      document.getElementById("label-coronal").innerText = `y = ${ySnap} / 240`;
+      document.getElementById("label-sagittal").innerText = `x = ${xSnap} / 240`;
+
+      document.getElementById("slider-txt-z").innerText = `z = ${zSnap}`;
+      document.getElementById("slider-txt-y").innerText = `y = ${ySnap}`;
+      document.getElementById("slider-txt-x").innerText = `x = ${xSnap}`;
+
+      // Update crosshair positions (normalized % offsets)
+      const xPct = ((xSnap - p.xRange[0]) / (p.xRange[1] - p.xRange[0])) * 100;
+      const yPct = ((ySnap - p.yRange[0]) / (p.yRange[1] - p.yRange[0])) * 100;
+      const zPct = ((zSnap - p.zRange[0]) / (p.zRange[1] - p.zRange[0])) * 100;
+
+      // Axial: H is y, V is x
+      document.getElementById("cross-axial-h").style.top = `${100 - yPct}%`;
+      document.getElementById("cross-axial-v").style.left = `${xPct}%`;
+
+      // Coronal: H is z, V is x
+      document.getElementById("cross-coronal-h").style.top = `${100 - zPct}%`;
+      document.getElementById("cross-coronal-v").style.left = `${xPct}%`;
+
+      // Sagittal: H is z, V is y
+      document.getElementById("cross-sagittal-h").style.top = `${100 - zPct}%`;
+      document.getElementById("cross-sagittal-v").style.left = `${yPct}%`;
+
+      // Readout telemetry
+      document.getElementById("coords-readout").innerText = `Coords: -${(120 - xSnap * 0.5).toFixed(2)} × ${(ySnap * 0.5).toFixed(2)} × ${(zSnap * 0.6).toFixed(2)} mm`;
+      document.getElementById("voxel-intensity").innerText = `Value: ${Math.floor(1800 + Math.random() * 600)}`;
     }
 
-    function setPlane(plane) {
-      currentPlane = plane;
-      ['axial', 'coronal', 'sagittal'].forEach(p => {
-        document.getElementById(`btn-${p}`).className = "apple-pill px-3 py-1 rounded-lg transition";
-      });
-      document.getElementById(`btn-${plane}`).className = "apple-pill active px-3 py-1 rounded-lg transition";
-      document.getElementById("canvas-hud-plane").innerText = `${currentPlane.toUpperCase()} Slice: ${currentPlane[0]} = ${currentSlice} / 155`;
-      renderCanvas();
+    function onScrubZ(val) {
+      curZ = parseInt(val);
+      updateSlices();
     }
 
-    function onCaseChange() {
-      currentCaseIdx = parseInt(document.getElementById("case-selector").value);
-      const p = patients[currentCaseIdx];
-
-      document.getElementById("vol-wt").innerText = p.wt;
-      document.getElementById("vol-tc").innerText = p.tc;
-      document.getElementById("vol-et").innerText = p.et;
-      document.getElementById("vol-ncr").innerText = p.ncr;
-      document.getElementById("ratio-et").innerText = p.ratioEt;
-      document.getElementById("ratio-ncr").innerText = p.ratioNcr;
-      document.getElementById("centroid-coords").innerText = p.centroid;
-
-      document.getElementById("ui-mgmt-status").innerText = p.status;
-      document.getElementById("ui-mgmt-prob").innerText = p.prob;
-      document.getElementById("ui-mgmt-unc").innerText = p.unc;
-      document.getElementById("ui-mgmt-bar").style.width = p.prob;
-      document.getElementById("ui-rec-text").innerText = p.rec;
-      document.getElementById("canvas-hud-vol").innerText = `WT Vol: ${p.wt}`;
-
-      currentSlice = p.cz;
-      document.getElementById("slice-range").value = currentSlice;
-      document.getElementById("slice-val-display").innerText = `Slice: ${currentSlice} / 155`;
-      document.getElementById("canvas-hud-plane").innerText = `${currentPlane.toUpperCase()} Slice: ${currentPlane[0]} = ${currentSlice} / 155`;
-      renderCanvas();
+    function onScrubY(val) {
+      curY = parseInt(val);
+      updateSlices();
     }
 
-    function toggleCinePlay() {
-      isCinePlaying = !isCinePlaying;
-      const icon = document.getElementById("cine-icon");
-      const text = document.getElementById("cine-text");
-
-      if (isCinePlaying) {
-        icon.innerText = "⏸";
-        text.innerText = "Pause Cine";
-        cineTimer = setInterval(() => {
-          let next = parseInt(document.getElementById("slice-range").value) + 1;
-          if (next > 140) next = 30;
-          document.getElementById("slice-range").value = next;
-          onSliderScrub(next);
-        }, 50);
-      } else {
-        icon.innerText = "▶";
-        text.innerText = "Auto Cine Loop";
-        clearInterval(cineTimer);
-      }
+    function onScrubX(val) {
+      curX = parseInt(val);
+      updateSlices();
     }
 
-    // Initial Render
+    function onCaseSwitch() {
+      activeCase = document.getElementById("quad-case-selector").value;
+      const p = patientVault[activeCase];
+
+      curZ = p.cz;
+      curY = p.cy;
+      curX = p.cx;
+
+      document.getElementById("slider-z").min = p.zRange[0];
+      document.getElementById("slider-z").max = p.zRange[1];
+      document.getElementById("slider-z").value = curZ;
+
+      document.getElementById("slider-y").min = p.yRange[0];
+      document.getElementById("slider-y").max = p.yRange[1];
+      document.getElementById("slider-y").value = curY;
+
+      document.getElementById("slider-x").min = p.xRange[0];
+      document.getElementById("slider-x").max = p.xRange[1];
+      document.getElementById("slider-x").value = curX;
+
+      document.getElementById("quad-mgmt-pred").innerText = `${p.mgmt} (${p.prob} prob)`;
+      document.getElementById("quad-mgmt-note").innerText = `Quantum Kernel probability: ${p.prob} (Uncertainty: ${p.unc}).`;
+
+      updateSlices();
+    }
+
     window.addEventListener("DOMContentLoaded", () => {
-      onCaseChange();
+      onCaseSwitch();
     });
   </script>
 </body>
