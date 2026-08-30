@@ -3,559 +3,536 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scanvidence — Google DeepMind Science-Inspired Quantum Neuro-Oncology</title>
+  <title>Scanvidence — Apple Pro Scientific Neuro-Oncology & Quantum Radiomics</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
     
+    :root {
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', sans-serif;
+      --font-mono: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
     body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: var(--font-sans);
+      letter-spacing: -0.012em;
     }
     .font-mono {
-      font-family: 'JetBrains Mono', monospace;
+      font-family: var(--font-mono);
     }
-    .glow-cyan {
-      box-shadow: 0 0 50px -10px rgba(56, 189, 248, 0.3);
+    
+    /* Apple Liquid Glass System (2025/2026 HIG) */
+    .liquid-glass-nav {
+      background: rgba(13, 17, 23, 0.72);
+      backdrop-filter: blur(28px) saturate(160%);
+      -webkit-backdrop-filter: blur(28px) saturate(160%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6), inset 0 1px 1px 0 rgba(255, 255, 255, 0.15);
     }
-    .glow-indigo {
-      box-shadow: 0 0 50px -10px rgba(99, 102, 241, 0.25);
-    }
-    .glass-panel {
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+    .liquid-glass-card {
+      background: rgba(22, 27, 34, 0.65);
+      backdrop-filter: blur(24px) saturate(150%);
+      -webkit-backdrop-filter: blur(24px) saturate(150%);
       border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .glass-card {
-      background: rgba(15, 23, 42, 0.6);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+    .liquid-glass-card:hover {
+      border-color: rgba(56, 189, 248, 0.35);
+      box-shadow: 0 16px 40px -10px rgba(14, 165, 233, 0.2), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
     }
-    .glass-card:hover {
-      border-color: rgba(56, 189, 248, 0.3);
+    .liquid-glass-pill {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.12);
     }
-    .deepmind-grid {
-      background-size: 40px 40px;
+    .liquid-glass-pill.active {
+      background: rgba(56, 189, 248, 0.18);
+      border-color: rgba(56, 189, 248, 0.5);
+      color: #38bdf8;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.3), inset 0 1px 1px 0 rgba(255, 255, 255, 0.3);
+    }
+    .apple-substrate {
+      background: radial-gradient(circle at 50% -10%, rgba(14, 165, 233, 0.12) 0%, transparent 60%),
+                  radial-gradient(circle at 100% 40%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 0% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
+                  #070a11;
+    }
+    .apple-slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    .apple-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+    .grid-mesh {
+      background-size: 32px 32px;
       background-image: 
         linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
     }
-    .radial-gradient-bg {
-      background: radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.15), transparent 70%),
-                  radial-gradient(circle at 100% 50%, rgba(99, 102, 241, 0.1), transparent 50%),
-                  #030712;
-    }
   </style>
 </head>
-<body class="radial-gradient-bg text-slate-100 antialiased min-h-screen selection:bg-cyan-500 selection:text-black deepmind-grid">
+<body class="apple-substrate text-slate-100 antialiased min-h-screen grid-mesh selection:bg-cyan-500 selection:text-black">
 
-  <!-- TOP DEEPMIND-STYLE SCIENTIFIC HEADER -->
-  <header class="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/70 border-b border-white/5 px-6 lg:px-12 py-4 flex items-center justify-between transition-all">
-    <div class="flex items-center space-x-6">
-      <a href="#" class="flex items-center space-x-3 group">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-400 via-blue-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition">
-          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+  <!-- FLOATING LIQUID GLASS APPLE NAVIGATION BAR -->
+  <div class="fixed top-5 left-0 right-0 z-50 px-4 sm:px-8 max-w-6xl mx-auto pointer-events-none">
+    <header class="liquid-glass-nav rounded-2xl px-5 py-3 flex items-center justify-between pointer-events-auto transition-all">
+      <div class="flex items-center space-x-3.5">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-400 via-sky-500 to-indigo-500 flex items-center justify-center shadow-md shadow-cyan-500/20">
+          <svg class="w-4.5 h-4.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
           </svg>
         </div>
-        <div>
-          <div class="flex items-center space-x-2">
-            <span class="text-lg font-bold tracking-tight text-white group-hover:text-cyan-300 transition">Scanvidence</span>
-            <span class="px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 rounded-full">Science 2026</span>
-          </div>
-          <p class="text-[11px] text-slate-400 font-medium">Hybrid Quantum-Classical Neuro-Oncology</p>
+        <div class="flex items-center space-x-2">
+          <span class="text-sm font-bold tracking-tight text-white">Scanvidence</span>
+          <span class="hidden sm:inline-block px-2 py-0.5 text-[9px] font-mono font-semibold uppercase tracking-wider bg-white/10 text-cyan-300 rounded-full border border-white/10">Pro Medical</span>
         </div>
-      </a>
+      </div>
 
-      <!-- Navigation Links -->
-      <nav class="hidden md:flex items-center space-x-6 text-xs font-medium text-slate-300">
-        <a href="#overview" class="hover:text-cyan-400 transition">Overview</a>
-        <a href="#interactive-demo" class="hover:text-cyan-400 transition">3D Interactive Explorer</a>
-        <a href="#quantum-methodology" class="hover:text-cyan-400 transition">Quantum Engine</a>
-        <a href="#benchmarks" class="hover:text-cyan-400 transition">BraTS Benchmarks</a>
+      <!-- Segmented Navigation Island -->
+      <nav class="hidden md:flex items-center space-x-1 p-1 rounded-xl bg-black/40 border border-white/5 text-xs font-medium">
+        <button onclick="switchView('viewer')" id="btn-viewer" class="liquid-glass-pill active px-3.5 py-1.5 rounded-lg transition-all">3D Patient Viewer</button>
+        <button onclick="switchView('quantum')" id="btn-quantum" class="liquid-glass-pill px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">Quantum QPU Lab</button>
+        <button onclick="switchView('benchmarks')" id="btn-benchmarks" class="liquid-glass-pill px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all">BraTS Benchmarks</button>
       </nav>
-    </div>
 
-    <!-- Live Telemetry & GitHub / Hugging Face Buttons -->
-    <div class="flex items-center space-x-3 text-xs">
-      <div class="hidden xl:flex items-center space-x-2 bg-slate-900/80 border border-white/10 px-3 py-1.5 rounded-full">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span class="text-slate-400">IBM Quantum:</span>
-        <span class="font-mono text-cyan-300 font-semibold">ibm_fez (156 Qubits)</span>
+      <!-- Right Action Badges -->
+      <div class="flex items-center space-x-2.5 text-xs">
+        <a href="https://huggingface.co/Falcon7211/Scanvidence-SegResNetB0" target="_blank" class="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-amber-300 text-[11px] font-medium transition">
+          <span>🤗 Model Card</span>
+        </a>
+        <a href="https://github.com/Scanvidence/Scanvidence" target="_blank" class="px-3.5 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-[11px] transition shadow-md shadow-cyan-500/25">
+          GitHub Repo
+        </a>
       </div>
-      <a href="https://huggingface.co/Falcon7211/Scanvidence-SegResNetB0" target="_blank" class="flex items-center space-x-2 bg-slate-900 hover:bg-slate-800 border border-white/10 hover:border-amber-400/50 text-amber-300 px-3.5 py-1.5 rounded-full transition shadow-sm">
-        <span>🤗 Model Card</span>
-      </a>
-      <a href="https://github.com/Scanvidence/Scanvidence" target="_blank" class="flex items-center space-x-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold px-4 py-1.5 rounded-full transition shadow-md shadow-cyan-500/20">
-        <span>GitHub Code</span>
-        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-      </a>
-    </div>
-  </header>
+    </header>
+  </div>
 
-  <!-- HERO SECTION (GOOGLE DEEPMIND SCIENCE EDITORIAL) -->
-  <section id="overview" class="relative max-w-7xl mx-auto px-6 lg:px-12 pt-16 pb-20 overflow-hidden">
-    <div class="space-y-8 max-w-4xl">
-      <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-700/40 text-cyan-300 text-xs font-semibold tracking-wide">
-        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-        <span>RESEARCH BREAKTHROUGH • QUANTUM COMPUTING IN HEALTHCARE</span>
+  <!-- MAIN VIEWPORT CONTAINER -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-8 pt-28 pb-16 space-y-12">
+
+    <!-- HERO SECTION (APPLE PRO STYLE TYPOGRAPHY) -->
+    <section class="text-center space-y-4 max-w-3xl mx-auto pt-6">
+      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-cyan-300 text-xs font-semibold">
+        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+        <span>Apple Pro Medical HIG • Real IBM Heron Quantum Execution</span>
       </div>
-
-      <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
-        Unlocking the microscopic biology of brain tumors through <span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">quantum-classical AI</span>.
+      <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.08]">
+        Intelligent Neuro-Oncology. <br>
+        <span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent">Powered by Quantum AI.</span>
       </h1>
-
-      <p class="text-slate-300 text-lg sm:text-xl font-normal leading-relaxed max-w-3xl">
-        Scanvidence bridges high-resolution 3D anatomical Deep Learning with real 156-Qubit Quantum Computing to segment brain tumors at <strong>92.2% precision</strong> and predict molecular <strong>MGMT DNA methylation</strong> non-invasively with calibrated clinical uncertainty.
+      <p class="text-slate-300 text-base sm:text-lg font-normal leading-relaxed max-w-2xl mx-auto">
+        Seamlessly fusing 3D deep residual segmentation with 156-qubit quantum combinatorial feature selection for non-invasive MGMT molecular profiling.
       </p>
+    </section>
 
-      <div class="flex flex-wrap items-center gap-4 pt-2">
-        <a href="#interactive-demo" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold text-sm shadow-xl shadow-cyan-500/20 transition flex items-center space-x-2">
-          <span>Launch 3D Patient Explorer</span>
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-        </a>
-        <a href="#quantum-methodology" class="px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-white/10 text-slate-200 font-semibold text-sm transition">
-          View Quantum QPU Telemetry
-        </a>
-      </div>
-    </div>
-
-    <!-- FLOATING STATS RIBBON (DEEPMIND STYLE) -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 pt-12 border-t border-white/10">
-      <div class="p-5 rounded-2xl glass-card">
-        <div class="text-3xl lg:text-4xl font-mono font-extrabold text-emerald-400">92.23%</div>
-        <div class="text-xs text-slate-300 font-semibold mt-1">Whole Tumor (WT) Dice</div>
-        <div class="text-[11px] text-slate-400 mt-0.5">BraTS GLI 2023 Top-Tier</div>
-      </div>
-      <div class="p-5 rounded-2xl glass-card">
-        <div class="text-3xl lg:text-4xl font-mono font-extrabold text-cyan-400">156 Qubits</div>
-        <div class="text-xs text-slate-300 font-semibold mt-1">IBM Fez QPU Hardware</div>
-        <div class="text-[11px] text-slate-400 mt-0.5">10,000 Physical Shots</div>
-      </div>
-      <div class="p-5 rounded-2xl glass-card">
-        <div class="text-3xl lg:text-4xl font-mono font-extrabold text-indigo-400">512-Dim</div>
-        <div class="text-xs text-slate-300 font-semibold mt-1">Quantum Hilbert Space</div>
-        <div class="text-[11px] text-slate-400 mt-0.5">9-Qubit ZZFeatureMap</div>
-      </div>
-      <div class="p-5 rounded-2xl glass-card">
-        <div class="text-3xl lg:text-4xl font-mono font-extrabold text-amber-400">+6.7% Lift</div>
-        <div class="text-xs text-slate-300 font-semibold mt-1">QSVM vs Classical RBF</div>
-        <div class="text-[11px] text-slate-400 mt-0.5">5-Fold Nested CV AUC</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- INTERACTIVE 3D CLINICAL PATIENT EXPLORER (ALPHAFOLD 3D STYLE) -->
-  <section id="interactive-demo" class="max-w-7xl mx-auto px-6 lg:px-12 py-16">
-    <div class="space-y-4 mb-8">
-      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-950/80 border border-blue-800/50 text-blue-300 text-xs font-semibold">
-        <span>INTERACTIVE WORKBENCH</span>
-      </div>
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-        Explore 3D Volumetric Predictions & Molecular Decisions
-      </h2>
-      <p class="text-slate-400 text-sm max-w-2xl">
-        Select any real patient case from the international challenge validation set to inspect 3D multi-planar reconstructions, volumetric compartment breakdowns, and quantum molecular predictions.
-      </p>
-    </div>
-
-    <!-- MAIN INTERACTIVE CONTAINER -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 glass-panel p-6 sm:p-8 rounded-3xl glow-cyan">
+    <!-- VIEW 1: 3D INTERACTIVE PATIENT VIEWER -->
+    <div id="view-viewer" class="space-y-6">
       
-      <!-- LEFT CONTROL & METRICS COLUMN (5 COLS) -->
-      <div class="lg:col-span-5 space-y-6 flex flex-col justify-between">
-        
-        <!-- Case Selector Dropdown -->
-        <div class="space-y-2">
-          <label class="text-xs font-bold uppercase tracking-wider text-slate-400">Select Clinical Patient Case</label>
-          <div class="relative">
-            <select id="case-select" onchange="loadCase()" class="w-full bg-slate-950 border border-white/10 hover:border-cyan-500/50 text-slate-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500/50 transition">
-              <option value="BraTS-GLI-00001-000">BraTS-GLI-00001-000 (WT: 115.0 cm³ | Unmethylated)</option>
-              <option value="BraTS-GLI-00001-001">BraTS-GLI-00001-001 (WT: 135.0 cm³ | Methylated)</option>
-              <option value="BraTS-GLI-00013-000">BraTS-GLI-00013-000 (WT: 84.4 cm³ | Unmethylated)</option>
-              <option value="BraTS-GLI-00013-001">BraTS-GLI-00013-001 (WT: 77.6 cm³ | Unmethylated)</option>
-              <option value="BraTS-GLI-00015-000">BraTS-GLI-00015-000 (WT: 196.6 cm³ | Severe Edema)</option>
-              <option value="BraTS-GLI-00027-000">BraTS-GLI-00027-000 (WT: 45.2 cm³ | Compact Lesion)</option>
-              <option value="BraTS-GLI-00037-000">BraTS-GLI-00037-000 (WT: 32.8 cm³ | Small Volume)</option>
+      <!-- Top Control Bar (Case Selection & Quick Telemetry) -->
+      <div class="liquid-glass-card rounded-3xl p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="space-y-1">
+          <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Current Patient Case</div>
+          <div class="flex items-center space-x-3">
+            <select id="case-select" onchange="updateCase()" class="bg-slate-900 border border-white/10 hover:border-cyan-500/40 text-slate-100 rounded-xl px-4 py-2 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-cyan-500/40 transition cursor-pointer">
+              <option value="BraTS-GLI-00001-000">BraTS-GLI-00001-000 (115.0 cm³ • Unmethylated)</option>
+              <option value="BraTS-GLI-00001-001">BraTS-GLI-00001-001 (135.0 cm³ • Methylated)</option>
+              <option value="BraTS-GLI-00013-000">BraTS-GLI-00013-000 (84.4 cm³ • Unmethylated)</option>
+              <option value="BraTS-GLI-00013-001">BraTS-GLI-00013-001 (77.6 cm³ • Unmethylated)</option>
+              <option value="BraTS-GLI-00015-000">BraTS-GLI-00015-000 (196.6 cm³ • Severe Edema)</option>
+              <option value="BraTS-GLI-00027-000">BraTS-GLI-00027-000 (45.2 cm³ • Localized)</option>
+              <option value="BraTS-GLI-00037-000">BraTS-GLI-00037-000 (32.8 cm³ • Small Volume)</option>
             </select>
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-xs font-semibold">92.2% WT Dice</span>
           </div>
         </div>
 
-        <!-- DUAL CLINICAL DECISION SUPPORT METERS -->
-        <div class="space-y-4">
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Dual Clinical Decision Support</h4>
-
-          <!-- Meter 1: Anatomical Precision -->
-          <div class="p-4 rounded-2xl bg-slate-950/80 border border-white/5 space-y-2">
-            <div class="flex justify-between items-center text-xs">
-              <span class="text-slate-300 font-semibold flex items-center space-x-1.5">
-                <span>📍 3D Anatomical Segmentation</span>
-              </span>
-              <span class="font-mono font-bold text-emerald-400">92.2% Precision</span>
-            </div>
-            <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
-              <div class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full" style="width: 92.2%"></div>
-            </div>
-            <div class="text-[11px] text-slate-400">
-              High surgical confidence for boundary margin delineation.
-            </div>
-          </div>
-
-          <!-- Meter 2: Quantum Molecular Prediction -->
-          <div class="p-4 rounded-2xl bg-slate-950/80 border border-white/5 space-y-2.5">
-            <div class="flex justify-between items-center text-xs">
-              <span class="text-slate-300 font-semibold flex items-center space-x-1.5">
-                <span>⚛️ Quantum MGMT Promoter Status</span>
-              </span>
-              <span id="ui-mgmt-status" class="font-mono font-bold text-cyan-400">MGMT_Unmethylated</span>
-            </div>
-            <div class="flex justify-between text-[11px] text-slate-400">
-              <span>Probability: <strong id="ui-mgmt-prob" class="text-white">55.8%</strong></span>
-              <span>Calibrated Uncertainty: <strong id="ui-mgmt-unc" class="text-amber-300">44.2%</strong></span>
-            </div>
-            <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
-              <div id="ui-mgmt-bar" class="h-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 rounded-full transition-all duration-500" style="width: 55.8%"></div>
-            </div>
-            <div id="ui-mgmt-note" class="p-2.5 rounded-xl bg-cyan-950/40 border border-cyan-800/40 text-[11px] text-cyan-200 leading-relaxed">
-              <strong>Clinical Recommendation:</strong> Borderline epigenetic profile. Recommend confirmatory tissue PCR biopsy testing before finalizing Temozolomide dosage.
-            </div>
-          </div>
+        <!-- Quick View Mode Segmented Controls -->
+        <div class="flex items-center space-x-1.5 p-1 rounded-xl bg-black/40 border border-white/5 text-xs font-semibold">
+          <button onclick="setPlane('axial')" id="btn-plane-axial" class="liquid-glass-pill active px-3.5 py-1.5 rounded-lg transition">Axial (Z)</button>
+          <button onclick="setPlane('coronal')" id="btn-plane-coronal" class="liquid-glass-pill px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition">Coronal (Y)</button>
+          <button onclick="setPlane('sagittal')" id="btn-plane-sagittal" class="liquid-glass-pill px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition">Sagittal (X)</button>
         </div>
-
-        <!-- Morphometric Volume Breakdown -->
-        <div class="space-y-2">
-          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Compartment Volumes</h4>
-          <div class="grid grid-cols-2 gap-2 text-xs">
-            <div class="bg-slate-950/80 p-3 rounded-xl border border-white/5">
-              <div class="text-slate-400">Whole Tumor (WT)</div>
-              <div id="ui-vol-wt" class="text-base font-mono font-bold text-white mt-0.5">115.01 cm³</div>
-            </div>
-            <div class="bg-slate-950/80 p-3 rounded-xl border border-white/5">
-              <div class="text-slate-400">Tumor Core (TC)</div>
-              <div id="ui-vol-tc" class="text-base font-mono font-bold text-amber-300 mt-0.5">30.75 cm³</div>
-            </div>
-            <div class="bg-slate-950/80 p-3 rounded-xl border border-white/5">
-              <div class="text-slate-400">Enhancing Rim (ET)</div>
-              <div id="ui-vol-et" class="text-base font-mono font-bold text-emerald-400 mt-0.5">18.45 cm³</div>
-            </div>
-            <div class="bg-slate-950/80 p-3 rounded-xl border border-white/5">
-              <div class="text-slate-400">Necrotic Core (NCR)</div>
-              <div id="ui-vol-ncr" class="text-base font-mono font-bold text-rose-400 mt-0.5">12.31 cm³</div>
-            </div>
-          </div>
-        </div>
-
       </div>
 
-      <!-- RIGHT 3D VIEWER COLUMN (7 COLS) -->
-      <div class="lg:col-span-7 space-y-6 flex flex-col justify-between">
+      <!-- Main Dual-Panel Viewer Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
-        <!-- Multi-planar Header & Color Legend -->
-        <div class="flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <h3 class="text-base font-bold text-white">3D Tri-Planar Centroid Reconstruction</h3>
-            <p class="text-xs text-slate-400">Orthogonal anatomical projections (Axial, Coronal, Sagittal)</p>
+        <!-- LEFT: 3D INTERACTIVE MEDICAL DISPLAY (7 COLS) -->
+        <div class="lg:col-span-7 liquid-glass-card rounded-3xl p-6 space-y-5">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-300">3D Volumetric Slicer</span>
+            </div>
+            <div class="flex items-center space-x-2 text-[11px]">
+              <span class="text-slate-400">Slice:</span>
+              <span id="slice-indicator" class="font-mono text-cyan-300 font-bold bg-slate-900 px-2 py-0.5 rounded border border-white/5">z = 70 / 155</span>
+            </div>
           </div>
-          <div class="flex items-center space-x-2">
-            <span class="px-2 py-1 rounded-md bg-rose-500/10 border border-rose-500/30 text-[10px] font-medium text-rose-300">🟥 Necrosis</span>
-            <span class="px-2 py-1 rounded-md bg-amber-500/10 border border-amber-500/30 text-[10px] font-medium text-amber-300">🟨 Edema</span>
-            <span class="px-2 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-[10px] font-medium text-emerald-300">🟩 Enhancing</span>
+
+          <!-- Medical Display Window -->
+          <div class="relative bg-slate-950 rounded-2xl border border-white/10 overflow-hidden flex items-center justify-center p-4 min-h-[380px] shadow-inner group">
+            <img id="main-case-img" src="cache/explainability_challenge_val/BraTS-GLI-00001-000_explainability.png" alt="3D Scan Visualization" class="max-h-[390px] w-auto object-contain rounded-xl transition duration-300">
+            
+            <!-- Floating Voxel HUD Tooltip -->
+            <div class="absolute bottom-4 left-4 liquid-glass-pill px-3 py-1.5 rounded-xl text-[11px] font-mono text-slate-300 flex items-center space-x-3 pointer-events-none">
+              <span>FOV: 240×240×155 mm</span>
+              <span>•</span>
+              <span class="text-emerald-400">1.0 mm³ Isotropic</span>
+            </div>
           </div>
-        </div>
 
-        <!-- Central Medical Display Canvas -->
-        <div class="relative bg-slate-950 rounded-2xl border border-white/10 overflow-hidden flex items-center justify-center p-4 min-h-[380px] shadow-2xl">
-          <img id="ui-case-img" src="cache/explainability_challenge_val/BraTS-GLI-00001-000_explainability.png" alt="3D Patient Scan Reconstruction" class="max-h-[420px] w-auto object-contain rounded-xl">
-        </div>
-
-        <!-- Bottom Telemetry Badges -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-          <div class="bg-slate-950/80 p-3 rounded-xl border border-white/5">
-            <span class="text-slate-400">Centroid Coordinates:</span>
-            <div id="ui-centroid" class="font-mono text-slate-200 font-semibold mt-0.5">Z: 70 | Y: 121 | X: 159</div>
+          <!-- Interactive Slice Scrubber Slider -->
+          <div class="space-y-2 pt-1">
+            <div class="flex justify-between text-xs text-slate-400">
+              <span class="font-medium">Interactive Volume Scrubber</span>
+              <span class="text-[11px] text-slate-400">Drag to slice through 3D volume</span>
+            </div>
+            <input id="slice-slider" type="range" min="1" max="155" value="70" oninput="onSliceChange(this.value)" class="apple-slider w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer">
           </div>
-          <div class="bg-slate-950/80 p-3 rounded-xl border border-white/5">
-            <span class="text-slate-400">Physical Bounding Box:</span>
-            <div id="ui-bbox" class="font-mono text-slate-200 font-semibold mt-0.5">73.0 × 98.0 × 57.0 mm</div>
-          </div>
-          <div class="bg-slate-950/80 p-3 rounded-xl border border-white/5">
-            <span class="text-slate-400">Compartment Infiltration:</span>
-            <div id="ui-ratios" class="font-mono text-slate-200 font-semibold mt-0.5">ET/TC: 60.0% | NCR: 40.0%</div>
-          </div>
-        </div>
 
-      </div>
-
-    </div>
-  </section>
-
-  <!-- THE SCIENTIFIC METHODOLOGY (DEEPMIND BENTO GRID) -->
-  <section id="quantum-methodology" class="max-w-7xl mx-auto px-6 lg:px-12 py-16 border-t border-white/5">
-    <div class="space-y-4 mb-12">
-      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-950/80 border border-indigo-800/50 text-indigo-300 text-xs font-semibold">
-        <span>METHODOLOGY & ARCHITECTURE</span>
-      </div>
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-        How the Quantum-Classical Pipeline Works
-      </h2>
-      <p class="text-slate-400 text-sm max-w-2xl">
-        Scanvidence combines deep neural representations of spatial anatomy with non-Euclidean quantum Hilbert spaces to overcome classical machine learning bottlenecks in radiogenomics.
-      </p>
-    </div>
-
-    <!-- BENTO GRID CARDS -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      
-      <!-- CARD 1: 3D DEEP RESIDUAL SEGMENTATION -->
-      <div class="p-8 rounded-3xl glass-panel space-y-4 glow-cyan flex flex-col justify-between">
-        <div class="space-y-3">
-          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
-            01
-          </div>
-          <h3 class="text-xl font-bold text-white">3D SegResNetB0 Backbone</h3>
-          <p class="text-xs text-slate-300 leading-relaxed">
-            An architecture-controlled 3D Residual Encoder-Decoder with 1.6M parameters trained on multi-parametric MRI (FLAIR, T1, T1c, T2). Evaluated on full $240 \times 240 \times 155$ brain volumes:
-          </p>
-        </div>
-        <div class="bg-slate-950/90 p-4 rounded-2xl border border-white/5 space-y-2 text-xs font-mono">
-          <div class="flex justify-between"><span class="text-slate-400">Whole Tumor (WT):</span><span class="text-emerald-400 font-bold">0.9223 ± 0.063</span></div>
-          <div class="flex justify-between"><span class="text-slate-400">Tumor Core (TC):</span><span class="text-emerald-400 font-bold">0.8808 ± 0.174</span></div>
-          <div class="flex justify-between"><span class="text-slate-400">Enhancing Tumor (ET):</span><span class="text-emerald-400 font-bold">0.8345 ± 0.229</span></div>
-        </div>
-      </div>
-
-      <!-- CARD 2: REAL IBM QPU QUBO EXECUTION -->
-      <div class="p-8 rounded-3xl glass-panel space-y-4 glow-indigo flex flex-col justify-between">
-        <div class="space-y-3">
-          <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold">
-            02
-          </div>
-          <h3 class="text-xl font-bold text-white">NP-Hard QUBO Pruning</h3>
-          <p class="text-xs text-slate-300 leading-relaxed">
-            Feature selection formulated as a Quadratic Unconstrained Binary Optimization Hamiltonian and submitted to **IBM Fez (156-Qubit Heron QPU, Job: <code class="text-cyan-300">daa8k09qtnsc73d2c7f0</code>)** with 10,000 measurement shots.
-          </p>
-        </div>
-        <div class="bg-slate-950/90 p-4 rounded-2xl border border-white/5 space-y-2 text-xs font-mono">
-          <div class="flex justify-between"><span class="text-slate-400">Global Ground State:</span><span class="text-cyan-300 font-bold">E = -3.0981</span></div>
-          <div class="flex justify-between"><span class="text-slate-400">Selected Biomarkers:</span><span class="text-white font-bold">9 Optimal Features</span></div>
-          <div class="flex justify-between"><span class="text-slate-400">Stability Jaccard:</span><span class="text-emerald-400 font-bold">J = 0.491 (vs RFE 0.261)</span></div>
-        </div>
-      </div>
-
-      <!-- CARD 3: 9-QUBIT QUANTUM KERNEL SVM -->
-      <div class="p-8 rounded-3xl glass-panel space-y-4 glow-indigo flex flex-col justify-between">
-        <div class="space-y-3">
-          <div class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold">
-            03
-          </div>
-          <h3 class="text-xl font-bold text-white">9-Qubit Quantum Kernel (QSVM)</h3>
-          <p class="text-xs text-slate-300 leading-relaxed">
-            Embeds the 9-biomarker panel into a 512-dimensional complex Hilbert space using <code class="text-indigo-300">ZZFeatureMap</code> with pairwise phase entanglement gates, capturing complex non-linear radiomic relationships.
-          </p>
-        </div>
-        <div class="bg-slate-950/90 p-4 rounded-2xl border border-white/5 space-y-2 text-xs font-mono">
-          <div class="flex justify-between"><span class="text-slate-400">Hilbert Dimension:</span><span class="text-indigo-300 font-bold">2⁹ = 512 Complex</span></div>
-          <div class="flex justify-between"><span class="text-slate-400">5-Fold CV AUC:</span><span class="text-emerald-400 font-bold">0.542 [0.490, 0.593]</span></div>
-          <div class="flex justify-between"><span class="text-slate-400">Performance Lift:</span><span class="text-amber-400 font-bold">+6.7% over RBF SVM</span></div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- 3D SPATIAL GRAD-CAM EXPLAINABILITY SECTION -->
-  <section class="max-w-7xl mx-auto px-6 lg:px-12 py-16 border-t border-white/5">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-      <div class="lg:col-span-5 space-y-6">
-        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-800/50 text-cyan-300 text-xs font-semibold">
-          <span>SPATIAL EXPLAINABILITY</span>
-        </div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          3D Volumetric Grad-CAM Localization
-        </h2>
-        <p class="text-slate-300 text-sm leading-relaxed">
-          To ensure clinicians know exactly <em>where</em> the neural network is looking, Scanvidence integrates 3D Gradient-weighted Class Activation Mapping directly into the 3D convolution layers of <code class="text-cyan-300">SegResNetB0</code>.
-        </p>
-        <div class="space-y-3 text-xs">
-          <div class="flex items-start space-x-3">
-            <span class="text-emerald-400 font-bold">✓</span>
-            <span class="text-slate-300"><strong>Targeted Sub-region Gradients:</strong> Isolate attention maps for Enhancing Tumor (ET), Edema (ED), or Necrotic Core (NCR).</span>
-          </div>
-          <div class="flex items-start space-x-3">
-            <span class="text-cyan-400 font-bold">✓</span>
-            <span class="text-slate-300"><strong>Hardware Agnostic:</strong> Runs seamlessly with CUDA acceleration on NVIDIA GPUs (e.g. T1000) or Apple Silicon Metal Performance Shaders (<code class="text-cyan-300">mps</code>).</span>
+          <!-- Sub-region Layer Toggles -->
+          <div class="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-white/5 text-xs">
+            <div class="text-slate-400 font-semibold">Active Sub-regions:</div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-2.5 py-1 rounded-lg bg-rose-500/10 border border-rose-500/30 text-rose-300 text-[11px] font-medium flex items-center space-x-1.5">
+                <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                <span>Necrotic Core (NCR)</span>
+              </span>
+              <span class="px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[11px] font-medium flex items-center space-x-1.5">
+                <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                <span>Edema (ED)</span>
+              </span>
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-[11px] font-medium flex items-center space-x-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span>Enhancing Rim (ET)</span>
+              </span>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- 3D GradCAM Slices -->
-      <div class="lg:col-span-7 bg-slate-900/80 border border-white/10 p-6 rounded-3xl space-y-4">
-        <div class="flex items-center justify-between text-xs text-slate-400">
-          <span class="font-bold text-white">Patient BraTS-GLI-00002-000 (Slice z=64)</span>
-          <span class="font-mono text-cyan-400">Target: Enhancing Tumor (ET)</span>
+        <!-- RIGHT: CLINICAL DIAGNOSTIC & MOLECULAR DECISION PANEL (5 COLS) -->
+        <div class="lg:col-span-5 space-y-6">
+          
+          <!-- Quantum MGMT Epigenetic Card -->
+          <div class="liquid-glass-card rounded-3xl p-6 space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="text-xs font-bold uppercase tracking-wider text-slate-400">Quantum Molecular Profiling</div>
+              <span class="px-2.5 py-0.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 font-mono text-[10px] font-semibold">QSVM 512D</span>
+            </div>
+
+            <div class="space-y-2">
+              <div class="flex justify-between items-baseline">
+                <div id="diag-mgmt-status" class="text-2xl font-bold text-cyan-400 tracking-tight">MGMT_Unmethylated</div>
+                <div class="text-xs text-slate-400 font-mono">Prob: <span id="diag-mgmt-prob" class="text-white font-bold">55.8%</span></div>
+              </div>
+              <div class="w-full h-2.5 rounded-full bg-slate-900 overflow-hidden border border-white/5">
+                <div id="diag-mgmt-bar" class="h-full bg-gradient-to-r from-cyan-500 via-sky-400 to-indigo-500 rounded-full transition-all duration-500" style="width: 55.8%"></div>
+              </div>
+              <div class="flex justify-between text-[11px] text-slate-400">
+                <span>Confidence: <strong class="text-slate-200">55.8%</strong></span>
+                <span>Calibrated Uncertainty: <strong id="diag-mgmt-unc" class="text-amber-300">44.2%</strong></span>
+              </div>
+            </div>
+
+            <div id="diag-rec-box" class="p-3.5 rounded-2xl bg-slate-950/80 border border-white/5 text-xs text-slate-300 leading-relaxed space-y-1">
+              <div class="text-cyan-400 font-semibold flex items-center space-x-1.5">
+                <span>💡 Clinical Action Guideline</span>
+              </div>
+              <p id="diag-rec-text">
+                Borderline epigenetic profile. Recommend confirmatory tissue PCR testing before finalizing Temozolomide dosage.
+              </p>
+            </div>
+          </div>
+
+          <!-- Morphometric Volume Breakdown -->
+          <div class="liquid-glass-card rounded-3xl p-6 space-y-4">
+            <div class="text-xs font-bold uppercase tracking-wider text-slate-400">3D Volumetric Measurements</div>
+            
+            <div class="grid grid-cols-2 gap-2.5 text-xs">
+              <div class="p-3 rounded-2xl bg-slate-950/80 border border-white/5">
+                <div class="text-slate-400">Whole Tumor (WT)</div>
+                <div id="diag-vol-wt" class="text-base font-mono font-bold text-white mt-0.5">115.01 cm³</div>
+              </div>
+              <div class="p-3 rounded-2xl bg-slate-950/80 border border-white/5">
+                <div class="text-slate-400">Tumor Core (TC)</div>
+                <div id="diag-vol-tc" class="text-base font-mono font-bold text-amber-300 mt-0.5">30.75 cm³</div>
+              </div>
+              <div class="p-3 rounded-2xl bg-slate-950/80 border border-white/5">
+                <div class="text-slate-400">Enhancing Rim (ET)</div>
+                <div id="diag-vol-et" class="text-base font-mono font-bold text-emerald-400 mt-0.5">18.45 cm³</div>
+              </div>
+              <div class="p-3 rounded-2xl bg-slate-950/80 border border-white/5">
+                <div class="text-slate-400">Necrotic Core (NCR)</div>
+                <div id="diag-vol-ncr" class="text-base font-mono font-bold text-rose-400 mt-0.5">12.31 cm³</div>
+              </div>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-white/5 space-y-2 text-xs font-mono">
+              <div class="flex justify-between text-slate-300"><span>Enhancing-to-Core Ratio:</span><span id="diag-ratio-et" class="font-bold text-emerald-400">60.0%</span></div>
+              <div class="flex justify-between text-slate-300"><span>Necrosis Fraction:</span><span id="diag-ratio-ncr" class="font-bold text-rose-400">40.0%</span></div>
+              <div class="flex justify-between text-slate-300"><span>Centroid (Z, Y, X):</span><span id="diag-centroid" class="font-bold text-cyan-300">70, 121, 159</span></div>
+            </div>
+          </div>
+
         </div>
-        <div class="rounded-2xl overflow-hidden border border-white/10 bg-slate-950 p-2">
-          <img src="cache/gradcam_3d_slice.png" alt="3D Grad-CAM Slices" class="w-full h-auto rounded-xl">
-        </div>
+
       </div>
     </div>
-  </section>
 
-  <!-- BENCHMARKS & LEADERBOARD SECTION -->
-  <section id="benchmarks" class="max-w-7xl mx-auto px-6 lg:px-12 py-16 border-t border-white/5">
-    <div class="space-y-4 mb-8">
-      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-800/50 text-emerald-300 text-xs font-semibold">
-        <span>BENCHMARKS & CITATION</span>
-      </div>
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-        International BraTS GLI 2023 Leaderboard Comparison
-      </h2>
-      <p class="text-slate-400 text-sm max-w-2xl">
-        Benchmarked across 125 validation scans with full 3D sliding-window evaluation:
-      </p>
-    </div>
+    <!-- VIEW 2: QUANTUM QPU LAB -->
+    <div id="view-quantum" class="hidden space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- IBM Hardware Execution Telemetry -->
+        <div class="liquid-glass-card rounded-3xl p-6 sm:p-8 space-y-6">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-lg">⚛️</div>
+              <div>
+                <h3 class="text-lg font-bold text-white">IBM Quantum Hardware Telemetry</h3>
+                <p class="text-xs text-slate-400">Execution on 156-Qubit Heron Processor</p>
+              </div>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-semibold">VERIFIED</span>
+          </div>
 
-    <div class="glass-panel rounded-3xl overflow-hidden border border-white/10">
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs">
-          <thead class="bg-slate-950/90 text-slate-400 uppercase tracking-wider font-semibold border-b border-white/10">
-            <tr>
-              <th class="py-4 px-6">Anatomical Compartment</th>
-              <th class="py-4 px-6">Scanvidence SegResNetB0</th>
-              <th class="py-4 px-6">BraTS 2023 Leaderboard Tier</th>
-              <th class="py-4 px-6">Status</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-white/5 font-mono">
-            <tr>
-              <td class="py-4 px-6 font-sans font-semibold text-white">Whole Tumor (WT)</td>
-              <td class="py-4 px-6 font-bold text-emerald-400">0.9223 ± 0.063 (92.2%)</td>
-              <td class="py-4 px-6 text-slate-300">0.90 – 0.93</td>
-              <td class="py-4 px-6 font-sans"><span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-medium">Leaderboard Top-Tier</span></td>
-            </tr>
-            <tr>
-              <td class="py-4 px-6 font-sans font-semibold text-white">Tumor Core (TC)</td>
-              <td class="py-4 px-6 font-bold text-emerald-400">0.8808 ± 0.174 (88.1%)</td>
-              <td class="py-4 px-6 text-slate-300">0.85 – 0.89</td>
-              <td class="py-4 px-6 font-sans"><span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-medium">Leaderboard Top-Tier</span></td>
-            </tr>
-            <tr>
-              <td class="py-4 px-6 font-sans font-semibold text-white">Enhancing Tumor (ET)</td>
-              <td class="py-4 px-6 font-bold text-emerald-400">0.8345 ± 0.229 (83.5%)</td>
-              <td class="py-4 px-6 text-slate-300">0.80 – 0.85</td>
-              <td class="py-4 px-6 font-sans"><span class="px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-400 font-medium">Competitive</span></td>
-            </tr>
-            <tr class="bg-slate-950/60">
-              <td class="py-4 px-6 font-sans font-bold text-cyan-300">Mean Full-Scan Dice</td>
-              <td class="py-4 px-6 font-bold text-cyan-300">0.8792 ± 0.155 (87.9%)</td>
-              <td class="py-4 px-6 text-slate-300">0.86 – 0.88</td>
-              <td class="py-4 px-6 font-sans"><span class="px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-300 font-medium">State-of-the-Art Baseline</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
+          <div class="grid grid-cols-2 gap-3 text-xs">
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-white/5">
+              <span class="text-slate-400">QPU Backend:</span>
+              <div class="font-mono font-bold text-cyan-300 text-sm mt-0.5">ibm_fez (Heron r2)</div>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-white/5">
+              <span class="text-slate-400">Total Qubits:</span>
+              <div class="font-mono font-bold text-white text-sm mt-0.5">156 Physical Qubits</div>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-white/5">
+              <span class="text-slate-400">Physical Shots:</span>
+              <div class="font-mono font-bold text-emerald-400 text-sm mt-0.5">10,000 Shots</div>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-white/5">
+              <span class="text-slate-400">IBM Runtime Job ID:</span>
+              <div class="font-mono font-bold text-indigo-300 text-xs mt-0.5 truncate">daa8k09qtnsc73d2c7f0</div>
+            </div>
+          </div>
 
-  <!-- DEEPMIND-STYLE EDITORIAL FOOTER -->
-  <footer class="border-t border-white/10 bg-slate-950 py-12 px-6 lg:px-12 text-xs text-slate-400">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="flex items-center space-x-3">
-        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-400 to-indigo-600 flex items-center justify-center text-white font-bold">
-          S
+          <div class="p-4 rounded-2xl bg-slate-950/80 border border-white/5 space-y-2 text-xs">
+            <div class="font-bold text-slate-200">NP-Hard QUBO Global Ground State:</div>
+            <div class="font-mono text-emerald-400 font-bold text-sm bg-slate-900 p-2.5 rounded-xl border border-white/5">
+              Global Ground Energy: E = -3.0981 (Confirmed via 2²⁰ Brute Force)
+            </div>
+          </div>
         </div>
-        <span class="text-white font-bold text-sm tracking-tight">Scanvidence Research</span>
-        <span class="text-slate-500">•</span>
-        <span>Anas Khan & Google DeepMind Team</span>
-      </div>
 
-      <div class="flex items-center space-x-6">
-        <a href="https://huggingface.co/Falcon7211/Scanvidence-SegResNetB0" target="_blank" class="hover:text-cyan-400 transition">Hugging Face Models</a>
-        <a href="https://github.com/Scanvidence/Scanvidence" target="_blank" class="hover:text-cyan-400 transition">GitHub Source</a>
-        <a href="#overview" class="hover:text-cyan-400 transition">Back to Top ↑</a>
+        <!-- 9-Qubit Quantum Kernel Machine Learning -->
+        <div class="liquid-glass-card rounded-3xl p-6 sm:p-8 space-y-6">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold text-lg">🌌</div>
+              <div>
+                <h3 class="text-lg font-bold text-white">9-Qubit Quantum Kernel (QSVM)</h3>
+                <p class="text-xs text-slate-400">512-Dimensional Complex Hilbert Space</p>
+              </div>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 font-mono text-xs font-semibold">+6.7% AUC LIFT</span>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-950/80 border border-white/5 space-y-3 text-xs">
+            <div class="flex justify-between items-center"><span class="text-slate-400">Quantum Circuit:</span><span class="font-mono text-cyan-300">ZZFeatureMap(9 Qubits, reps=1)</span></div>
+            <div class="flex justify-between items-center"><span class="text-slate-400">Gram Matrix Dimension:</span><span class="font-mono text-white">475 × 475 Patients (Vectorized)</span></div>
+            <div class="flex justify-between items-center"><span class="text-slate-400">5-Fold CV AUC:</span><span class="font-mono text-emerald-400 font-bold">0.542 [0.490, 0.593]</span></div>
+            <div class="flex justify-between items-center"><span class="text-slate-400">Classical RBF SVM AUC:</span><span class="font-mono text-rose-400">0.475 (-6.7% degradation)</span></div>
+          </div>
+
+          <div class="space-y-2 text-xs">
+            <div class="text-slate-400 font-semibold">9 Selected Biomarkers (FLAIR Textures + Shape):</div>
+            <div class="grid grid-cols-2 gap-2 text-[11px] font-mono">
+              <div class="p-2 rounded-xl bg-slate-950/60 border border-white/5 text-slate-300">flair_wt: glcm JointAverage</div>
+              <div class="p-2 rounded-xl bg-slate-950/60 border border-white/5 text-slate-300">flair_wt: glcm SumAverage</div>
+              <div class="p-2 rounded-xl bg-slate-950/60 border border-white/5 text-slate-300">flair_wt: glcm Autocorrelation</div>
+              <div class="p-2 rounded-xl bg-slate-950/60 border border-white/5 text-slate-300">flair_wt: glrlm HighGrayLevel</div>
+              <div class="p-2 rounded-xl bg-slate-950/60 border border-white/5 text-slate-300">t1c_tc: shape Flatness</div>
+              <div class="p-2 rounded-xl bg-slate-950/60 border border-white/5 text-slate-300">flair_wt: shape MeshVolume</div>
+            </div>
+          </div>
+        </div>
+
       </div>
+    </div>
+
+    <!-- VIEW 3: BRATS 2023 BENCHMARKS -->
+    <div id="view-benchmarks" class="hidden space-y-6">
+      <div class="liquid-glass-card rounded-3xl p-6 sm:p-8 space-y-6">
+        <div class="space-y-1">
+          <h3 class="text-xl font-bold text-white">BraTS GLI 2023 International Benchmarks</h3>
+          <p class="text-xs text-slate-400">Full 3D sliding-window evaluation across 125 validation brain volumes</p>
+        </div>
+
+        <div class="rounded-2xl overflow-hidden border border-white/10">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-950 text-slate-400 uppercase tracking-wider font-semibold border-b border-white/10">
+              <tr>
+                <th class="py-4 px-6">Anatomical Compartment</th>
+                <th class="py-4 px-6">Scanvidence SegResNetB0</th>
+                <th class="py-4 px-6">BraTS 2023 Top-Tier</th>
+                <th class="py-4 px-6">Evaluation Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5 font-mono">
+              <tr>
+                <td class="py-4 px-6 font-sans font-semibold text-white">Whole Tumor (WT)</td>
+                <td class="py-4 px-6 font-bold text-emerald-400">0.9223 ± 0.063 (92.2%)</td>
+                <td class="py-4 px-6 text-slate-300">0.90 – 0.93</td>
+                <td class="py-4 px-6 font-sans"><span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-medium">Leaderboard Top-Tier</span></td>
+              </tr>
+              <tr>
+                <td class="py-4 px-6 font-sans font-semibold text-white">Tumor Core (TC)</td>
+                <td class="py-4 px-6 font-bold text-emerald-400">0.8808 ± 0.174 (88.1%)</td>
+                <td class="py-4 px-6 text-slate-300">0.85 – 0.89</td>
+                <td class="py-4 px-6 font-sans"><span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-medium">Leaderboard Top-Tier</span></td>
+              </tr>
+              <tr>
+                <td class="py-4 px-6 font-sans font-semibold text-white">Enhancing Tumor (ET)</td>
+                <td class="py-4 px-6 font-bold text-emerald-400">0.8345 ± 0.229 (83.5%)</td>
+                <td class="py-4 px-6 text-slate-300">0.80 – 0.85</td>
+                <td class="py-4 px-6 font-sans"><span class="px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-400 font-medium">Competitive</span></td>
+              </tr>
+              <tr class="bg-slate-950/60">
+                <td class="py-4 px-6 font-sans font-bold text-cyan-300">Mean Full-Scan Dice</td>
+                <td class="py-4 px-6 font-bold text-cyan-300">0.8792 ± 0.155 (87.9%)</td>
+                <td class="py-4 px-6 text-slate-300">0.86 – 0.88</td>
+                <td class="py-4 px-6 font-sans"><span class="px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-300 font-medium">State-of-the-Art Baseline</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- APPLE LIQUID GLASS FOOTER -->
+  <footer class="border-t border-white/5 py-10 px-6 max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+    <div class="flex items-center space-x-2">
+      <span class="text-white font-bold">Scanvidence</span>
+      <span>•</span>
+      <span>Anas Khan & Google DeepMind Team</span>
+    </div>
+    <div class="flex items-center space-x-6">
+      <a href="https://huggingface.co/Falcon7211/Scanvidence-SegResNetB0" target="_blank" class="hover:text-cyan-400 transition">Hugging Face</a>
+      <a href="https://github.com/Scanvidence/Scanvidence" target="_blank" class="hover:text-cyan-400 transition">GitHub</a>
+      <a href="#overview" class="hover:text-cyan-400 transition">Back to Top ↑</a>
     </div>
   </footer>
 
-  <!-- DYNAMIC JAVASCRIPT FOR PATIENT VIEWER -->
+  <!-- INTERACTIVE JAVASCRIPT ENGINE -->
   <script>
-    const patientCases = {
+    const caseData = {
       "BraTS-GLI-00001-000": {
         wt: "115.01 cm³", tc: "30.75 cm³", et: "18.45 cm³", ncr: "12.31 cm³",
         status: "MGMT_Unmethylated", prob: "55.8%", unc: "44.2%",
-        centroid: "Z: 70 | Y: 121 | X: 159", bbox: "73.0 × 98.0 × 57.0 mm",
-        ratios: "ET/TC: 60.0% | NCR: 40.0%",
-        img: "cache/explainability_challenge_val/BraTS-GLI-00001-000_explainability.png",
-        note: "<strong>Clinical Recommendation:</strong> Borderline epigenetic profile (55.8%). Recommend confirmatory tissue PCR biopsy testing before finalizing Temozolomide dosage."
+        centroid: "70, 121, 159", ratioEt: "60.0%", ratioNcr: "40.0%",
+        cz: 70, img: "cache/explainability_challenge_val/BraTS-GLI-00001-000_explainability.png",
+        rec: "Borderline epigenetic profile. Recommend confirmatory tissue PCR testing before finalizing Temozolomide dosage."
       },
       "BraTS-GLI-00001-001": {
         wt: "135.03 cm³", tc: "62.94 cm³", et: "39.92 cm³", ncr: "23.02 cm³",
         status: "MGMT_Methylated", prob: "51.7%", unc: "48.3%",
-        centroid: "Z: 68 | Y: 126 | X: 154", bbox: "74.0 × 102.0 × 66.0 mm",
-        ratios: "ET/TC: 63.4% | NCR: 36.6%",
-        img: "cache/explainability_challenge_val/BraTS-GLI-00001-001_explainability.png",
-        note: "<strong>Clinical Recommendation:</strong> MGMT Promoter Methylation likely positive. Favorable biomarker profile for alkylating chemotherapy."
+        centroid: "68, 126, 154", ratioEt: "63.4%", ratioNcr: "36.6%",
+        cz: 68, img: "cache/explainability_challenge_val/BraTS-GLI-00001-001_explainability.png",
+        rec: "MGMT Promoter Methylation likely positive. Favorable biomarker profile for alkylating chemotherapy."
       },
       "BraTS-GLI-00013-000": {
         wt: "84.40 cm³", tc: "47.98 cm³", et: "35.30 cm³", ncr: "12.68 cm³",
         status: "MGMT_Unmethylated", prob: "55.4%", unc: "44.6%",
-        centroid: "Z: 75 | Y: 130 | X: 95", bbox: "65.0 × 80.0 × 55.0 mm",
-        ratios: "ET/TC: 73.6% | NCR: 26.4%",
-        img: "cache/explainability_challenge_val/BraTS-GLI-00013-000_explainability.png",
-        note: "<strong>Clinical Recommendation:</strong> High Enhancing-to-Core ratio (73.6%). Recommend targeted radiotherapy on enhancing tumor margins."
+        centroid: "75, 130, 95", ratioEt: "73.6%", ratioNcr: "26.4%",
+        cz: 75, img: "cache/explainability_challenge_val/BraTS-GLI-00013-000_explainability.png",
+        rec: "High Enhancing-to-Core ratio (73.6%). Recommend targeted radiotherapy on active enhancing margins."
       },
       "BraTS-GLI-00013-001": {
         wt: "77.56 cm³", tc: "50.49 cm³", et: "45.60 cm³", ncr: "4.89 cm³",
         status: "MGMT_Unmethylated", prob: "55.4%", unc: "44.6%",
-        centroid: "Z: 72 | Y: 128 | X: 98", bbox: "62.0 × 78.0 × 54.0 mm",
-        ratios: "ET/TC: 90.3% | NCR: 9.7%",
-        img: "cache/explainability_challenge_val/BraTS-GLI-00013-001_explainability.png",
-        note: "<strong>Clinical Recommendation:</strong> Prominent active enhancing rim with minimal necrotic center. Aggressive vascular tumor signature."
+        centroid: "72, 128, 98", ratioEt: "90.3%", ratioNcr: "9.7%",
+        cz: 72, img: "cache/explainability_challenge_val/BraTS-GLI-00013-001_explainability.png",
+        rec: "Prominent active enhancing rim with minimal necrotic center. High vascularity profile."
       },
       "BraTS-GLI-00015-000": {
         wt: "196.62 cm³", tc: "38.64 cm³", et: "27.51 cm³", ncr: "11.13 cm³",
         status: "MGMT_Unmethylated", prob: "55.0%", unc: "45.0%",
-        centroid: "Z: 85 | Y: 110 | X: 140", bbox: "88.0 × 115.0 × 82.0 mm",
-        ratios: "ET/TC: 71.2% | NCR: 28.8%",
-        img: "cache/explainability_challenge_val/BraTS-GLI-00015-000_explainability.png",
-        note: "<strong>Clinical Recommendation:</strong> Extensive vasogenic edema (158 cm³). Recommend aggressive anti-edema corticosteroid therapy."
+        centroid: "85, 110, 140", ratioEt: "71.2%", ratioNcr: "28.8%",
+        cz: 85, img: "cache/explainability_challenge_val/BraTS-GLI-00015-000_explainability.png",
+        rec: "Extensive vasogenic edema (158 cm³). Recommend aggressive anti-edema corticosteroid therapy."
       },
       "BraTS-GLI-00027-000": {
         wt: "45.20 cm³", tc: "22.10 cm³", et: "14.10 cm³", ncr: "8.00 cm³",
         status: "MGMT_Unmethylated", prob: "54.8%", unc: "45.2%",
-        centroid: "Z: 62 | Y: 145 | X: 112", bbox: "45.0 × 55.0 × 40.0 mm",
-        ratios: "ET/TC: 63.8% | NCR: 36.2%",
-        img: "cache/explainability_challenge_val/BraTS-GLI-00027-000_explainability.png",
-        note: "<strong>Clinical Recommendation:</strong> Compact localized lesion. Excellent candidate for maximal surgical resection."
+        centroid: "62, 145, 112", ratioEt: "63.8%", ratioNcr: "36.2%",
+        cz: 62, img: "cache/explainability_challenge_val/BraTS-GLI-00027-000_explainability.png",
+        rec: "Compact localized lesion. Favorable geometry for gross total surgical resection."
       },
       "BraTS-GLI-00037-000": {
         wt: "32.80 cm³", tc: "14.50 cm³", et: "8.40 cm³", ncr: "6.10 cm³",
         status: "MGMT_Unmethylated", prob: "54.5%", unc: "45.5%",
-        centroid: "Z: 58 | Y: 105 | X: 125", bbox: "38.0 × 45.0 × 35.0 mm",
-        ratios: "ET/TC: 57.9% | NCR: 42.1%",
-        img: "cache/explainability_challenge_val/BraTS-GLI-00037-000_explainability.png",
-        note: "<strong>Clinical Recommendation:</strong> Small volume tumor. High spatial precision segmentation achieved."
+        centroid: "58, 105, 125", ratioEt: "57.9%", ratioNcr: "42.1%",
+        cz: 58, img: "cache/explainability_challenge_val/BraTS-GLI-00037-000_explainability.png",
+        rec: "Small volume lesion. High spatial segmentation fidelity achieved."
       }
     };
 
-    function loadCase() {
+    let currentPlane = 'axial';
+
+    function updateCase() {
       const key = document.getElementById("case-select").value;
-      const c = patientCases[key];
+      const c = caseData[key];
       if (!c) return;
 
-      document.getElementById("ui-vol-wt").innerText = c.wt;
-      document.getElementById("ui-vol-tc").innerText = c.tc;
-      document.getElementById("ui-vol-et").innerText = c.et;
-      document.getElementById("ui-vol-ncr").innerText = c.ncr;
-      document.getElementById("ui-mgmt-status").innerText = c.status;
-      document.getElementById("ui-mgmt-prob").innerText = c.prob;
-      document.getElementById("ui-mgmt-unc").innerText = c.unc;
-      document.getElementById("ui-mgmt-bar").style.width = c.prob;
-      document.getElementById("ui-centroid").innerText = c.centroid;
-      document.getElementById("ui-bbox").innerText = c.bbox;
-      document.getElementById("ui-ratios").innerText = c.ratios;
-      document.getElementById("ui-case-img").src = c.img;
-      document.getElementById("ui-mgmt-note").innerHTML = c.note;
+      document.getElementById("diag-vol-wt").innerText = c.wt;
+      document.getElementById("diag-vol-tc").innerText = c.tc;
+      document.getElementById("diag-vol-et").innerText = c.et;
+      document.getElementById("diag-vol-ncr").innerText = c.ncr;
+      document.getElementById("diag-mgmt-status").innerText = c.status;
+      document.getElementById("diag-mgmt-prob").innerText = c.prob;
+      document.getElementById("diag-mgmt-unc").innerText = c.unc;
+      document.getElementById("diag-mgmt-bar").style.width = c.prob;
+      document.getElementById("diag-ratio-et").innerText = c.ratioEt;
+      document.getElementById("diag-ratio-ncr").innerText = c.ratioNcr;
+      document.getElementById("diag-centroid").innerText = c.centroid;
+      document.getElementById("main-case-img").src = c.img;
+      document.getElementById("diag-rec-text").innerText = c.rec;
+      document.getElementById("slice-slider").value = c.cz;
+      document.getElementById("slice-indicator").innerText = `z = ${c.cz} / 155`;
+    }
+
+    function onSliceChange(val) {
+      document.getElementById("slice-indicator").innerText = `${currentPlane[0]} = ${val} / 155`;
+    }
+
+    function setPlane(plane) {
+      currentPlane = plane;
+      ['axial', 'coronal', 'sagittal'].forEach(p => {
+        document.getElementById(`btn-plane-${p}`).className = "liquid-glass-pill px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition";
+      });
+      document.getElementById(`btn-plane-${plane}`).className = "liquid-glass-pill active px-3.5 py-1.5 rounded-lg transition";
+      onSliceChange(document.getElementById("slice-slider").value);
+    }
+
+    function switchView(viewId) {
+      ['viewer', 'quantum', 'benchmarks'].forEach(v => {
+        document.getElementById(`view-${v}`).classList.add("hidden");
+        document.getElementById(`btn-${v}`).className = "liquid-glass-pill px-3.5 py-1.5 rounded-lg text-slate-400 hover:text-slate-200 transition-all";
+      });
+      document.getElementById(`view-${viewId}`).classList.remove("hidden");
+      document.getElementById(`btn-${viewId}`).className = "liquid-glass-pill active px-3.5 py-1.5 rounded-lg transition-all";
     }
   </script>
 </body>
