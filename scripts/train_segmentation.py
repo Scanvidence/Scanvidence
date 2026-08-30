@@ -26,6 +26,7 @@ import json
 import random
 import time
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import nibabel as nib
@@ -79,16 +80,33 @@ def load_case(groups: dict[str, dict[str, Path]], cid: str) -> tuple[np.ndarray,
     return vol, seg
 
 
-def crop(
-    vol: np.ndarray, seg: np.ndarray, center: np.ndarray | tuple | list, p: int = 96
-) -> tuple[np.ndarray, np.ndarray]:
+def cases_stream(order, groups, ahead=8, workers=6):
+    """Prefetch case loading on threads so the GPU never waits on gzip/CPU."""
+    pool = ThreadPoolExecutor(max_workers=workers)
+    it = iter(order)
+    pending = {}
+    for _ in range(ahead):
+        c = next(it, None)
+        if c is None:
+            break
+        pending[c] = pool.submit(load_case, groups, c)
+    for cid in order:
+        vol, seg = pending.pop(cid).result() if cid in pending else load_case(groups, cid)
+        nxt = next(it, None)
+        if nxt is not None:
+            pending[nxt] = pool.submit(load_case, groups, nxt)
+        yield vol, seg
+    pool.shutdown(wait=False)
+
+
+def crop(vol, seg, center, p=96):
     pad = [(0, max(0, p - s)) for s in vol.shape[1:]]
     if any(q for _, q in pad):
-        vol = np.pad(vol, ((0, 0), *pad))
-        seg = np.pad(seg, pad)
+        vol = np.pad(vol, ((0, 0), *pad)); seg = np.pad(seg, pad)
     st = [max(0, min(int(c) - p // 2, vol.shape[1 + a] - p)) for a, c in enumerate(center)]
-    sl = (slice(None), *[slice(s, s + p) for s in st])
-    return vol[sl], seg[sl]
+    sl_vol = (slice(None), *[slice(s, s + p) for s in st])   # 4 slices: channel + spatial
+    sl_seg = tuple(slice(s, s + p) for s in st)             # 3 slices: spatial only
+    return vol[sl_vol], seg[sl_seg]
 
 
 def regions(L: np.ndarray) -> dict[str, np.ndarray]:
@@ -130,6 +148,7 @@ def main() -> None:
     ap.add_argument("--val-every", type=int, default=1)
     ap.add_argument("--resume", default=None)
     ap.add_argument("--profile-steps", type=int, default=10)
+    ap.add_argument("--patience", type=int, default=0)  # 0 = run all epochs
     args = ap.parse_args()
     set_seed(args.seed)
     dev = "cuda" if torch.cuda.is_available() else "cpu"
@@ -209,14 +228,14 @@ def main() -> None:
     opt.zero_grad(set_to_none=True)
 
     history: list[dict] = []
+    bad = 0
     for epoch in range(start_epoch, args.epochs):
         model.train()
         rng = np.random.default_rng(args.seed + epoch)
         order = train_ids[:]
         rng.shuffle(order)
         losses: list[float] = []
-        for i, cid in enumerate(order):
-            vol, seg = load_case(groups, cid)
+        for i, (vol, seg) in enumerate(cases_stream(order, groups)):
             idx = np.argwhere(seg > 0)
             if len(idx) and rng.random() < 0.7:
                 center = idx[rng.integers(len(idx))]
@@ -236,8 +255,7 @@ def main() -> None:
         model.eval()
         scores: list[float] = []
         with torch.no_grad():
-            for cid in val_ids:
-                vol, seg = load_case(groups, cid)
+            for cid, (vol, seg) in zip(val_ids, cases_stream(val_ids, groups)):
                 fg_idx = np.argwhere(seg > 0)
                 c = fg_idx.mean(0) if len(fg_idx) else np.array(vol.shape[1:]) / 2
                 vc, sc = crop(vol, seg, c)
@@ -249,6 +267,7 @@ def main() -> None:
                 scores.append(float(np.mean([dice(pr[r], gr[r]) for r in ("ET", "TC", "WT")])))
         val_score = float(np.mean(scores)) if scores else 0.0
         tag = ""
+        improved = False
         if val_score > best:
             best = val_score
             torch.save(
@@ -268,6 +287,11 @@ def main() -> None:
                 out / "best.pt",
             )
             tag = " *best"
+            improved = True
+        if improved:
+            bad = 0
+        else:
+            bad += 1
         history.append(
             {
                 "epoch": epoch,
@@ -281,6 +305,9 @@ def main() -> None:
             flush=True,
         )
         (out / "history.json").write_text(json.dumps(history, indent=2))
+        if args.patience and bad >= args.patience:
+            print(f"early stopping: no improvement for {bad} epochs (patience {args.patience})", flush=True)
+            break
 
     (out / "run.json").write_text(
         json.dumps(

@@ -1,0 +1,25 @@
+# Build: docker build -f Dockerfile.radiomics -t scanvidence-rad .
+# Run:   docker run --rm -v "C:\...\TrainingData:/data/TrainingData:ro" -v "${PWD}\cache:/work/cache" scanvidence-rad
+
+FROM mambaorg/micromamba:1.5.8-noble
+
+USER root
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git && rm -rf /var/lib/apt/lists/*
+
+USER mambauser
+WORKDIR /work
+
+# Create env with pyradiomics (linux wheels exist)
+RUN micromamba create -y -n rad -c conda-forge -c bioconda \
+    python=3.10 pyradiomics simpleitk pandas joblib numpy=1.26 \
+    && micromamba clean -a -y
+
+# Copy repo
+COPY --chown=mambauser:mambauser . /work
+
+# Run extraction (data-root is the mounted host path)
+ENTRYPOINT ["micromamba", "run", "-n", "rad", "python", \
+            "scripts/extract_radiomics.py", \
+            "--data-root", "/data/TrainingData", \
+            "--n-jobs", "-2"]
