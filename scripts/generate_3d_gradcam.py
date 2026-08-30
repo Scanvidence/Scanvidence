@@ -94,7 +94,28 @@ def main() -> None:
 
     # 1. Load SegResNetB0 model
     model = SegResNetB0()
-    ckpt = torch.load(args.checkpoint, map_location=device, weights_only=False)
+    ckpt_path = Path(args.checkpoint)
+    if not ckpt_path.exists():
+        print(
+            f"Checkpoint '{ckpt_path}' not found locally. Auto-downloading from Hugging Face Hub..."
+        )
+        try:
+            from huggingface_hub import hf_hub_download
+
+            ckpt_path = Path(
+                hf_hub_download(
+                    repo_id="Falcon7211/Scanvidence-SegResNetB0",
+                    filename="best.pt",
+                    local_dir="checkpoints",
+                )
+            )
+            print(f"Downloaded checkpoint to: {ckpt_path}")
+        except Exception as e:
+            raise FileNotFoundError(
+                f"Could not find '{args.checkpoint}' and auto-download failed: {e}"
+            )
+
+    ckpt = torch.load(ckpt_path, map_location=device, weights_only=False)
     state = ckpt["state_dict"] if isinstance(ckpt, dict) and "state_dict" in ckpt else ckpt
     model.load_state_dict(state)
     model.to(device)
