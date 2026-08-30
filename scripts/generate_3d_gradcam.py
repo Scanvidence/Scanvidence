@@ -17,14 +17,32 @@ from scanvidence.models.backbone import SegResNetB0
 from scanvidence.xai import GradCAM
 
 
+def find_sequence_file(pdir: Path, patterns: list[str]) -> Path:
+    """Find file matching any pattern in patterns."""
+    for pat in patterns:
+        matches = list(pdir.glob(pat))
+        if matches:
+            return matches[0]
+    raise FileNotFoundError(
+        f"Could not find sequence matching {patterns} in directory: {pdir}.\n"
+        f"Available files: {[f.name for f in pdir.glob('*')]}"
+    )
+
+
 def load_patient_mri(
     pdir: Path, patch_size: int = 96
 ) -> tuple[torch.Tensor, np.ndarray, np.ndarray]:
     """Load and normalize patient 4-channel MRI scan, extracting central tumor volume."""
-    t1n_p = list(pdir.glob("*t1n.nii.gz"))[0]
-    t1c_p = list(pdir.glob("*t1c.nii.gz"))[0]
-    t2w_p = list(pdir.glob("*t2w.nii.gz"))[0]
-    t2f_p = list(pdir.glob("*t2f.nii.gz"))[0]
+    if not pdir.exists():
+        raise FileNotFoundError(
+            f"The specified patient directory does not exist: '{pdir}'\n"
+            f"Please replace with your actual BraTS patient directory on your PC."
+        )
+
+    t1n_p = find_sequence_file(pdir, ["*t1n.nii.gz", "*t1n.nii", "*_t1.nii.gz", "*_t1.nii"])
+    t1c_p = find_sequence_file(pdir, ["*t1c.nii.gz", "*t1c.nii", "*_t1ce.nii.gz", "*_t1ce.nii"])
+    t2w_p = find_sequence_file(pdir, ["*t2w.nii.gz", "*t2w.nii", "*_t2.nii.gz", "*_t2.nii"])
+    t2f_p = find_sequence_file(pdir, ["*t2f.nii.gz", "*t2f.nii", "*_flair.nii.gz", "*_flair.nii"])
 
     t1n = sitk.GetArrayFromImage(sitk.ReadImage(str(t1n_p)))
     t1c = sitk.GetArrayFromImage(sitk.ReadImage(str(t1c_p)))
