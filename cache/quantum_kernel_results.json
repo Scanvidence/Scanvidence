@@ -1,0 +1,37 @@
+{
+  "n_qubits": 9,
+  "hilbert_dimension": 512,
+  "feature_map": "ZZFeatureMap(reps=1, entanglement=linear)",
+  "models": {
+    "Quantum_Kernel_SVM (QSVM)": {
+      "cv_auc_mean": 0.542,
+      "cv_auc_95ci": [
+        0.4896,
+        0.5925
+      ],
+      "cv_brier": 0.248,
+      "val_auc": 0.4725,
+      "val_brier": 0.2531
+    },
+    "Classical_RBF_SVM": {
+      "cv_auc_mean": 0.4746,
+      "cv_auc_95ci": [
+        0.4229,
+        0.5285
+      ],
+      "cv_brier": 0.2532,
+      "val_auc": 0.4211,
+      "val_brier": 0.2543
+    },
+    "Classical_Linear_SVM": {
+      "cv_auc_mean": 0.4611,
+      "cv_auc_95ci": [
+        0.4096,
+        0.5134
+      ],
+      "cv_brier": 0.2564,
+      "val_auc": 0.471,
+      "val_brier": 0.2496
+    }
+  }
+}

@@ -102,10 +102,11 @@ def cases_stream(order, groups, ahead=8, workers=6):
 def crop(vol, seg, center, p=96):
     pad = [(0, max(0, p - s)) for s in vol.shape[1:]]
     if any(q for _, q in pad):
-        vol = np.pad(vol, ((0, 0), *pad)); seg = np.pad(seg, pad)
+        vol = np.pad(vol, ((0, 0), *pad))
+        seg = np.pad(seg, pad)
     st = [max(0, min(int(c) - p // 2, vol.shape[1 + a] - p)) for a, c in enumerate(center)]
-    sl_vol = (slice(None), *[slice(s, s + p) for s in st])   # 4 slices: channel + spatial
-    sl_seg = tuple(slice(s, s + p) for s in st)             # 3 slices: spatial only
+    sl_vol = (slice(None), *[slice(s, s + p) for s in st])  # 4 slices: channel + spatial
+    sl_seg = tuple(slice(s, s + p) for s in st)  # 3 slices: spatial only
     return vol[sl_vol], seg[sl_seg]
 
 
@@ -306,7 +307,10 @@ def main() -> None:
         )
         (out / "history.json").write_text(json.dumps(history, indent=2))
         if args.patience and bad >= args.patience:
-            print(f"early stopping: no improvement for {bad} epochs (patience {args.patience})", flush=True)
+            print(
+                f"early stopping: no improvement for {bad} epochs (patience {args.patience})",
+                flush=True,
+            )
             break
 
     (out / "run.json").write_text(

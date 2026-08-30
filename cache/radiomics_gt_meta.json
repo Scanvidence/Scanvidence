@@ -1,0 +1,30 @@
+{
+  "versions": {
+    "radiomics": "v3.0.1",
+    "simpleitk": "2.5.6",
+    "numpy": "1.26.4"
+  },
+  "settings": {
+    "binWidth": 25,
+    "resampledPixelSpacing": null,
+    "interpolator": "sitkNearestNeighbor",
+    "minimumROISize": 10,
+    "enableCExtensions": true
+  },
+  "classes": [
+    "firstorder",
+    "shape",
+    "glcm",
+    "glrlm",
+    "glszm"
+  ],
+  "blocks": [
+    "flair_wt",
+    "t1c_tc",
+    "t1c_et"
+  ],
+  "n_cases": 1063,
+  "n_features": 264,
+  "cohort": "all",
+  "mask_source": "ground_truth"
+}

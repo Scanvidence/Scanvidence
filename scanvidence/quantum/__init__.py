@@ -5,6 +5,16 @@ in the core pipeline imports from this package.
 """
 
 from .base import BaseSelector
+from .classical import LassoSelector, MRMRSelector, MutualInfoSelector, RFESelector
+from .QSVMClassifier import QSVMClassifier
 from .QUBOSelector import QUBOSelector
 
-__all__ = ["BaseSelector", "QUBOSelector"]
+__all__ = [
+    "BaseSelector",
+    "QUBOSelector",
+    "QSVMClassifier",
+    "LassoSelector",
+    "RFESelector",
+    "MutualInfoSelector",
+    "MRMRSelector",
+]

@@ -1,0 +1,27 @@
+{
+  "features": [
+    "flair_wt__original_glcm_JointAverage",
+    "flair_wt__original_glcm_SumAverage",
+    "flair_wt__original_glcm_Autocorrelation",
+    "flair_wt__original_glrlm_HighGrayLevelRunEmphasis",
+    "flair_wt__original_firstorder_Skewness",
+    "t1c_tc__original_shape_Flatness",
+    "flair_wt__original_shape_MeshVolume",
+    "flair_wt__original_glcm_MCC",
+    "flair_wt__original_shape_LeastAxisLength"
+  ],
+  "medians": {
+    "flair_wt__original_glcm_JointAverage": 17.79526191871735,
+    "flair_wt__original_glcm_SumAverage": 35.59052383743471,
+    "flair_wt__original_glcm_Autocorrelation": 334.67160593655814,
+    "flair_wt__original_glrlm_HighGrayLevelRunEmphasis": 327.73143760046764,
+    "flair_wt__original_firstorder_Skewness": 0.1443574838876127,
+    "t1c_tc__original_shape_Flatness": 0.6153783596927269,
+    "flair_wt__original_shape_MeshVolume": 88545.0,
+    "flair_wt__original_glcm_MCC": 0.8634186306871717,
+    "flair_wt__original_shape_LeastAxisLength": 39.98901615671083
+  },
+  "n_train": 475,
+  "qsvm_cv_auc": 0.542,
+  "rf_cv_auc": 0.562
+}

@@ -1,0 +1,915 @@
+{
+  "qubo_classical": {
+    "n_features": 9,
+    "features": [
+      "flair_wt__original_glcm_JointAverage",
+      "flair_wt__original_glcm_SumAverage",
+      "flair_wt__original_glcm_Autocorrelation",
+      "flair_wt__original_glrlm_HighGrayLevelRunEmphasis",
+      "flair_wt__original_firstorder_Skewness",
+      "t1c_tc__original_shape_Flatness",
+      "flair_wt__original_shape_MeshVolume",
+      "flair_wt__original_glcm_MCC",
+      "flair_wt__original_shape_LeastAxisLength"
+    ],
+    "models": {
+      "LogisticRegression": {
+        "cv_auc_mean": 0.508,
+        "cv_auc_95ci": [
+          0.454,
+          0.56
+        ],
+        "cv_brier": 0.2549,
+        "val_auc": 0.4606,
+        "val_brier": 0.2548
+      },
+      "RandomForest": {
+        "cv_auc_mean": 0.5617,
+        "cv_auc_95ci": [
+          0.5099,
+          0.6122
+        ],
+        "cv_brier": 0.2497,
+        "val_auc": 0.4963,
+        "val_brier": 0.2588
+      },
+      "XGBoost": {
+        "cv_auc_mean": 0.5284,
+        "cv_auc_95ci": [
+          0.4743,
+          0.5793
+        ],
+        "cv_brier": 0.2655,
+        "val_auc": 0.5272,
+        "val_brier": 0.2614
+      }
+    }
+  },
+  "qubo_exact": {
+    "n_features": 9,
+    "features": [
+      "flair_wt__original_glcm_JointAverage",
+      "flair_wt__original_glcm_SumAverage",
+      "flair_wt__original_glcm_Autocorrelation",
+      "flair_wt__original_glrlm_HighGrayLevelRunEmphasis",
+      "flair_wt__original_firstorder_Skewness",
+      "t1c_tc__original_shape_Flatness",
+      "flair_wt__original_shape_MeshVolume",
+      "flair_wt__original_glcm_MCC",
+      "flair_wt__original_shape_LeastAxisLength"
+    ],
+    "models": {
+      "LogisticRegression": {
+        "cv_auc_mean": 0.508,
+        "cv_auc_95ci": [
+          0.454,
+          0.56
+        ],
+        "cv_brier": 0.2549,
+        "val_auc": 0.4606,
+        "val_brier": 0.2548
+      },
+      "RandomForest": {
+        "cv_auc_mean": 0.5617,
+        "cv_auc_95ci": [
+          0.5099,
+          0.6122
+        ],
+        "cv_brier": 0.2497,
+        "val_auc": 0.4963,
+        "val_brier": 0.2588
+      },
+      "XGBoost": {
+        "cv_auc_mean": 0.5284,
+        "cv_auc_95ci": [
+          0.4743,
+          0.5793
+        ],
+        "cv_brier": 0.2655,
+        "val_auc": 0.5272,
+        "val_brier": 0.2614
+      }
+    }
+  },
+  "qaoa_sim": {
+    "n_features": 11,
+    "features": [
+      "flair_wt__original_glrlm_HighGrayLevelRunEmphasis",
+      "flair_wt__original_glrlm_LongRunHighGrayLevelEmphasis",
+      "flair_wt__original_glrlm_LowGrayLevelRunEmphasis",
+      "flair_wt__original_glrlm_RunLengthNonUniformity",
+      "flair_wt__original_glrlm_ShortRunLowGrayLevelEmphasis",
+      "flair_wt__original_glrlm_LongRunLowGrayLevelEmphasis",
+      "flair_wt__original_glszm_HighGrayLevelZoneEmphasis",
+      "flair_wt__original_firstorder_Median",
+      "flair_wt__original_glszm_SmallAreaHighGrayLevelEmphasis",
+      "flair_wt__original_shape_VoxelVolume",
+      "flair_wt__original_glrlm_GrayLevelNonUniformityNormalized"
+    ],
+    "models": {
+      "LogisticRegression": {
+        "cv_auc_mean": 0.4982,
+        "cv_auc_95ci": [
+          0.4466,
+          0.5526
+        ],
+        "cv_brier": 0.2539,
+        "val_auc": 0.4621,
+        "val_brier": 0.2534
+      },
+      "RandomForest": {
+        "cv_auc_mean": 0.5197,
+        "cv_auc_95ci": [
+          0.4688,
+          0.5714
+        ],
+        "cv_brier": 0.2569,
+        "val_auc": 0.4494,
+        "val_brier": 0.2545
+      },
+      "XGBoost": {
+        "cv_auc_mean": 0.4984,
+        "cv_auc_95ci": [
+          0.4467,
+          0.5516
+        ],
+        "cv_brier": 0.2707,
+        "val_auc": 0.4464,
+        "val_brier": 0.2706
+      }
+    }
+  },
+  "mi_topk": {
+    "n_features": 9,
+    "features": [
+      "flair_wt__original_glcm_JointAverage",
+      "flair_wt__original_glcm_SumAverage",
+      "flair_wt__original_glcm_Autocorrelation",
+      "flair_wt__original_glrlm_HighGrayLevelRunEmphasis",
+      "flair_wt__original_glrlm_ShortRunHighGrayLevelEmphasis",
+      "flair_wt__original_glszm_HighGrayLevelZoneEmphasis",
+      "flair_wt__original_glszm_SmallAreaHighGrayLevelEmphasis",
+      "flair_wt__original_glcm_MCC",
+      "flair_wt__original_glrlm_GrayLevelNonUniformityNormalized"
+    ],
+    "models": {
+      "LogisticRegression": {
+        "cv_auc_mean": 0.4854,
+        "cv_auc_95ci": [
+          0.4329,
+          0.54
+        ],
+        "cv_brier": 0.2527,
+        "val_auc": 0.4821,
+        "val_brier": 0.2524
+      },
+      "RandomForest": {
+        "cv_auc_mean": 0.5686,
+        "cv_auc_95ci": [
+          0.5163,
+          0.6204
+        ],
+        "cv_brier": 0.2487,
+        "val_auc": 0.5357,
+        "val_brier": 0.2525
+      },
+      "XGBoost": {
+        "cv_auc_mean": 0.5358,
+        "cv_auc_95ci": [
+          0.4846,
+          0.5875
+        ],
+        "cv_brier": 0.2603,
+        "val_auc": 0.4416,
+        "val_brier": 0.2853
+      }
+    }
+  },
+  "mrmr": {
+    "n_features": 9,
+    "features": [
+      "flair_wt__original_glcm_JointAverage",
+      "flair_wt__original_firstorder_Skewness",
+      "t1c_tc__original_shape_Flatness",
+      "flair_wt__original_glrlm_LongRunLowGrayLevelEmphasis",
+      "flair_wt__original_glszm_HighGrayLevelZoneEmphasis",
+      "flair_wt__original_shape_VoxelVolume",
+      "flair_wt__original_glcm_MCC",
+      "flair_wt__original_glrlm_GrayLevelNonUniformityNormalized",
+      "flair_wt__original_shape_LeastAxisLength"
+    ],
+    "models": {
+      "LogisticRegression": {
+        "cv_auc_mean": 0.511,
+        "cv_auc_95ci": [
+          0.4582,
+          0.5635
+        ],
+        "cv_brier": 0.2565,
+        "val_auc": 0.4851,
+        "val_brier": 0.2561
+      },
+      "RandomForest": {
+        "cv_auc_mean": 0.5322,
+        "cv_auc_95ci": [
+          0.4804,
+          0.5837
+        ],
+        "cv_brier": 0.2549,
+        "val_auc": 0.4918,
+        "val_brier": 0.2604
+      },
+      "XGBoost": {
+        "cv_auc_mean": 0.5121,
+        "cv_auc_95ci": [
+          0.4592,
+          0.5628
+        ],
+        "cv_brier": 0.2679,
+        "val_auc": 0.4866,
+        "val_brier": 0.273
+      }
+    }
+  },
+  "f_anova": {
+    "n_features": 9,
+    "features": [
+      "flair_wt__original_glcm_JointAverage",
+      "flair_wt__original_glcm_SumAverage",
+      "flair_wt__original_firstorder_Skewness",
+      "flair_wt__original_glrlm_RunLengthNonUniformity",
+      "t1c_tc__original_shape_Flatness",
+      "flair_wt__original_firstorder_Median",
+      "flair_wt__original_shape_MeshVolume",
+      "flair_wt__original_shape_VoxelVolume",
+      "flair_wt__original_glrlm_GrayLevelNonUniformityNormalized"
+    ],
+    "models": {
+      "LogisticRegression": {
+        "cv_auc_mean": 0.5383,
+        "cv_auc_95ci": [
+          0.4851,
+          0.5905
+        ],
+        "cv_brier": 0.2521,
+        "val_auc": 0.4792,
+        "val_brier": 0.2556
+      },
+      "RandomForest": {
+        "cv_auc_mean": 0.5289,
+        "cv_auc_95ci": [
+          0.4776,
+          0.5816
+        ],
+        "cv_brier": 0.2555,
+        "val_auc": 0.5052,
+        "val_brier": 0.2568
+      },
+      "XGBoost": {
+        "cv_auc_mean": 0.5075,
+        "cv_auc_95ci": [
+          0.4568,
+          0.5596
+        ],
+        "cv_brier": 0.2656,
+        "val_auc": 0.5045,
+        "val_brier": 0.271
+      }
+    }
+  },
+  "l1": {
+    "n_features": 9,
+    "features": [
+      "flair_wt__original_glcm_SumAverage",
+      "flair_wt__original_glcm_Autocorrelation",
+      "flair_wt__original_glrlm_ShortRunHighGrayLevelEmphasis",
+      "flair_wt__original_firstorder_Skewness",
+      "flair_wt__original_glrlm_LongRunHighGrayLevelEmphasis",
+      "flair_wt__original_glszm_HighGrayLevelZoneEmphasis",
+      "flair_wt__original_firstorder_Median",
+      "flair_wt__original_glszm_SmallAreaHighGrayLevelEmphasis",
+      "flair_wt__original_shape_LeastAxisLength"
+    ],
+    "models": {
+      "LogisticRegression": {
+        "cv_auc_mean": 0.5173,
+        "cv_auc_95ci": [
+          0.464,
+          0.5713
+        ],
+        "cv_brier": 0.251,
+        "val_auc": 0.4881,
+        "val_brier": 0.2473
+      },
+      "RandomForest": {
+        "cv_auc_mean": 0.5369,
+        "cv_auc_95ci": [
+          0.4864,
+          0.5879
+        ],
+        "cv_brier": 0.2528,
+        "val_auc": 0.5491,
+        "val_brier": 0.2496
+      },
+      "XGBoost": {
+        "cv_auc_mean": 0.5315,
+        "cv_auc_95ci": [
+          0.479,
+          0.5828
+        ],
+        "cv_brier": 0.2622,
+        "val_auc": 0.5223,
+        "val_brier": 0.2646
+      }
+    }
+  },
+  "rf": {
+    "n_features": 9,
+    "features": [
+      "flair_wt__original_firstorder_Skewness",
+      "flair_wt__original_glrlm_RunLengthNonUniformity",
+      "t1c_tc__original_shape_Flatness",
+      "flair_wt__original_firstorder_Median",
+      "flair_wt__original_shape_MeshVolume",
+      "flair_wt__original_shape_VoxelVolume",
+      "flair_wt__original_glcm_MCC",
+      "flair_wt__original_glrlm_GrayLevelNonUniformityNormalized",
+      "flair_wt__original_shape_LeastAxisLength"
+    ],
+    "models": {
+      "LogisticRegression": {
+        "cv_auc_mean": 0.5193,
+        "cv_auc_95ci": [
+          0.4677,
+          0.572
+        ],
+        "cv_brier": 0.2547,
+        "val_auc": 0.4814,
+        "val_brier": 0.2565
+      },
+      "RandomForest": {
+        "cv_auc_mean": 0.5108,
+        "cv_auc_95ci": [
+          0.4612,
+          0.5612
+        ],
+        "cv_brier": 0.2574,
+        "val_auc": 0.4531,
+        "val_brier": 0.2645
+      },
+      "XGBoost": {
+        "cv_auc_mean": 0.4967,
+        "cv_auc_95ci": [
+          0.4448,
+          0.548
+        ],
+        "cv_brier": 0.2726,
+        "val_auc": 0.4628,
+        "val_brier": 0.2669
+      }
+    }
+  },
+  "random": {
+    "n_features": 9,
+    "features": [
+      "flair_wt__original_glcm_SumAverage",
+      "flair_wt__original_glrlm_ShortRunHighGrayLevelEmphasis",
+      "flair_wt__original_glrlm_LongRunHighGrayLevelEmphasis",
+      "t1c_tc__original_shape_Flatness",
+      "flair_wt__original_glrlm_ShortRunLowGrayLevelEmphasis",
+      "flair_wt__original_firstorder_Median",
+      "flair_wt__original_glszm_SmallAreaHighGrayLevelEmphasis",
+      "flair_wt__original_shape_MeshVolume",
+      "flair_wt__original_glcm_MCC"
+    ],
+    "models": {
+      "LogisticRegression": {
+        "cv_auc_mean": 0.5135,
+        "cv_auc_95ci": [
+          0.4593,
+          0.5671
+        ],
+        "cv_brier": 0.2534,
+        "val_auc": 0.433,
+        "val_brier": 0.257
+      },
+      "RandomForest": {
+        "cv_auc_mean": 0.5436,
+        "cv_auc_95ci": [
+          0.493,
+          0.5965
+        ],
+        "cv_brier": 0.2536,
+        "val_auc": 0.4955,
+        "val_brier": 0.2563
+      },
+      "XGBoost": {
+        "cv_auc_mean": 0.5134,
+        "cv_auc_95ci": [
+          0.4612,
+          0.5666
+        ],
+        "cv_brier": 0.2681,
+        "val_auc": 0.5074,
+        "val_brier": 0.2624
+      }
+    }
+  },
+  "qpu_ibm_fez": {
+    "n_features": 13,
+    "features": [
+      "flair_wt__original_glcm_JointAverage",
+      "flair_wt__original_glcm_Autocorrelation",
+      "flair_wt__original_glrlm_HighGrayLevelRunEmphasis",
+      "flair_wt__original_glrlm_ShortRunHighGrayLevelEmphasis",
+      "flair_wt__original_firstorder_Skewness",
+      "flair_wt__original_glrlm_LongRunHighGrayLevelEmphasis",
+      "flair_wt__original_glrlm_RunLengthNonUniformity",
+      "t1c_tc__original_shape_Flatness",
+      "flair_wt__original_glrlm_LongRunLowGrayLevelEmphasis",
+      "flair_wt__original_glszm_HighGrayLevelZoneEmphasis",
+      "flair_wt__original_firstorder_Median",
+      "flair_wt__original_glszm_SmallAreaHighGrayLevelEmphasis",
+      "flair_wt__original_shape_MeshVolume"
+    ],
+    "models": {
+      "LogisticRegression": {
+        "cv_auc_mean": 0.5351,
+        "cv_auc_95ci": [
+          0.4818,
+          0.5873
+        ],
+        "cv_brier": 0.2517,
+        "val_auc": 0.4777,
+        "val_brier": 0.2545
+      },
+      "RandomForest": {
+        "cv_auc_mean": 0.5497,
+        "cv_auc_95ci": [
+          0.4958,
+          0.6023
+        ],
+        "cv_brier": 0.2515,
+        "val_auc": 0.5052,
+        "val_brier": 0.2541
+      },
+      "XGBoost": {
+        "cv_auc_mean": 0.4934,
+        "cv_auc_95ci": [
+          0.441,
+          0.5464
+        ],
+        "cv_brier": 0.2722,
+        "val_auc": 0.4874,
+        "val_brier": 0.2721
+      }
+    }
+  },
+  "candidate_pool_20": {
+    "n_features": 20,
+    "features": [
+      "flair_wt__original_glcm_JointAverage",
+      "flair_wt__original_glcm_SumAverage",
+      "flair_wt__original_glcm_Autocorrelation",
+      "flair_wt__original_glrlm_HighGrayLevelRunEmphasis",
+      "flair_wt__original_glrlm_ShortRunHighGrayLevelEmphasis",
+      "flair_wt__original_firstorder_Skewness",
+      "flair_wt__original_glrlm_LongRunHighGrayLevelEmphasis",
+      "flair_wt__original_glrlm_LowGrayLevelRunEmphasis",
+      "flair_wt__original_glrlm_RunLengthNonUniformity",
+      "t1c_tc__original_shape_Flatness",
+      "flair_wt__original_glrlm_ShortRunLowGrayLevelEmphasis",
+      "flair_wt__original_glrlm_LongRunLowGrayLevelEmphasis",
+      "flair_wt__original_glszm_HighGrayLevelZoneEmphasis",
+      "flair_wt__original_firstorder_Median",
+      "flair_wt__original_glszm_SmallAreaHighGrayLevelEmphasis",
+      "flair_wt__original_shape_MeshVolume",
+      "flair_wt__original_shape_VoxelVolume",
+      "flair_wt__original_glcm_MCC",
+      "flair_wt__original_glrlm_GrayLevelNonUniformityNormalized",
+      "flair_wt__original_shape_LeastAxisLength"
+    ],
+    "models": {
+      "LogisticRegression": {
+        "cv_auc_mean": 0.5028,
+        "cv_auc_95ci": [
+          0.4491,
+          0.5547
+        ],
+        "cv_brier": 0.2583,
+        "val_auc": 0.4725,
+        "val_brier": 0.2572
+      },
+      "RandomForest": {
+        "cv_auc_mean": 0.5399,
+        "cv_auc_95ci": [
+          0.4876,
+          0.5921
+        ],
+        "cv_brier": 0.253,
+        "val_auc": 0.4732,
+        "val_brier": 0.2593
+      },
+      "XGBoost": {
+        "cv_auc_mean": 0.4897,
+        "cv_auc_95ci": [
+          0.4378,
+          0.5428
+        ],
+        "cv_brier": 0.2722,
+        "val_auc": 0.4762,
+        "val_brier": 0.265
+      }
+    }
+  },
+  "all_253_features": {
+    "n_features": 253,
+    "features": [
+      "flair_wt__original_shape_Elongation",
+      "flair_wt__original_shape_Flatness",
+      "flair_wt__original_shape_LeastAxisLength",
+      "flair_wt__original_shape_MajorAxisLength",
+      "flair_wt__original_shape_Maximum2DDiameterColumn",
+      "flair_wt__original_shape_Maximum2DDiameterRow",
+      "flair_wt__original_shape_Maximum2DDiameterSlice",
+      "flair_wt__original_shape_Maximum3DDiameter",
+      "flair_wt__original_shape_MeshVolume",
+      "flair_wt__original_shape_MinorAxisLength",
+      "flair_wt__original_shape_Sphericity",
+      "flair_wt__original_shape_SurfaceArea",
+      "flair_wt__original_shape_SurfaceVolumeRatio",
+      "flair_wt__original_shape_VoxelVolume",
+      "flair_wt__original_firstorder_10Percentile",
+      "flair_wt__original_firstorder_90Percentile",
+      "flair_wt__original_firstorder_Entropy",
+      "flair_wt__original_firstorder_InterquartileRange",
+      "flair_wt__original_firstorder_Kurtosis",
+      "flair_wt__original_firstorder_Maximum",
+      "flair_wt__original_firstorder_MeanAbsoluteDeviation",
+      "flair_wt__original_firstorder_Mean",
+      "flair_wt__original_firstorder_Median",
+      "flair_wt__original_firstorder_Minimum",
+      "flair_wt__original_firstorder_Range",
+      "flair_wt__original_firstorder_RobustMeanAbsoluteDeviation",
+      "flair_wt__original_firstorder_RootMeanSquared",
+      "flair_wt__original_firstorder_Skewness",
+      "flair_wt__original_firstorder_Uniformity",
+      "flair_wt__original_firstorder_Variance",
+      "flair_wt__original_glcm_Autocorrelation",
+      "flair_wt__original_glcm_ClusterShade",
+      "flair_wt__original_glcm_ClusterTendency",
+      "flair_wt__original_glcm_Contrast",
+      "flair_wt__original_glcm_Correlation",
+      "flair_wt__original_glcm_DifferenceAverage",
+      "flair_wt__original_glcm_DifferenceEntropy",
+      "flair_wt__original_glcm_DifferenceVariance",
+      "flair_wt__original_glcm_Id",
+      "flair_wt__original_glcm_Idm",
+      "flair_wt__original_glcm_Idmn",
+      "flair_wt__original_glcm_Idn",
+      "flair_wt__original_glcm_Imc1",
+      "flair_wt__original_glcm_Imc2",
+      "flair_wt__original_glcm_InverseVariance",
+      "flair_wt__original_glcm_JointAverage",
+      "flair_wt__original_glcm_JointEnergy",
+      "flair_wt__original_glcm_JointEntropy",
+      "flair_wt__original_glcm_MCC",
+      "flair_wt__original_glcm_MaximumProbability",
+      "flair_wt__original_glcm_SumAverage",
+      "flair_wt__original_glcm_SumEntropy",
+      "flair_wt__original_glcm_SumSquares",
+      "flair_wt__original_glrlm_GrayLevelNonUniformity",
+      "flair_wt__original_glrlm_GrayLevelNonUniformityNormalized",
+      "flair_wt__original_glrlm_GrayLevelVariance",
+      "flair_wt__original_glrlm_HighGrayLevelRunEmphasis",
+      "flair_wt__original_glrlm_LongRunEmphasis",
+      "flair_wt__original_glrlm_LongRunHighGrayLevelEmphasis",
+      "flair_wt__original_glrlm_LongRunLowGrayLevelEmphasis",
+      "flair_wt__original_glrlm_LowGrayLevelRunEmphasis",
+      "flair_wt__original_glrlm_RunEntropy",
+      "flair_wt__original_glrlm_RunLengthNonUniformity",
+      "flair_wt__original_glrlm_RunLengthNonUniformityNormalized",
+      "flair_wt__original_glrlm_RunPercentage",
+      "flair_wt__original_glrlm_RunVariance",
+      "flair_wt__original_glrlm_ShortRunEmphasis",
+      "flair_wt__original_glrlm_ShortRunHighGrayLevelEmphasis",
+      "flair_wt__original_glrlm_ShortRunLowGrayLevelEmphasis",
+      "flair_wt__original_glszm_GrayLevelNonUniformity",
+      "flair_wt__original_glszm_GrayLevelNonUniformityNormalized",
+      "flair_wt__original_glszm_GrayLevelVariance",
+      "flair_wt__original_glszm_HighGrayLevelZoneEmphasis",
+      "flair_wt__original_glszm_LargeAreaEmphasis",
+      "flair_wt__original_glszm_LargeAreaLowGrayLevelEmphasis",
+      "flair_wt__original_glszm_LowGrayLevelZoneEmphasis",
+      "flair_wt__original_glszm_SizeZoneNonUniformity",
+      "flair_wt__original_glszm_SizeZoneNonUniformityNormalized",
+      "flair_wt__original_glszm_SmallAreaEmphasis",
+      "flair_wt__original_glszm_SmallAreaHighGrayLevelEmphasis",
+      "flair_wt__original_glszm_SmallAreaLowGrayLevelEmphasis",
+      "flair_wt__original_glszm_ZoneEntropy",
+      "flair_wt__original_glszm_ZonePercentage",
+      "flair_wt__original_glszm_ZoneVariance",
+      "t1c_tc__original_shape_Elongation",
+      "t1c_tc__original_shape_Flatness",
+      "t1c_tc__original_shape_LeastAxisLength",
+      "t1c_tc__original_shape_MajorAxisLength",
+      "t1c_tc__original_shape_Maximum2DDiameterColumn",
+      "t1c_tc__original_shape_Maximum2DDiameterRow",
+      "t1c_tc__original_shape_Maximum2DDiameterSlice",
+      "t1c_tc__original_shape_Maximum3DDiameter",
+      "t1c_tc__original_shape_MeshVolume",
+      "t1c_tc__original_shape_MinorAxisLength",
+      "t1c_tc__original_shape_Sphericity",
+      "t1c_tc__original_shape_SurfaceArea",
+      "t1c_tc__original_shape_SurfaceVolumeRatio",
+      "t1c_tc__original_shape_VoxelVolume",
+      "t1c_tc__original_firstorder_10Percentile",
+      "t1c_tc__original_firstorder_90Percentile",
+      "t1c_tc__original_firstorder_Entropy",
+      "t1c_tc__original_firstorder_InterquartileRange",
+      "t1c_tc__original_firstorder_Kurtosis",
+      "t1c_tc__original_firstorder_Maximum",
+      "t1c_tc__original_firstorder_MeanAbsoluteDeviation",
+      "t1c_tc__original_firstorder_Mean",
+      "t1c_tc__original_firstorder_Median",
+      "t1c_tc__original_firstorder_Minimum",
+      "t1c_tc__original_firstorder_Range",
+      "t1c_tc__original_firstorder_RobustMeanAbsoluteDeviation",
+      "t1c_tc__original_firstorder_RootMeanSquared",
+      "t1c_tc__original_firstorder_Skewness",
+      "t1c_tc__original_firstorder_Uniformity",
+      "t1c_tc__original_firstorder_Variance",
+      "t1c_tc__original_glcm_Autocorrelation",
+      "t1c_tc__original_glcm_ClusterShade",
+      "t1c_tc__original_glcm_ClusterTendency",
+      "t1c_tc__original_glcm_Contrast",
+      "t1c_tc__original_glcm_Correlation",
+      "t1c_tc__original_glcm_DifferenceAverage",
+      "t1c_tc__original_glcm_DifferenceEntropy",
+      "t1c_tc__original_glcm_DifferenceVariance",
+      "t1c_tc__original_glcm_Id",
+      "t1c_tc__original_glcm_Idm",
+      "t1c_tc__original_glcm_Idmn",
+      "t1c_tc__original_glcm_Idn",
+      "t1c_tc__original_glcm_Imc1",
+      "t1c_tc__original_glcm_Imc2",
+      "t1c_tc__original_glcm_InverseVariance",
+      "t1c_tc__original_glcm_JointAverage",
+      "t1c_tc__original_glcm_JointEnergy",
+      "t1c_tc__original_glcm_JointEntropy",
+      "t1c_tc__original_glcm_MCC",
+      "t1c_tc__original_glcm_MaximumProbability",
+      "t1c_tc__original_glcm_SumAverage",
+      "t1c_tc__original_glcm_SumEntropy",
+      "t1c_tc__original_glcm_SumSquares",
+      "t1c_tc__original_glrlm_GrayLevelNonUniformity",
+      "t1c_tc__original_glrlm_GrayLevelNonUniformityNormalized",
+      "t1c_tc__original_glrlm_GrayLevelVariance",
+      "t1c_tc__original_glrlm_HighGrayLevelRunEmphasis",
+      "t1c_tc__original_glrlm_LongRunEmphasis",
+      "t1c_tc__original_glrlm_LongRunHighGrayLevelEmphasis",
+      "t1c_tc__original_glrlm_LongRunLowGrayLevelEmphasis",
+      "t1c_tc__original_glrlm_LowGrayLevelRunEmphasis",
+      "t1c_tc__original_glrlm_RunEntropy",
+      "t1c_tc__original_glrlm_RunLengthNonUniformity",
+      "t1c_tc__original_glrlm_RunLengthNonUniformityNormalized",
+      "t1c_tc__original_glrlm_RunPercentage",
+      "t1c_tc__original_glrlm_RunVariance",
+      "t1c_tc__original_glrlm_ShortRunEmphasis",
+      "t1c_tc__original_glrlm_ShortRunHighGrayLevelEmphasis",
+      "t1c_tc__original_glrlm_ShortRunLowGrayLevelEmphasis",
+      "t1c_tc__original_glszm_GrayLevelNonUniformity",
+      "t1c_tc__original_glszm_GrayLevelNonUniformityNormalized",
+      "t1c_tc__original_glszm_GrayLevelVariance",
+      "t1c_tc__original_glszm_HighGrayLevelZoneEmphasis",
+      "t1c_tc__original_glszm_LargeAreaEmphasis",
+      "t1c_tc__original_glszm_LargeAreaLowGrayLevelEmphasis",
+      "t1c_tc__original_glszm_LowGrayLevelZoneEmphasis",
+      "t1c_tc__original_glszm_SizeZoneNonUniformity",
+      "t1c_tc__original_glszm_SizeZoneNonUniformityNormalized",
+      "t1c_tc__original_glszm_SmallAreaEmphasis",
+      "t1c_tc__original_glszm_SmallAreaHighGrayLevelEmphasis",
+      "t1c_tc__original_glszm_SmallAreaLowGrayLevelEmphasis",
+      "t1c_tc__original_glszm_ZoneEntropy",
+      "t1c_tc__original_glszm_ZonePercentage",
+      "t1c_tc__original_glszm_ZoneVariance",
+      "t1c_et__original_shape_Elongation",
+      "t1c_et__original_shape_Flatness",
+      "t1c_et__original_shape_LeastAxisLength",
+      "t1c_et__original_shape_MajorAxisLength",
+      "t1c_et__original_shape_Maximum2DDiameterColumn",
+      "t1c_et__original_shape_Maximum2DDiameterRow",
+      "t1c_et__original_shape_Maximum2DDiameterSlice",
+      "t1c_et__original_shape_Maximum3DDiameter",
+      "t1c_et__original_shape_MeshVolume",
+      "t1c_et__original_shape_MinorAxisLength",
+      "t1c_et__original_shape_Sphericity",
+      "t1c_et__original_shape_SurfaceArea",
+      "t1c_et__original_shape_SurfaceVolumeRatio",
+      "t1c_et__original_shape_VoxelVolume",
+      "t1c_et__original_firstorder_10Percentile",
+      "t1c_et__original_firstorder_90Percentile",
+      "t1c_et__original_firstorder_Entropy",
+      "t1c_et__original_firstorder_InterquartileRange",
+      "t1c_et__original_firstorder_Kurtosis",
+      "t1c_et__original_firstorder_Maximum",
+      "t1c_et__original_firstorder_MeanAbsoluteDeviation",
+      "t1c_et__original_firstorder_Mean",
+      "t1c_et__original_firstorder_Median",
+      "t1c_et__original_firstorder_Minimum",
+      "t1c_et__original_firstorder_Range",
+      "t1c_et__original_firstorder_RobustMeanAbsoluteDeviation",
+      "t1c_et__original_firstorder_RootMeanSquared",
+      "t1c_et__original_firstorder_Skewness",
+      "t1c_et__original_firstorder_Uniformity",
+      "t1c_et__original_firstorder_Variance",
+      "t1c_et__original_glcm_Autocorrelation",
+      "t1c_et__original_glcm_ClusterShade",
+      "t1c_et__original_glcm_ClusterTendency",
+      "t1c_et__original_glcm_Contrast",
+      "t1c_et__original_glcm_Correlation",
+      "t1c_et__original_glcm_DifferenceAverage",
+      "t1c_et__original_glcm_DifferenceEntropy",
+      "t1c_et__original_glcm_DifferenceVariance",
+      "t1c_et__original_glcm_Id",
+      "t1c_et__original_glcm_Idm",
+      "t1c_et__original_glcm_Idmn",
+      "t1c_et__original_glcm_Idn",
+      "t1c_et__original_glcm_Imc1",
+      "t1c_et__original_glcm_Imc2",
+      "t1c_et__original_glcm_InverseVariance",
+      "t1c_et__original_glcm_JointAverage",
+      "t1c_et__original_glcm_JointEnergy",
+      "t1c_et__original_glcm_JointEntropy",
+      "t1c_et__original_glcm_MCC",
+      "t1c_et__original_glcm_MaximumProbability",
+      "t1c_et__original_glcm_SumAverage",
+      "t1c_et__original_glcm_SumEntropy",
+      "t1c_et__original_glcm_SumSquares",
+      "t1c_et__original_glrlm_GrayLevelNonUniformity",
+      "t1c_et__original_glrlm_GrayLevelNonUniformityNormalized",
+      "t1c_et__original_glrlm_GrayLevelVariance",
+      "t1c_et__original_glrlm_HighGrayLevelRunEmphasis",
+      "t1c_et__original_glrlm_LongRunEmphasis",
+      "t1c_et__original_glrlm_LongRunHighGrayLevelEmphasis",
+      "t1c_et__original_glrlm_LongRunLowGrayLevelEmphasis",
+      "t1c_et__original_glrlm_LowGrayLevelRunEmphasis",
+      "t1c_et__original_glrlm_RunEntropy",
+      "t1c_et__original_glrlm_RunLengthNonUniformity",
+      "t1c_et__original_glrlm_RunLengthNonUniformityNormalized",
+      "t1c_et__original_glrlm_RunPercentage",
+      "t1c_et__original_glrlm_RunVariance",
+      "t1c_et__original_glrlm_ShortRunEmphasis",
+      "t1c_et__original_glrlm_ShortRunHighGrayLevelEmphasis",
+      "t1c_et__original_glrlm_ShortRunLowGrayLevelEmphasis",
+      "t1c_et__original_glszm_GrayLevelNonUniformity",
+      "t1c_et__original_glszm_GrayLevelNonUniformityNormalized",
+      "t1c_et__original_glszm_GrayLevelVariance",
+      "t1c_et__original_glszm_HighGrayLevelZoneEmphasis",
+      "t1c_et__original_glszm_LargeAreaEmphasis",
+      "t1c_et__original_glszm_LargeAreaHighGrayLevelEmphasis",
+      "t1c_et__original_glszm_LargeAreaLowGrayLevelEmphasis",
+      "t1c_et__original_glszm_LowGrayLevelZoneEmphasis",
+      "t1c_et__original_glszm_SizeZoneNonUniformity",
+      "t1c_et__original_glszm_SizeZoneNonUniformityNormalized",
+      "t1c_et__original_glszm_SmallAreaEmphasis",
+      "t1c_et__original_glszm_SmallAreaHighGrayLevelEmphasis",
+      "t1c_et__original_glszm_SmallAreaLowGrayLevelEmphasis",
+      "t1c_et__original_glszm_ZoneEntropy",
+      "t1c_et__original_glszm_ZonePercentage",
+      "t1c_et__original_glszm_ZoneVariance"
+    ],
+    "models": {
+      "LogisticRegression": {
+        "cv_auc_mean": 0.5078,
+        "cv_auc_95ci": [
+          0.4536,
+          0.5595
+        ],
+        "cv_brier": 0.3087,
+        "val_auc": 0.4829,
+        "val_brier": 0.3029
+      },
+      "RandomForest": {
+        "cv_auc_mean": 0.511,
+        "cv_auc_95ci": [
+          0.4601,
+          0.5633
+        ],
+        "cv_brier": 0.2543,
+        "val_auc": 0.5074,
+        "val_brier": 0.2517
+      },
+      "XGBoost": {
+        "cv_auc_mean": 0.5198,
+        "cv_auc_95ci": [
+          0.4668,
+          0.5731
+        ],
+        "cv_brier": 0.2684,
+        "val_auc": 0.5379,
+        "val_brier": 0.259
+      }
+    }
+  },
+  "shap_explainability": {
+    "panel": "qubo_exact",
+    "feature_ranking": {
+      "t1c_tc__original_shape_Flatness": 0.02529432640958317,
+      "flair_wt__original_glcm_SumAverage": 0.021943684768027123,
+      "flair_wt__original_firstorder_Skewness": 0.019260723150696768,
+      "flair_wt__original_glcm_JointAverage": 0.01861870125569824,
+      "flair_wt__original_shape_MeshVolume": 0.01660206522983222,
+      "flair_wt__original_glcm_Autocorrelation": 0.01323100176287199,
+      "flair_wt__original_glcm_MCC": 0.012279329108446155,
+      "flair_wt__original_glrlm_HighGrayLevelRunEmphasis": 0.011017612611038879,
+      "flair_wt__original_shape_LeastAxisLength": 0.010520356066582262
+    },
+    "faithfulness_ablation": [
+      {
+        "k_dropped": 1,
+        "dropped_features": [
+          "t1c_tc__original_shape_Flatness"
+        ],
+        "auc_after_ablation": 0.4985
+      },
+      {
+        "k_dropped": 2,
+        "dropped_features": [
+          "t1c_tc__original_shape_Flatness",
+          "flair_wt__original_glcm_SumAverage"
+        ],
+        "auc_after_ablation": 0.5007
+      },
+      {
+        "k_dropped": 3,
+        "dropped_features": [
+          "t1c_tc__original_shape_Flatness",
+          "flair_wt__original_glcm_SumAverage",
+          "flair_wt__original_firstorder_Skewness"
+        ],
+        "auc_after_ablation": 0.4948
+      },
+      {
+        "k_dropped": 4,
+        "dropped_features": [
+          "t1c_tc__original_shape_Flatness",
+          "flair_wt__original_glcm_SumAverage",
+          "flair_wt__original_firstorder_Skewness",
+          "flair_wt__original_glcm_JointAverage"
+        ],
+        "auc_after_ablation": 0.4457
+      },
+      {
+        "k_dropped": 5,
+        "dropped_features": [
+          "t1c_tc__original_shape_Flatness",
+          "flair_wt__original_glcm_SumAverage",
+          "flair_wt__original_firstorder_Skewness",
+          "flair_wt__original_glcm_JointAverage",
+          "flair_wt__original_shape_MeshVolume"
+        ],
+        "auc_after_ablation": 0.468
+      },
+      {
+        "k_dropped": 6,
+        "dropped_features": [
+          "t1c_tc__original_shape_Flatness",
+          "flair_wt__original_glcm_SumAverage",
+          "flair_wt__original_firstorder_Skewness",
+          "flair_wt__original_glcm_JointAverage",
+          "flair_wt__original_shape_MeshVolume",
+          "flair_wt__original_glcm_Autocorrelation"
+        ],
+        "auc_after_ablation": 0.433
+      },
+      {
+        "k_dropped": 7,
+        "dropped_features": [
+          "t1c_tc__original_shape_Flatness",
+          "flair_wt__original_glcm_SumAverage",
+          "flair_wt__original_firstorder_Skewness",
+          "flair_wt__original_glcm_JointAverage",
+          "flair_wt__original_shape_MeshVolume",
+          "flair_wt__original_glcm_Autocorrelation",
+          "flair_wt__original_glcm_MCC"
+        ],
+        "auc_after_ablation": 0.4167
+      },
+      {
+        "k_dropped": 8,
+        "dropped_features": [
+          "t1c_tc__original_shape_Flatness",
+          "flair_wt__original_glcm_SumAverage",
+          "flair_wt__original_firstorder_Skewness",
+          "flair_wt__original_glcm_JointAverage",
+          "flair_wt__original_shape_MeshVolume",
+          "flair_wt__original_glcm_Autocorrelation",
+          "flair_wt__original_glcm_MCC",
+          "flair_wt__original_glrlm_HighGrayLevelRunEmphasis"
+        ],
+        "auc_after_ablation": 0.4077
+      }
+    ]
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "qubo_exact": {
+    "n_features": 9,
+    "classifiers": {
+      "Logistic": {
+        "cv_auc": "0.528 \u00b1 0.064",
+        "val_auc": 0.4606,
+        "val_ci_95": [
+          0.3459,
+          0.613
+        ],
+        "perm_p": 0.725
+      },
+      "RandomForest": {
+        "cv_auc": "0.515 \u00b1 0.044",
+        "val_auc": 0.497,
+        "val_ci_95": [
+          0.3478,
+          0.6324
+        ],
+        "perm_p": 0.47
+      }
+    }
+  },
+  "qubo_classical": {
+    "n_features": 9,
+    "classifiers": {
+      "Logistic": {
+        "cv_auc": "0.528 \u00b1 0.064",
+        "val_auc": 0.4606,
+        "val_ci_95": [
+          0.3459,
+          0.613
+        ],
+        "perm_p": 0.725
+      },
+      "RandomForest": {
+        "cv_auc": "0.515 \u00b1 0.044",
+        "val_auc": 0.497,
+        "val_ci_95": [
+          0.3478,
+          0.6324
+        ],
+        "perm_p": 0.47
+      }
+    }
+  },
+  "qpu_ibm_fez": {
+    "n_features": 13,
+    "classifiers": {
+      "Logistic": {
+        "cv_auc": "0.549 \u00b1 0.045",
+        "val_auc": 0.4777,
+        "val_ci_95": [
+          0.3448,
+          0.6146
+        ],
+        "perm_p": 0.64
+      },
+      "RandomForest": {
+        "cv_auc": "0.512 \u00b1 0.037",
+        "val_auc": 0.5074,
+        "val_ci_95": [
+          0.3491,
+          0.644
+        ],
+        "perm_p": 0.45
+      }
+    }
+  },
+  "mrmr": {
+    "n_features": 9,
+    "classifiers": {
+      "Logistic": {
+        "cv_auc": "0.533 \u00b1 0.067",
+        "val_auc": 0.4851,
+        "val_ci_95": [
+          0.3587,
+          0.6306
+        ],
+        "perm_p": 0.605
+      },
+      "RandomForest": {
+        "cv_auc": "0.500 \u00b1 0.052",
+        "val_auc": 0.4859,
+        "val_ci_95": [
+          0.3525,
+          0.6298
+        ],
+        "perm_p": 0.58
+      }
+    }
+  },
+  "mi_topk": {
+    "n_features": 9,
+    "classifiers": {
+      "Logistic": {
+        "cv_auc": "0.499 \u00b1 0.051",
+        "val_auc": 0.4821,
+        "val_ci_95": [
+          0.37,
+          0.6218
+        ],
+        "perm_p": 0.605
+      },
+      "RandomForest": {
+        "cv_auc": "0.522 \u00b1 0.031",
+        "val_auc": 0.5089,
+        "val_ci_95": [
+          0.3718,
+          0.6317
+        ],
+        "perm_p": 0.42
+      }
+    }
+  },
+  "f_anova": {
+    "n_features": 9,
+    "classifiers": {
+      "Logistic": {
+        "cv_auc": "0.542 \u00b1 0.039",
+        "val_auc": 0.4792,
+        "val_ci_95": [
+          0.3566,
+          0.6316
+        ],
+        "perm_p": 0.61
+      },
+      "RandomForest": {
+        "cv_auc": "0.514 \u00b1 0.047",
+        "val_auc": 0.506,
+        "val_ci_95": [
+          0.3846,
+          0.6646
+        ],
+        "perm_p": 0.465
+      }
+    }
+  },
+  "l1": {
+    "n_features": 9,
+    "classifiers": {
+      "Logistic": {
+        "cv_auc": "0.527 \u00b1 0.032",
+        "val_auc": 0.4881,
+        "val_ci_95": [
+          0.3707,
+          0.622
+        ],
+        "perm_p": 0.525
+      },
+      "RandomForest": {
+        "cv_auc": "0.524 \u00b1 0.022",
+        "val_auc": 0.5246,
+        "val_ci_95": [
+          0.3592,
+          0.6553
+        ],
+        "perm_p": 0.35
+      }
+    }
+  },
+  "rf": {
+    "n_features": 9,
+    "classifiers": {
+      "Logistic": {
+        "cv_auc": "0.529 \u00b1 0.074",
+        "val_auc": 0.4814,
+        "val_ci_95": [
+          0.3621,
+          0.6183
+        ],
+        "perm_p": 0.615
+      },
+      "RandomForest": {
+        "cv_auc": "0.504 \u00b1 0.063",
+        "val_auc": 0.4249,
+        "val_ci_95": [
+          0.31,
+          0.564
+        ],
+        "perm_p": 0.825
+      }
+    }
+  },
+  "random": {
+    "n_features": 9,
+    "classifiers": {
+      "Logistic": {
+        "cv_auc": "0.510 \u00b1 0.042",
+        "val_auc": 0.4338,
+        "val_ci_95": [
+          0.3097,
+          0.5759
+        ],
+        "perm_p": 0.82
+      },
+      "RandomForest": {
+        "cv_auc": "0.519 \u00b1 0.029",
+        "val_auc": 0.4807,
+        "val_ci_95": [
+          0.3468,
+          0.6189
+        ],
+        "perm_p": 0.55
+      }
+    }
+  }
+}

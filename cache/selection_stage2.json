@@ -1,0 +1,257 @@
+{
+  "candidate_pool": [
+    "flair_wt__original_glcm_JointAverage",
+    "flair_wt__original_glcm_SumAverage",
+    "flair_wt__original_glcm_Autocorrelation",
+    "flair_wt__original_glrlm_HighGrayLevelRunEmphasis",
+    "flair_wt__original_glrlm_ShortRunHighGrayLevelEmphasis",
+    "flair_wt__original_firstorder_Skewness",
+    "flair_wt__original_glrlm_LongRunHighGrayLevelEmphasis",
+    "flair_wt__original_glrlm_LowGrayLevelRunEmphasis",
+    "flair_wt__original_glrlm_RunLengthNonUniformity",
+    "t1c_tc__original_shape_Flatness",
+    "flair_wt__original_glrlm_ShortRunLowGrayLevelEmphasis",
+    "flair_wt__original_glrlm_LongRunLowGrayLevelEmphasis",
+    "flair_wt__original_glszm_HighGrayLevelZoneEmphasis",
+    "flair_wt__original_firstorder_Median",
+    "flair_wt__original_glszm_SmallAreaHighGrayLevelEmphasis",
+    "flair_wt__original_shape_MeshVolume",
+    "flair_wt__original_shape_VoxelVolume",
+    "flair_wt__original_glcm_MCC",
+    "flair_wt__original_glrlm_GrayLevelNonUniformityNormalized",
+    "flair_wt__original_shape_LeastAxisLength"
+  ],
+  "prefilter_k": 20,
+  "alpha": 1.0,
+  "beta": 0.15,
+  "lambda": 0.35,
+  "methods": {
+    "qubo_classical": {
+      "selected": [
+        "flair_wt__original_glcm_JointAverage",
+        "flair_wt__original_glcm_SumAverage",
+        "flair_wt__original_glcm_Autocorrelation",
+        "flair_wt__original_glrlm_HighGrayLevelRunEmphasis",
+        "flair_wt__original_firstorder_Skewness",
+        "t1c_tc__original_shape_Flatness",
+        "flair_wt__original_shape_MeshVolume",
+        "flair_wt__original_glcm_MCC",
+        "flair_wt__original_shape_LeastAxisLength"
+      ],
+      "objective": -3.09813,
+      "k_selected": 9,
+      "bitstring": "11110100010000010101"
+    },
+    "qubo_exact": {
+      "selected": [
+        "flair_wt__original_glcm_JointAverage",
+        "flair_wt__original_glcm_SumAverage",
+        "flair_wt__original_glcm_Autocorrelation",
+        "flair_wt__original_glrlm_HighGrayLevelRunEmphasis",
+        "flair_wt__original_firstorder_Skewness",
+        "t1c_tc__original_shape_Flatness",
+        "flair_wt__original_shape_MeshVolume",
+        "flair_wt__original_glcm_MCC",
+        "flair_wt__original_shape_LeastAxisLength"
+      ],
+      "objective": -3.09813,
+      "k_selected": 9,
+      "bitstring": "11110100010000010101"
+    },
+    "qaoa_sim": {
+      "selected": [
+        "flair_wt__original_glrlm_HighGrayLevelRunEmphasis",
+        "flair_wt__original_glrlm_LongRunHighGrayLevelEmphasis",
+        "flair_wt__original_glrlm_LowGrayLevelRunEmphasis",
+        "flair_wt__original_glrlm_RunLengthNonUniformity",
+        "flair_wt__original_glrlm_ShortRunLowGrayLevelEmphasis",
+        "flair_wt__original_glrlm_LongRunLowGrayLevelEmphasis",
+        "flair_wt__original_glszm_HighGrayLevelZoneEmphasis",
+        "flair_wt__original_firstorder_Median",
+        "flair_wt__original_glszm_SmallAreaHighGrayLevelEmphasis",
+        "flair_wt__original_shape_VoxelVolume",
+        "flair_wt__original_glrlm_GrayLevelNonUniformityNormalized"
+      ],
+      "energy_expectation": -0.81395,
+      "qubo_objective": 0.7403,
+      "k_selected": 11,
+      "top_bitstrings": {
+        "top0": "00010011101111101010",
+        "top1": "00001011101111101010",
+        "top2": "00010011101111110010",
+        "top3": "00001011101111110010",
+        "top4": "00100011101111101010",
+        "top5": "00100011101111110010",
+        "top6": "00010011101111100011",
+        "top7": "00001011101111100011",
+        "top8": "10000011101111101010",
+        "top9": "01000011101111101010"
+      },
+      "qaoa_p": 1
+    },
+    "mi_topk": {
+      "selected": [
+        "flair_wt__original_glcm_JointAverage",
+        "flair_wt__original_glcm_SumAverage",
+        "flair_wt__original_glcm_Autocorrelation",
+        "flair_wt__original_glrlm_HighGrayLevelRunEmphasis",
+        "flair_wt__original_glrlm_ShortRunHighGrayLevelEmphasis",
+        "flair_wt__original_glszm_HighGrayLevelZoneEmphasis",
+        "flair_wt__original_glszm_SmallAreaHighGrayLevelEmphasis",
+        "flair_wt__original_glcm_MCC",
+        "flair_wt__original_glrlm_GrayLevelNonUniformityNormalized"
+      ],
+      "k_selected": 9
+    },
+    "mrmr": {
+      "selected": [
+        "flair_wt__original_glcm_JointAverage",
+        "flair_wt__original_firstorder_Skewness",
+        "t1c_tc__original_shape_Flatness",
+        "flair_wt__original_glrlm_LongRunLowGrayLevelEmphasis",
+        "flair_wt__original_glszm_HighGrayLevelZoneEmphasis",
+        "flair_wt__original_shape_VoxelVolume",
+        "flair_wt__original_glcm_MCC",
+        "flair_wt__original_glrlm_GrayLevelNonUniformityNormalized",
+        "flair_wt__original_shape_LeastAxisLength"
+      ],
+      "k_selected": 9
+    },
+    "f_anova": {
+      "selected": [
+        "flair_wt__original_glcm_JointAverage",
+        "flair_wt__original_glcm_SumAverage",
+        "flair_wt__original_firstorder_Skewness",
+        "flair_wt__original_glrlm_RunLengthNonUniformity",
+        "t1c_tc__original_shape_Flatness",
+        "flair_wt__original_firstorder_Median",
+        "flair_wt__original_shape_MeshVolume",
+        "flair_wt__original_shape_VoxelVolume",
+        "flair_wt__original_glrlm_GrayLevelNonUniformityNormalized"
+      ],
+      "k_selected": 9
+    },
+    "l1": {
+      "selected": [
+        "flair_wt__original_glcm_SumAverage",
+        "flair_wt__original_glcm_Autocorrelation",
+        "flair_wt__original_glrlm_ShortRunHighGrayLevelEmphasis",
+        "flair_wt__original_firstorder_Skewness",
+        "flair_wt__original_glrlm_LongRunHighGrayLevelEmphasis",
+        "flair_wt__original_glszm_HighGrayLevelZoneEmphasis",
+        "flair_wt__original_firstorder_Median",
+        "flair_wt__original_glszm_SmallAreaHighGrayLevelEmphasis",
+        "flair_wt__original_shape_LeastAxisLength"
+      ],
+      "k_selected": 9
+    },
+    "rf": {
+      "selected": [
+        "flair_wt__original_firstorder_Skewness",
+        "flair_wt__original_glrlm_RunLengthNonUniformity",
+        "t1c_tc__original_shape_Flatness",
+        "flair_wt__original_firstorder_Median",
+        "flair_wt__original_shape_MeshVolume",
+        "flair_wt__original_shape_VoxelVolume",
+        "flair_wt__original_glcm_MCC",
+        "flair_wt__original_glrlm_GrayLevelNonUniformityNormalized",
+        "flair_wt__original_shape_LeastAxisLength"
+      ],
+      "k_selected": 9
+    },
+    "random": {
+      "selected": [
+        "flair_wt__original_glcm_SumAverage",
+        "flair_wt__original_glrlm_ShortRunHighGrayLevelEmphasis",
+        "flair_wt__original_glrlm_LongRunHighGrayLevelEmphasis",
+        "t1c_tc__original_shape_Flatness",
+        "flair_wt__original_glrlm_ShortRunLowGrayLevelEmphasis",
+        "flair_wt__original_firstorder_Median",
+        "flair_wt__original_glszm_SmallAreaHighGrayLevelEmphasis",
+        "flair_wt__original_shape_MeshVolume",
+        "flair_wt__original_glcm_MCC"
+      ],
+      "k_selected": 9
+    },
+    "qpu_ibm_fez": {
+      "selected": [
+        "flair_wt__original_glcm_JointAverage",
+        "flair_wt__original_glcm_Autocorrelation",
+        "flair_wt__original_glrlm_HighGrayLevelRunEmphasis",
+        "flair_wt__original_glrlm_ShortRunHighGrayLevelEmphasis",
+        "flair_wt__original_firstorder_Skewness",
+        "flair_wt__original_glrlm_LongRunHighGrayLevelEmphasis",
+        "flair_wt__original_glrlm_RunLengthNonUniformity",
+        "t1c_tc__original_shape_Flatness",
+        "flair_wt__original_glrlm_LongRunLowGrayLevelEmphasis",
+        "flair_wt__original_glszm_HighGrayLevelZoneEmphasis",
+        "flair_wt__original_firstorder_Median",
+        "flair_wt__original_glszm_SmallAreaHighGrayLevelEmphasis",
+        "flair_wt__original_shape_MeshVolume"
+      ],
+      "k_selected": 13,
+      "job_id": "daa8k09qtnsc73d2c7f0",
+      "backend": "ibm_fez"
+    }
+  },
+  "qpu": {
+    "backend": "ibm_fez",
+    "num_qubits": 156,
+    "job_id": "daa8k09qtnsc73d2c7f0",
+    "status": "COMPLETED",
+    "shots": 10000,
+    "top_bitstrings": {
+      "top0": "00001111101101111101",
+      "top1": "10011011111111011010",
+      "top2": "00111011010000011111",
+      "top3": "11111111111011011000",
+      "top4": "00011011110110111011",
+      "top5": "10111011110111101110",
+      "top6": "01011001111101011001",
+      "top7": "01100111011101111101",
+      "top8": "11101101011111011001",
+      "top9": "11110001111111010011"
+    },
+    "top_counts": {
+      "00001111101101111101": 3,
+      "10011011111111011010": 2,
+      "00111011010000011111": 2,
+      "11111111111011011000": 2,
+      "00011011110110111011": 2,
+      "10111011110111101110": 2,
+      "01011001111101011001": 2,
+      "01100111011101111101": 2,
+      "11101101011111011001": 2,
+      "11110001111111010011": 2
+    },
+    "selected": [
+      "flair_wt__original_glcm_JointAverage",
+      "flair_wt__original_glcm_Autocorrelation",
+      "flair_wt__original_glrlm_HighGrayLevelRunEmphasis",
+      "flair_wt__original_glrlm_ShortRunHighGrayLevelEmphasis",
+      "flair_wt__original_firstorder_Skewness",
+      "flair_wt__original_glrlm_LongRunHighGrayLevelEmphasis",
+      "flair_wt__original_glrlm_RunLengthNonUniformity",
+      "t1c_tc__original_shape_Flatness",
+      "flair_wt__original_glrlm_LongRunLowGrayLevelEmphasis",
+      "flair_wt__original_glszm_HighGrayLevelZoneEmphasis",
+      "flair_wt__original_firstorder_Median",
+      "flair_wt__original_glszm_SmallAreaHighGrayLevelEmphasis",
+      "flair_wt__original_shape_MeshVolume"
+    ],
+    "k_selected": 13,
+    "tracking_url": "https://quantum.ibm.com/jobs/daa8k09qtnsc73d2c7f0"
+  },
+  "jaccard_vs_qubo_classical": {
+    "qubo_classical": 1.0,
+    "qubo_exact": 1.0,
+    "qaoa_sim": 0.053,
+    "mi_topk": 0.385,
+    "mrmr": 0.385,
+    "f_anova": 0.385,
+    "l1": 0.286,
+    "rf": 0.385,
+    "random": 0.286,
+    "qpu_ibm_fez": 0.375
+  }
+}
