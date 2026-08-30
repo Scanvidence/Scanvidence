@@ -1,0 +1,642 @@
+[
+  {
+    "case_id": "BraTS-GLI-00001-000",
+    "volumes_cm3": {
+      "whole_tumor": 115.013,
+      "tumor_core": 30.754,
+      "enhancing_tumor": 18.447,
+      "peritumoral_edema": 84.259,
+      "necrotic_core": 12.307
+    },
+    "ratios": {
+      "enhancing_to_core_ratio": 0.5998,
+      "necrosis_to_core_ratio": 0.4002,
+      "edema_to_whole_tumor_ratio": 0.7326
+    },
+    "centroid_voxels": {
+      "z": 70,
+      "y": 121,
+      "x": 159
+    },
+    "bounding_box_mm": {
+      "depth_mm": 73.0,
+      "height_mm": 98.0,
+      "width_mm": 57.0
+    },
+    "quantum_molecular_profile": {
+      "status": "MGMT_Unmethylated",
+      "probability_methylated": 0.4424,
+      "confidence": 0.5576,
+      "uncertainty": 0.4424
+    },
+    "visualization_path": "cache/explainability_challenge_val/BraTS-GLI-00001-000_explainability.png"
+  },
+  {
+    "case_id": "BraTS-GLI-00001-001",
+    "volumes_cm3": {
+      "whole_tumor": 135.026,
+      "tumor_core": 62.935,
+      "enhancing_tumor": 39.915,
+      "peritumoral_edema": 72.091,
+      "necrotic_core": 23.02
+    },
+    "ratios": {
+      "enhancing_to_core_ratio": 0.6342,
+      "necrosis_to_core_ratio": 0.3658,
+      "edema_to_whole_tumor_ratio": 0.5339
+    },
+    "centroid_voxels": {
+      "z": 68,
+      "y": 126,
+      "x": 154
+    },
+    "bounding_box_mm": {
+      "depth_mm": 74.0,
+      "height_mm": 102.0,
+      "width_mm": 66.0
+    },
+    "quantum_molecular_profile": {
+      "status": "MGMT_Methylated",
+      "probability_methylated": 0.5167,
+      "confidence": 0.5167,
+      "uncertainty": 0.4833
+    },
+    "visualization_path": "cache/explainability_challenge_val/BraTS-GLI-00001-001_explainability.png"
+  },
+  {
+    "case_id": "BraTS-GLI-00013-000",
+    "volumes_cm3": {
+      "whole_tumor": 84.401,
+      "tumor_core": 47.982,
+      "enhancing_tumor": 35.302,
+      "peritumoral_edema": 36.419,
+      "necrotic_core": 12.68
+    },
+    "ratios": {
+      "enhancing_to_core_ratio": 0.7357,
+      "necrosis_to_core_ratio": 0.2643,
+      "edema_to_whole_tumor_ratio": 0.4315
+    },
+    "centroid_voxels": {
+      "z": 78,
+      "y": 138,
+      "x": 94
+    },
+    "bounding_box_mm": {
+      "depth_mm": 74.0,
+      "height_mm": 62.0,
+      "width_mm": 66.0
+    },
+    "quantum_molecular_profile": {
+      "status": "MGMT_Methylated",
+      "probability_methylated": 0.529,
+      "confidence": 0.529,
+      "uncertainty": 0.471
+    },
+    "visualization_path": "cache/explainability_challenge_val/BraTS-GLI-00013-000_explainability.png"
+  },
+  {
+    "case_id": "BraTS-GLI-00013-001",
+    "volumes_cm3": {
+      "whole_tumor": 77.561,
+      "tumor_core": 50.487,
+      "enhancing_tumor": 45.597,
+      "peritumoral_edema": 27.074,
+      "necrotic_core": 4.89
+    },
+    "ratios": {
+      "enhancing_to_core_ratio": 0.9031,
+      "necrosis_to_core_ratio": 0.0969,
+      "edema_to_whole_tumor_ratio": 0.3491
+    },
+    "centroid_voxels": {
+      "z": 85,
+      "y": 155,
+      "x": 86
+    },
+    "bounding_box_mm": {
+      "depth_mm": 64.0,
+      "height_mm": 97.0,
+      "width_mm": 65.0
+    },
+    "quantum_molecular_profile": {
+      "status": "MGMT_Methylated",
+      "probability_methylated": 0.5108,
+      "confidence": 0.5108,
+      "uncertainty": 0.4892
+    },
+    "visualization_path": "cache/explainability_challenge_val/BraTS-GLI-00013-001_explainability.png"
+  },
+  {
+    "case_id": "BraTS-GLI-00015-000",
+    "volumes_cm3": {
+      "whole_tumor": 196.619,
+      "tumor_core": 38.636,
+      "enhancing_tumor": 27.509,
+      "peritumoral_edema": 157.983,
+      "necrotic_core": 11.127
+    },
+    "ratios": {
+      "enhancing_to_core_ratio": 0.712,
+      "necrosis_to_core_ratio": 0.288,
+      "edema_to_whole_tumor_ratio": 0.8035
+    },
+    "centroid_voxels": {
+      "z": 84,
+      "y": 162,
+      "x": 93
+    },
+    "bounding_box_mm": {
+      "depth_mm": 95.0,
+      "height_mm": 106.0,
+      "width_mm": 66.0
+    },
+    "quantum_molecular_profile": {
+      "status": "MGMT_Methylated",
+      "probability_methylated": 0.5657,
+      "confidence": 0.5657,
+      "uncertainty": 0.4343
+    },
+    "visualization_path": "cache/explainability_challenge_val/BraTS-GLI-00015-000_explainability.png"
+  },
+  {
+    "case_id": "BraTS-GLI-00015-001",
+    "volumes_cm3": {
+      "whole_tumor": 208.275,
+      "tumor_core": 40.985,
+      "enhancing_tumor": 29.993,
+      "peritumoral_edema": 167.29,
+      "necrotic_core": 10.992
+    },
+    "ratios": {
+      "enhancing_to_core_ratio": 0.7318,
+      "necrosis_to_core_ratio": 0.2682,
+      "edema_to_whole_tumor_ratio": 0.8032
+    },
+    "centroid_voxels": {
+      "z": 90,
+      "y": 157,
+      "x": 91
+    },
+    "bounding_box_mm": {
+      "depth_mm": 88.0,
+      "height_mm": 107.0,
+      "width_mm": 66.0
+    },
+    "quantum_molecular_profile": {
+      "status": "MGMT_Methylated",
+      "probability_methylated": 0.5,
+      "confidence": 0.5,
+      "uncertainty": 0.5
+    },
+    "visualization_path": "cache/explainability_challenge_val/BraTS-GLI-00015-001_explainability.png"
+  },
+  {
+    "case_id": "BraTS-GLI-00027-000",
+    "volumes_cm3": {
+      "whole_tumor": 56.808,
+      "tumor_core": 31.414,
+      "enhancing_tumor": 17.359,
+      "peritumoral_edema": 25.394,
+      "necrotic_core": 14.055
+    },
+    "ratios": {
+      "enhancing_to_core_ratio": 0.5526,
+      "necrosis_to_core_ratio": 0.4474,
+      "edema_to_whole_tumor_ratio": 0.447
+    },
+    "centroid_voxels": {
+      "z": 72,
+      "y": 176,
+      "x": 143
+    },
+    "bounding_box_mm": {
+      "depth_mm": 58.0,
+      "height_mm": 52.0,
+      "width_mm": 54.0
+    },
+    "quantum_molecular_profile": {
+      "status": "MGMT_Methylated",
+      "probability_methylated": 0.5,
+      "confidence": 0.5,
+      "uncertainty": 0.5
+    },
+    "visualization_path": "cache/explainability_challenge_val/BraTS-GLI-00027-000_explainability.png"
+  },
+  {
+    "case_id": "BraTS-GLI-00037-000",
+    "volumes_cm3": {
+      "whole_tumor": 41.561,
+      "tumor_core": 7.314,
+      "enhancing_tumor": 6.479,
+      "peritumoral_edema": 34.247,
+      "necrotic_core": 0.835
+    },
+    "ratios": {
+      "enhancing_to_core_ratio": 0.8858,
+      "necrosis_to_core_ratio": 0.1142,
+      "edema_to_whole_tumor_ratio": 0.824
+    },
+    "centroid_voxels": {
+      "z": 61,
+      "y": 126,
+      "x": 140
+    },
+    "bounding_box_mm": {
+      "depth_mm": 58.0,
+      "height_mm": 49.0,
+      "width_mm": 50.0
+    },
+    "quantum_molecular_profile": {
+      "status": "MGMT_Methylated",
+      "probability_methylated": 0.5636,
+      "confidence": 0.5636,
+      "uncertainty": 0.4364
+    },
+    "visualization_path": "cache/explainability_challenge_val/BraTS-GLI-00037-000_explainability.png"
+  },
+  {
+    "case_id": "BraTS-GLI-00047-000",
+    "volumes_cm3": {
+      "whole_tumor": 67.749,
+      "tumor_core": 11.165,
+      "enhancing_tumor": 10.374,
+      "peritumoral_edema": 56.584,
+      "necrotic_core": 0.791
+    },
+    "ratios": {
+      "enhancing_to_core_ratio": 0.9292,
+      "necrosis_to_core_ratio": 0.0708,
+      "edema_to_whole_tumor_ratio": 0.8352
+    },
+    "centroid_voxels": {
+      "z": 105,
+      "y": 104,
+      "x": 114
+    },
+    "bounding_box_mm": {
+      "depth_mm": 60.0,
+      "height_mm": 91.0,
+      "width_mm": 42.0
+    },
+    "quantum_molecular_profile": {
+      "status": "MGMT_Unmethylated",
+      "probability_methylated": 0.4934,
+      "confidence": 0.5066,
+      "uncertainty": 0.4934
+    },
+    "visualization_path": "cache/explainability_challenge_val/BraTS-GLI-00047-000_explainability.png"
+  },
+  {
+    "case_id": "BraTS-GLI-00079-000",
+    "volumes_cm3": {
+      "whole_tumor": 92.258,
+      "tumor_core": 2.032,
+      "enhancing_tumor": 2.007,
+      "peritumoral_edema": 90.226,
+      "necrotic_core": 0.025
+    },
+    "ratios": {
+      "enhancing_to_core_ratio": 0.9877,
+      "necrosis_to_core_ratio": 0.0123,
+      "edema_to_whole_tumor_ratio": 0.978
+    },
+    "centroid_voxels": {
+      "z": 105,
+      "y": 155,
+      "x": 140
+    },
+    "bounding_box_mm": {
+      "depth_mm": 71.0,
+      "height_mm": 64.0,
+      "width_mm": 67.0
+    },
+    "quantum_molecular_profile": {
+      "status": "MGMT_Methylated",
+      "probability_methylated": 0.531,
+      "confidence": 0.531,
+      "uncertainty": 0.469
+    },
+    "visualization_path": "cache/explainability_challenge_val/BraTS-GLI-00079-000_explainability.png"
+  },
+  {
+    "case_id": "BraTS-GLI-00080-000",
+    "volumes_cm3": {
+      "whole_tumor": 42.203,
+      "tumor_core": 17.513,
+      "enhancing_tumor": 13.191,
+      "peritumoral_edema": 24.69,
+      "necrotic_core": 4.322
+    },
+    "ratios": {
+      "enhancing_to_core_ratio": 0.7532,
+      "necrosis_to_core_ratio": 0.2468,
+      "edema_to_whole_tumor_ratio": 0.585
+    },
+    "centroid_voxels": {
+      "z": 118,
+      "y": 123,
+      "x": 140
+    },
+    "bounding_box_mm": {
+      "depth_mm": 54.0,
+      "height_mm": 68.0,
+      "width_mm": 39.0
+    },
+    "quantum_molecular_profile": {
+      "status": "MGMT_Methylated",
+      "probability_methylated": 0.5339,
+      "confidence": 0.5339,
+      "uncertainty": 0.4661
+    },
+    "visualization_path": "cache/explainability_challenge_val/BraTS-GLI-00080-000_explainability.png"
+  },
+  {
+    "case_id": "BraTS-GLI-00080-001",
+    "volumes_cm3": {
+      "whole_tumor": 38.397,
+      "tumor_core": 13.892,
+      "enhancing_tumor": 13.222,
+      "peritumoral_edema": 24.505,
+      "necrotic_core": 0.67
+    },
+    "ratios": {
+      "enhancing_to_core_ratio": 0.9518,
+      "necrosis_to_core_ratio": 0.0482,
+      "edema_to_whole_tumor_ratio": 0.6382
+    },
+    "centroid_voxels": {
+      "z": 116,
+      "y": 116,
+      "x": 136
+    },
+    "bounding_box_mm": {
+      "depth_mm": 48.0,
+      "height_mm": 67.0,
+      "width_mm": 30.0
+    },
+    "quantum_molecular_profile": {
+      "status": "MGMT_Methylated",
+      "probability_methylated": 0.6299,
+      "confidence": 0.6299,
+      "uncertainty": 0.3701
+    },
+    "visualization_path": "cache/explainability_challenge_val/BraTS-GLI-00080-001_explainability.png"
+  },
+  {
+    "case_id": "BraTS-GLI-00082-000",
+    "volumes_cm3": {
+      "whole_tumor": 207.813,
+      "tumor_core": 56.364,
+      "enhancing_tumor": 25.739,
+      "peritumoral_edema": 151.449,
+      "necrotic_core": 30.625
+    },
+    "ratios": {
+      "enhancing_to_core_ratio": 0.4567,
+      "necrosis_to_core_ratio": 0.5433,
+      "edema_to_whole_tumor_ratio": 0.7288
+    },
+    "centroid_voxels": {
+      "z": 91,
+      "y": 93,
+      "x": 100
+    },
+    "bounding_box_mm": {
+      "depth_mm": 78.0,
+      "height_mm": 109.0,
+      "width_mm": 85.0
+    },
+    "quantum_molecular_profile": {
+      "status": "MGMT_Unmethylated",
+      "probability_methylated": 0.4433,
+      "confidence": 0.5567,
+      "uncertainty": 0.4433
+    },
+    "visualization_path": "cache/explainability_challenge_val/BraTS-GLI-00082-000_explainability.png"
+  },
+  {
+    "case_id": "BraTS-GLI-00091-000",
+    "volumes_cm3": {
+      "whole_tumor": 157.606,
+      "tumor_core": 71.387,
+      "enhancing_tumor": 37.658,
+      "peritumoral_edema": 86.219,
+      "necrotic_core": 33.729
+    },
+    "ratios": {
+      "enhancing_to_core_ratio": 0.5275,
+      "necrosis_to_core_ratio": 0.4725,
+      "edema_to_whole_tumor_ratio": 0.5471
+    },
+    "centroid_voxels": {
+      "z": 97,
+      "y": 92,
+      "x": 100
+    },
+    "bounding_box_mm": {
+      "depth_mm": 65.0,
+      "height_mm": 102.0,
+      "width_mm": 99.0
+    },
+    "quantum_molecular_profile": {
+      "status": "MGMT_Unmethylated",
+      "probability_methylated": 0.4879,
+      "confidence": 0.5121,
+      "uncertainty": 0.4879
+    },
+    "visualization_path": "cache/explainability_challenge_val/BraTS-GLI-00091-000_explainability.png"
+  },
+  {
+    "case_id": "BraTS-GLI-00114-000",
+    "volumes_cm3": {
+      "whole_tumor": 18.887,
+      "tumor_core": 15.325,
+      "enhancing_tumor": 11.553,
+      "peritumoral_edema": 3.562,
+      "necrotic_core": 3.772
+    },
+    "ratios": {
+      "enhancing_to_core_ratio": 0.7539,
+      "necrosis_to_core_ratio": 0.2461,
+      "edema_to_whole_tumor_ratio": 0.1886
+    },
+    "centroid_voxels": {
+      "z": 117,
+      "y": 142,
+      "x": 130
+    },
+    "bounding_box_mm": {
+      "depth_mm": 57.0,
+      "height_mm": 55.0,
+      "width_mm": 55.0
+    },
+    "quantum_molecular_profile": {
+      "status": "MGMT_Methylated",
+      "probability_methylated": 0.5,
+      "confidence": 0.5,
+      "uncertainty": 0.5
+    },
+    "visualization_path": "cache/explainability_challenge_val/BraTS-GLI-00114-000_explainability.png"
+  },
+  {
+    "case_id": "BraTS-GLI-00119-000",
+    "volumes_cm3": {
+      "whole_tumor": 148.435,
+      "tumor_core": 56.572,
+      "enhancing_tumor": 39.627,
+      "peritumoral_edema": 91.863,
+      "necrotic_core": 16.945
+    },
+    "ratios": {
+      "enhancing_to_core_ratio": 0.7005,
+      "necrosis_to_core_ratio": 0.2995,
+      "edema_to_whole_tumor_ratio": 0.6189
+    },
+    "centroid_voxels": {
+      "z": 65,
+      "y": 122,
+      "x": 154
+    },
+    "bounding_box_mm": {
+      "depth_mm": 97.0,
+      "height_mm": 98.0,
+      "width_mm": 95.0
+    },
+    "quantum_molecular_profile": {
+      "status": "MGMT_Methylated",
+      "probability_methylated": 0.5,
+      "confidence": 0.5,
+      "uncertainty": 0.5
+    },
+    "visualization_path": "cache/explainability_challenge_val/BraTS-GLI-00119-000_explainability.png"
+  },
+  {
+    "case_id": "BraTS-GLI-00125-000",
+    "volumes_cm3": {
+      "whole_tumor": 76.599,
+      "tumor_core": 32.401,
+      "enhancing_tumor": 26.615,
+      "peritumoral_edema": 44.198,
+      "necrotic_core": 5.786
+    },
+    "ratios": {
+      "enhancing_to_core_ratio": 0.8214,
+      "necrosis_to_core_ratio": 0.1786,
+      "edema_to_whole_tumor_ratio": 0.577
+    },
+    "centroid_voxels": {
+      "z": 50,
+      "y": 124,
+      "x": 154
+    },
+    "bounding_box_mm": {
+      "depth_mm": 72.0,
+      "height_mm": 99.0,
+      "width_mm": 92.0
+    },
+    "quantum_molecular_profile": {
+      "status": "MGMT_Methylated",
+      "probability_methylated": 0.5099,
+      "confidence": 0.5099,
+      "uncertainty": 0.4901
+    },
+    "visualization_path": "cache/explainability_challenge_val/BraTS-GLI-00125-000_explainability.png"
+  },
+  {
+    "case_id": "BraTS-GLI-00129-000",
+    "volumes_cm3": {
+      "whole_tumor": 50.485,
+      "tumor_core": 14.15,
+      "enhancing_tumor": 12.724,
+      "peritumoral_edema": 36.335,
+      "necrotic_core": 1.426
+    },
+    "ratios": {
+      "enhancing_to_core_ratio": 0.8992,
+      "necrosis_to_core_ratio": 0.1008,
+      "edema_to_whole_tumor_ratio": 0.7197
+    },
+    "centroid_voxels": {
+      "z": 87,
+      "y": 151,
+      "x": 159
+    },
+    "bounding_box_mm": {
+      "depth_mm": 115.0,
+      "height_mm": 52.0,
+      "width_mm": 100.0
+    },
+    "quantum_molecular_profile": {
+      "status": "MGMT_Methylated",
+      "probability_methylated": 0.6471,
+      "confidence": 0.6471,
+      "uncertainty": 0.3529
+    },
+    "visualization_path": "cache/explainability_challenge_val/BraTS-GLI-00129-000_explainability.png"
+  },
+  {
+    "case_id": "BraTS-GLI-00135-000",
+    "volumes_cm3": {
+      "whole_tumor": 77.172,
+      "tumor_core": 30.209,
+      "enhancing_tumor": 23.875,
+      "peritumoral_edema": 46.963,
+      "necrotic_core": 6.334
+    },
+    "ratios": {
+      "enhancing_to_core_ratio": 0.7903,
+      "necrosis_to_core_ratio": 0.2097,
+      "edema_to_whole_tumor_ratio": 0.6085
+    },
+    "centroid_voxels": {
+      "z": 80,
+      "y": 141,
+      "x": 81
+    },
+    "bounding_box_mm": {
+      "depth_mm": 68.0,
+      "height_mm": 79.0,
+      "width_mm": 56.0
+    },
+    "quantum_molecular_profile": {
+      "status": "MGMT_Methylated",
+      "probability_methylated": 0.5268,
+      "confidence": 0.5268,
+      "uncertainty": 0.4732
+    },
+    "visualization_path": "cache/explainability_challenge_val/BraTS-GLI-00135-000_explainability.png"
+  },
+  {
+    "case_id": "BraTS-GLI-00141-000",
+    "volumes_cm3": {
+      "whole_tumor": 135.964,
+      "tumor_core": 113.294,
+      "enhancing_tumor": 76.467,
+      "peritumoral_edema": 22.67,
+      "necrotic_core": 36.827
+    },
+    "ratios": {
+      "enhancing_to_core_ratio": 0.6749,
+      "necrosis_to_core_ratio": 0.3251,
+      "edema_to_whole_tumor_ratio": 0.1667
+    },
+    "centroid_voxels": {
+      "z": 60,
+      "y": 141,
+      "x": 86
+    },
+    "bounding_box_mm": {
+      "depth_mm": 69.0,
+      "height_mm": 107.0,
+      "width_mm": 92.0
+    },
+    "quantum_molecular_profile": {
+      "status": "MGMT_Methylated",
+      "probability_methylated": 0.5686,
+      "confidence": 0.5686,
+      "uncertainty": 0.4314
+    },
+    "visualization_path": "cache/explainability_challenge_val/BraTS-GLI-00141-000_explainability.png"
+  }
+]
