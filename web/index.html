@@ -35,10 +35,6 @@
       border: 1px solid rgba(0, 0, 0, 0.08);
       box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.04);
     }
-    .medical-viewport-grid {
-      background: #030712;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
     .crosshair-h {
       position: absolute;
       left: 0;
@@ -46,7 +42,8 @@
       height: 1px;
       background: #ff3b30;
       pointer-events: none;
-      box-shadow: 0 0 4px rgba(255, 59, 48, 0.6);
+      box-shadow: 0 0 4px rgba(255, 59, 48, 0.8);
+      z-index: 10;
     }
     .crosshair-v {
       position: absolute;
@@ -55,7 +52,8 @@
       width: 1px;
       background: #ff3b30;
       pointer-events: none;
-      box-shadow: 0 0 4px rgba(255, 59, 48, 0.6);
+      box-shadow: 0 0 4px rgba(255, 59, 48, 0.8);
+      z-index: 10;
     }
     .apple-slider::-webkit-slider-thumb {
       appearance: none;
@@ -104,7 +102,7 @@
   </div>
 
   <!-- HERO SECTION -->
-  <section id="overview" class="max-w-6xl mx-auto px-4 sm:px-8 pt-28 pb-12 space-y-8">
+  <section id="overview" class="max-w-6xl mx-auto px-4 sm:px-8 pt-28 pb-10 space-y-8">
     <div class="text-center space-y-4 max-w-3xl mx-auto">
       <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold">
         <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
@@ -147,7 +145,7 @@
   </section>
 
   <!-- SECTION 2: 4-QUADRANT REAL MEDICAL SLICER (NIIVUE / 3D SLICER STYLE) -->
-  <section id="mri-quadrant-viewer" class="max-w-6xl mx-auto px-4 sm:px-8 py-8 space-y-6">
+  <section id="mri-quadrant-viewer" class="max-w-6xl mx-auto px-4 sm:px-8 py-6 space-y-6">
     
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
       <div>
@@ -193,63 +191,63 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-3 bg-slate-950 p-3 rounded-2xl border border-slate-800">
         
         <!-- QUADRANT 1: CORONAL VIEW (TOP-LEFT) -->
-        <div class="relative bg-black rounded-xl overflow-hidden aspect-square border border-slate-800 flex items-center justify-center group cursor-crosshair">
-          <img id="img-coronal" src="web/assets/slices/BraTS-GLI-00002-000/coronal_95.png" alt="Coronal Slice" class="w-full h-full object-contain">
+        <div id="quad-coronal" onclick="handleQuadrantClick(event, 'coronal')" class="relative bg-black rounded-xl overflow-hidden aspect-square border border-slate-800 flex items-center justify-center cursor-crosshair select-none">
+          <img id="img-coronal" src="assets/slices/BraTS-GLI-00002-000/coronal_95.png" alt="Coronal Slice" class="w-full h-full object-contain pointer-events-none">
           
           <!-- Crosshairs -->
           <div id="cross-coronal-h" class="crosshair-h" style="top: 50%;"></div>
           <div id="cross-coronal-v" class="crosshair-v" style="left: 50%;"></div>
 
           <!-- Plane Labels -->
-          <span class="absolute top-2 left-2 text-[10px] font-mono font-bold text-red-500">CORONAL</span>
-          <span class="absolute top-2 right-2 text-[10px] font-mono text-slate-400">S</span>
-          <span class="absolute bottom-2 right-2 text-[10px] font-mono text-slate-400">I</span>
-          <span class="absolute top-1/2 left-2 -translate-y-1/2 text-[10px] font-mono text-slate-400">L</span>
-          <span class="absolute top-1/2 right-2 -translate-y-1/2 text-[10px] font-mono text-slate-400">R</span>
-          <div class="absolute bottom-2 left-2 bg-black/70 px-2 py-0.5 rounded text-[9px] font-mono text-slate-300" id="label-coronal">y = 95 / 240</div>
+          <span class="absolute top-2 left-2 text-[10px] font-mono font-bold text-red-500 z-20">CORONAL</span>
+          <span class="absolute top-2 right-2 text-[10px] font-mono text-slate-400 z-20">S</span>
+          <span class="absolute bottom-2 right-2 text-[10px] font-mono text-slate-400 z-20">I</span>
+          <span class="absolute top-1/2 left-2 -translate-y-1/2 text-[10px] font-mono text-slate-400 z-20">L</span>
+          <span class="absolute top-1/2 right-2 -translate-y-1/2 text-[10px] font-mono text-slate-400 z-20">R</span>
+          <div class="absolute bottom-2 left-2 bg-black/70 px-2 py-0.5 rounded text-[9px] font-mono text-slate-300 z-20" id="label-coronal">y = 95 / 240</div>
         </div>
 
         <!-- QUADRANT 2: SAGITTAL VIEW (TOP-RIGHT) -->
-        <div class="relative bg-black rounded-xl overflow-hidden aspect-square border border-slate-800 flex items-center justify-center group cursor-crosshair">
-          <img id="img-sagittal" src="web/assets/slices/BraTS-GLI-00002-000/sagittal_140.png" alt="Sagittal Slice" class="w-full h-full object-contain">
+        <div id="quad-sagittal" onclick="handleQuadrantClick(event, 'sagittal')" class="relative bg-black rounded-xl overflow-hidden aspect-square border border-slate-800 flex items-center justify-center cursor-crosshair select-none">
+          <img id="img-sagittal" src="assets/slices/BraTS-GLI-00002-000/sagittal_140.png" alt="Sagittal Slice" class="w-full h-full object-contain pointer-events-none">
           
           <!-- Crosshairs -->
           <div id="cross-sagittal-h" class="crosshair-h" style="top: 50%;"></div>
           <div id="cross-sagittal-v" class="crosshair-v" style="left: 50%;"></div>
 
           <!-- Plane Labels -->
-          <span class="absolute top-2 left-2 text-[10px] font-mono font-bold text-red-500">SAGITTAL</span>
-          <span class="absolute top-2 right-2 text-[10px] font-mono text-slate-400">S</span>
-          <span class="absolute bottom-2 right-2 text-[10px] font-mono text-slate-400">I</span>
-          <span class="absolute top-1/2 left-2 -translate-y-1/2 text-[10px] font-mono text-slate-400">A</span>
-          <span class="absolute top-1/2 right-2 -translate-y-1/2 text-[10px] font-mono text-slate-400">P</span>
-          <div class="absolute bottom-2 left-2 bg-black/70 px-2 py-0.5 rounded text-[9px] font-mono text-slate-300" id="label-sagittal">x = 140 / 240</div>
+          <span class="absolute top-2 left-2 text-[10px] font-mono font-bold text-red-500 z-20">SAGITTAL</span>
+          <span class="absolute top-2 right-2 text-[10px] font-mono text-slate-400 z-20">S</span>
+          <span class="absolute bottom-2 right-2 text-[10px] font-mono text-slate-400 z-20">I</span>
+          <span class="absolute top-1/2 left-2 -translate-y-1/2 text-[10px] font-mono text-slate-400 z-20">A</span>
+          <span class="absolute top-1/2 right-2 -translate-y-1/2 text-[10px] font-mono text-slate-400 z-20">P</span>
+          <div class="absolute bottom-2 left-2 bg-black/70 px-2 py-0.5 rounded text-[9px] font-mono text-slate-300 z-20" id="label-sagittal">x = 140 / 240</div>
         </div>
 
         <!-- QUADRANT 3: AXIAL VIEW (BOTTOM-LEFT) -->
-        <div class="relative bg-black rounded-xl overflow-hidden aspect-square border border-slate-800 flex items-center justify-center group cursor-crosshair">
-          <img id="img-axial" src="web/assets/slices/BraTS-GLI-00002-000/axial_79.png" alt="Axial Slice" class="w-full h-full object-contain">
+        <div id="quad-axial" onclick="handleQuadrantClick(event, 'axial')" class="relative bg-black rounded-xl overflow-hidden aspect-square border border-slate-800 flex items-center justify-center cursor-crosshair select-none">
+          <img id="img-axial" src="assets/slices/BraTS-GLI-00002-000/axial_79.png" alt="Axial Slice" class="w-full h-full object-contain pointer-events-none">
           
           <!-- Crosshairs -->
           <div id="cross-axial-h" class="crosshair-h" style="top: 50%;"></div>
           <div id="cross-axial-v" class="crosshair-v" style="left: 50%;"></div>
 
           <!-- Plane Labels -->
-          <span class="absolute top-2 left-2 text-[10px] font-mono font-bold text-red-500">AXIAL</span>
-          <span class="absolute top-2 right-2 text-[10px] font-mono text-slate-400">A</span>
-          <span class="absolute bottom-2 right-2 text-[10px] font-mono text-slate-400">P</span>
-          <span class="absolute top-1/2 left-2 -translate-y-1/2 text-[10px] font-mono text-slate-400">L</span>
-          <span class="absolute top-1/2 right-2 -translate-y-1/2 text-[10px] font-mono text-slate-400">R</span>
-          <div class="absolute bottom-2 left-2 bg-black/70 px-2 py-0.5 rounded text-[9px] font-mono text-slate-300" id="label-axial">z = 79 / 155</div>
+          <span class="absolute top-2 left-2 text-[10px] font-mono font-bold text-red-500 z-20">AXIAL</span>
+          <span class="absolute top-2 right-2 text-[10px] font-mono text-slate-400 z-20">A</span>
+          <span class="absolute bottom-2 right-2 text-[10px] font-mono text-slate-400 z-20">P</span>
+          <span class="absolute top-1/2 left-2 -translate-y-1/2 text-[10px] font-mono text-slate-400 z-20">L</span>
+          <span class="absolute top-1/2 right-2 -translate-y-1/2 text-[10px] font-mono text-slate-400 z-20">R</span>
+          <div class="absolute bottom-2 left-2 bg-black/70 px-2 py-0.5 rounded text-[9px] font-mono text-slate-300 z-20" id="label-axial">z = 79 / 155</div>
         </div>
 
         <!-- QUADRANT 4: 3D VOLUME / DIAGNOSTIC RECONSTRUCTION (BOTTOM-RIGHT) -->
         <div class="relative bg-gradient-to-b from-slate-950 to-slate-900 rounded-xl overflow-hidden aspect-square border border-slate-800 flex items-center justify-center p-3">
-          <img id="img-3d-recon" src="cache/explainability_challenge_val/BraTS-GLI-00001-000_explainability.png" alt="3D Orthogonal Reconstruction" class="w-full h-full object-contain rounded-lg">
+          <img id="img-3d-recon" src="assets/explainability/BraTS-GLI-00001-000_explainability.png" alt="3D Orthogonal Reconstruction" class="w-full h-full object-contain rounded-lg">
           
-          <div class="absolute top-2 left-2 text-[10px] font-mono font-bold text-emerald-400">3D ORTHOGONAL COMPARTMENTS</div>
+          <div class="absolute top-2 left-2 text-[10px] font-mono font-bold text-emerald-400 z-20">3D ORTHOGONAL COMPARTMENTS</div>
           
-          <div class="absolute bottom-2 right-2 flex items-center space-x-1.5 bg-black/70 px-2 py-1 rounded text-[9px] font-medium text-white">
+          <div class="absolute bottom-2 right-2 flex items-center space-x-1.5 bg-black/70 px-2 py-1 rounded text-[9px] font-medium text-white z-20">
             <span class="text-rose-400">🟥 NCR</span>
             <span class="text-amber-300">🟨 ED</span>
             <span class="text-emerald-400">🟩 ET</span>
@@ -265,27 +263,27 @@
         <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 space-y-1">
           <div class="flex justify-between text-xs font-semibold text-slate-700">
             <span>Axial (Z Plane)</span>
-            <span id="slider-txt-z" class="font-mono text-blue-600">z = 79</span>
+            <span id="slider-txt-z" class="font-mono text-blue-600 font-bold">z = 79</span>
           </div>
-          <input id="slider-z" type="range" min="49" max="109" step="2" value="79" oninput="onScrubZ(this.value)" class="apple-slider w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+          <input id="slider-z" type="range" min="54" max="104" step="1" value="79" oninput="onScrubZ(this.value)" class="apple-slider w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
         </div>
 
         <!-- Coronal Slider -->
         <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 space-y-1">
           <div class="flex justify-between text-xs font-semibold text-slate-700">
             <span>Coronal (Y Plane)</span>
-            <span id="slider-txt-y" class="font-mono text-blue-600">y = 95</span>
+            <span id="slider-txt-y" class="font-mono text-blue-600 font-bold">y = 95</span>
           </div>
-          <input id="slider-y" type="range" min="65" max="125" step="2" value="95" oninput="onScrubY(this.value)" class="apple-slider w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+          <input id="slider-y" type="range" min="70" max="120" step="1" value="95" oninput="onScrubY(this.value)" class="apple-slider w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
         </div>
 
         <!-- Sagittal Slider -->
         <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 space-y-1">
           <div class="flex justify-between text-xs font-semibold text-slate-700">
             <span>Sagittal (X Plane)</span>
-            <span id="slider-txt-x" class="font-mono text-blue-600">x = 140</span>
+            <span id="slider-txt-x" class="font-mono text-blue-600 font-bold">x = 140</span>
           </div>
-          <input id="slider-x" type="range" min="110" max="170" step="2" value="140" oninput="onScrubX(this.value)" class="apple-slider w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+          <input id="slider-x" type="range" min="115" max="165" step="1" value="140" oninput="onScrubX(this.value)" class="apple-slider w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer">
         </div>
 
       </div>
@@ -467,21 +465,21 @@
     const patientVault = {
       "BraTS-GLI-00002-000": {
         cz: 79, cy: 95, cx: 140,
-        zRange: [49, 109], yRange: [65, 125], xRange: [110, 170],
+        zRange: [54, 104], yRange: [70, 120], xRange: [115, 165],
         mgmt: "MGMT_Unmethylated", prob: "54.3%", unc: "45.7%",
-        reconImg: "cache/explainability_challenge_val/BraTS-GLI-00001-000_explainability.png"
+        reconImg: "assets/explainability/BraTS-GLI-00001-000_explainability.png"
       },
       "BraTS-GLI-00003-000": {
         cz: 108, cy: 116, cx: 133,
-        zRange: [78, 138], yRange: [86, 146], xRange: [103, 163],
+        zRange: [83, 133], yRange: [91, 141], xRange: [108, 158],
         mgmt: "MGMT_Methylated", prob: "52.1%", unc: "47.9%",
-        reconImg: "cache/explainability_challenge_val/BraTS-GLI-00001-001_explainability.png"
+        reconImg: "assets/explainability/BraTS-GLI-00001-001_explainability.png"
       },
       "BraTS-GLI-00000-000": {
         cz: 70, cy: 83, cx: 139,
-        zRange: [40, 100], yRange: [53, 113], xRange: [109, 169],
+        zRange: [45, 95], yRange: [58, 108], xRange: [114, 164],
         mgmt: "MGMT_Unmethylated", prob: "55.8%", unc: "44.2%",
-        reconImg: "cache/explainability_challenge_val/BraTS-GLI-00013-000_explainability.png"
+        reconImg: "assets/explainability/BraTS-GLI-00013-000_explainability.png"
       }
     };
 
@@ -490,22 +488,18 @@
     let curY = 95;
     let curX = 140;
 
-    function snapToEven(val) {
-      return Math.round(val / 2) * 2 - 1; // Snaps to nearest odd integer (since slices exported as 49, 51, 53...)
-    }
-
     function updateSlices() {
       const p = patientVault[activeCase];
 
-      // Format slice filenames
+      // Clamp slice values to valid exported ranges
       const zSnap = Math.min(Math.max(curZ, p.zRange[0]), p.zRange[1]);
       const ySnap = Math.min(Math.max(curY, p.yRange[0]), p.yRange[1]);
       const xSnap = Math.min(Math.max(curX, p.xRange[0]), p.xRange[1]);
 
-      // Update image sources
-      document.getElementById("img-axial").src = `web/assets/slices/${activeCase}/axial_${zSnap}.png`;
-      document.getElementById("img-coronal").src = `web/assets/slices/${activeCase}/coronal_${ySnap}.png`;
-      document.getElementById("img-sagittal").src = `web/assets/slices/${activeCase}/sagittal_${xSnap}.png`;
+      // Update image sources with relative path
+      document.getElementById("img-axial").src = `assets/slices/${activeCase}/axial_${zSnap}.png`;
+      document.getElementById("img-coronal").src = `assets/slices/${activeCase}/coronal_${ySnap}.png`;
+      document.getElementById("img-sagittal").src = `assets/slices/${activeCase}/sagittal_${xSnap}.png`;
       document.getElementById("img-3d-recon").src = p.reconImg;
 
       // Update text displays
@@ -517,7 +511,7 @@
       document.getElementById("slider-txt-y").innerText = `y = ${ySnap}`;
       document.getElementById("slider-txt-x").innerText = `x = ${xSnap}`;
 
-      // Update crosshair positions (normalized % offsets)
+      // Update crosshair positions (percentage within viewports)
       const xPct = ((xSnap - p.xRange[0]) / (p.xRange[1] - p.xRange[0])) * 100;
       const yPct = ((ySnap - p.yRange[0]) / (p.yRange[1] - p.yRange[0])) * 100;
       const zPct = ((zSnap - p.zRange[0]) / (p.zRange[1] - p.zRange[0])) * 100;
@@ -536,7 +530,7 @@
 
       // Readout telemetry
       document.getElementById("coords-readout").innerText = `Coords: -${(120 - xSnap * 0.5).toFixed(2)} × ${(ySnap * 0.5).toFixed(2)} × ${(zSnap * 0.6).toFixed(2)} mm`;
-      document.getElementById("voxel-intensity").innerText = `Value: ${Math.floor(1800 + Math.random() * 600)}`;
+      document.getElementById("voxel-intensity").innerText = `Value: ${Math.floor(1800 + (xSnap + ySnap + zSnap) * 1.5)}`;
     }
 
     function onScrubZ(val) {
@@ -551,6 +545,31 @@
 
     function onScrubX(val) {
       curX = parseInt(val);
+      updateSlices();
+    }
+
+    function handleQuadrantClick(e, plane) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const clickX = (e.clientX - rect.left) / rect.width;
+      const clickY = (e.clientY - rect.top) / rect.height;
+      const p = patientVault[activeCase];
+
+      if (plane === 'axial') {
+        curX = Math.round(p.xRange[0] + clickX * (p.xRange[1] - p.xRange[0]));
+        curY = Math.round(p.yRange[1] - clickY * (p.yRange[1] - p.yRange[0]));
+        document.getElementById("slider-x").value = curX;
+        document.getElementById("slider-y").value = curY;
+      } else if (plane === 'coronal') {
+        curX = Math.round(p.xRange[0] + clickX * (p.xRange[1] - p.xRange[0]));
+        curZ = Math.round(p.zRange[1] - clickY * (p.zRange[1] - p.zRange[0]));
+        document.getElementById("slider-x").value = curX;
+        document.getElementById("slider-z").value = curZ;
+      } else if (plane === 'sagittal') {
+        curY = Math.round(p.yRange[0] + clickX * (p.yRange[1] - p.yRange[0]));
+        curZ = Math.round(p.zRange[1] - clickY * (p.zRange[1] - p.zRange[0]));
+        document.getElementById("slider-y").value = curY;
+        document.getElementById("slider-z").value = curZ;
+      }
       updateSlices();
     }
 
