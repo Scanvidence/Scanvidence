@@ -168,6 +168,10 @@ class ScanvidenceHandler(SimpleHTTPRequestHandler):
         if path in ("", "/index.html"):
             return super().do_GET()
 
+        if path == "/workstation":
+            self.path = "/workstation.html"
+            return super().do_GET()
+
         if path == "/api/health":
             return self._send_json(
                 {
