@@ -92,7 +92,8 @@ class QUBOSelector(BaseSelector):
                 r = abs(np.corrcoef(f_i, f_j)[0, 1])
                 red[i, j] = r if not np.isnan(r) else 0.0
 
-        # 3. QUBO Matrix: H(x) = - alpha * sum(rel_i * x_i) + beta * sum(red_ij * x_i * x_j) + gamma * (sum x_i - K)^2
+        # 3. QUBO Matrix: H(x) = - alpha * sum(rel_i * x_i)
+        #                        + beta * sum(red_ij * x_i * x_j) + gamma * (sum x_i - K)^2
         # (sum x_i - K)^2 = sum( (1 - 2K) x_i ) + 2 * sum_{i < j} x_i x_j + K^2
         Q = np.zeros((n_features, n_features))
 

@@ -133,8 +133,10 @@ class QSVMClassifier(BaseEstimator, ClassifierMixin):
 
     def predict(self, X: np.ndarray) -> np.ndarray:
         """Predict class labels for X."""
+        if self.classes_ is None:
+            raise ValueError("Model is not fitted yet.")
         probs = self.predict_proba(X)
-        return self.classes_[np.argmax(probs, axis=1)]
+        return np.asarray(self.classes_)[np.argmax(probs, axis=1)]
 
     def decision_function(self, X: np.ndarray) -> np.ndarray:
         """Evaluate the decision function for X."""

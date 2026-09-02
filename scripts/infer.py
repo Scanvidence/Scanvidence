@@ -22,14 +22,14 @@ from __future__ import annotations
 import argparse
 import json
 import logging
-from pathlib import Path
 import sys
 import time
+from pathlib import Path
 
+import matplotlib.pyplot as plt
 import nibabel as nib
 import numpy as np
 import torch
-import matplotlib.pyplot as plt
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
 logger = logging.getLogger("scanvidence.infer")
@@ -426,7 +426,7 @@ def main() -> None:
     if args.patient_dir:
         pdir = Path(args.patient_dir)
         report = run_single_inference(pdir, out_root, ckpt, device=args.device)
-        
+
         m = report["morphometrics"]["volumes_cm3"]
         r = report["morphometrics"]["ratios_percent"]
         mol = report["molecular_panel"]
@@ -435,7 +435,7 @@ def main() -> None:
         surg = mol["surgical_radiation_planning"]
 
         print("\n" + "═" * 78)
-        print(f"🔬 SCANVIDENCE NEURO-ONCOLOGY & MOLECULAR DIAGNOSTIC REPORT")
+        print("🔬 SCANVIDENCE NEURO-ONCOLOGY & MOLECULAR DIAGNOSTIC REPORT")
         print(f"Case: {report['patient_id']} | Compute: {report['device']} | Time: {report['duration_seconds']}s")
         print("═" * 78)
         print("\n📍 1. 3D VOLUMETRIC MORPHOMETRY:")

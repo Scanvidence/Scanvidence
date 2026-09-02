@@ -53,7 +53,7 @@ class BaseTask(ABC):
         pass
 
     @abstractmethod
-    def explain(self, preprocessed: Any, prediction: dict) -> list[dict]:
+    def explain(self, preprocessed: Any, prediction: dict) -> list[Any]:
         """Generate XAI explanations."""
         pass
 

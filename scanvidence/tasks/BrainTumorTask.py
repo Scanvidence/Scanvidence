@@ -45,9 +45,9 @@ class BrainTumorTask(BaseTask):
         self.segmentor_path = Path(segmentor_path)
         self.model_path = Path(model_path)
         self.meta_path = Path(meta_path)
-        self.segmentor = None
-        self.classifier = None
-        self.meta = {}
+        self.segmentor: Any = None
+        self.classifier: Any = None
+        self.meta: dict[str, Any] = {}
         self._load_models()
 
     def _load_models(self) -> None:
@@ -69,9 +69,15 @@ class BrainTumorTask(BaseTask):
                 self.segmentor = None
 
         if self.meta_path.exists():
-            self.meta = json.loads(self.meta_path.read_text())
+            try:
+                self.meta = json.loads(self.meta_path.read_text())
+            except Exception:
+                self.meta = {}
         if self.model_path.exists():
-            self.classifier = joblib.load(self.model_path)
+            try:
+                self.classifier = joblib.load(self.model_path)
+            except Exception:
+                self.classifier = None
 
     def preprocess(self, scan_path: str | Path) -> dict[str, Any]:
         """Load and prepare multi-sequence MRI paths."""
@@ -107,11 +113,14 @@ class BrainTumorTask(BaseTask):
         if df_path.exists() and needed_feats:
             df = pd_read_cached_patient(df_path, preprocessed["patient_id"])
             if df is not None and all(f in df for f in needed_feats):
-                vec = np.array([df[f] for f in needed_feats], dtype=float)
-                return np.nan_to_num(vec, nan=[medians.get(f, 0.0) for f in needed_feats])
+                vals = [
+                    float(df[f]) if f in df and not np.isnan(df[f]) else float(medians.get(f, 0.0))
+                    for f in needed_feats
+                ]
+                return np.array(vals, dtype=float)
 
         # Fallback to schema medians
-        return np.array([medians.get(f, 0.0) for f in needed_feats], dtype=float)
+        return np.array([float(medians.get(f, 0.0)) for f in needed_feats], dtype=float)
 
     def predict(self, preprocessed: dict[str, Any]) -> dict[str, Any]:
         """Run Quantum Kernel molecular prediction on MGMT methylation."""
@@ -129,6 +138,7 @@ class BrainTumorTask(BaseTask):
         seg_res = self.predict_segmentation(preprocessed)
         features = self.extract_biomarkers(preprocessed, seg_res)
 
+        prob: float = 0.0
         if self.classifier is not None and len(features) == len(self.meta.get("features", [])):
             feat_mat = features.reshape(1, -1)
             prob = float(self.classifier.predict_proba(feat_mat)[0, 1])
@@ -155,7 +165,7 @@ class BrainTumorTask(BaseTask):
         # Format top driving biomarkers
         attributions = {}
         if feats and values:
-            for f, v in zip(feats, values):
+            for f, v in zip(feats, values, strict=False):
                 clean_f = f.replace("__original_", ": ").replace("_", " ")
                 attributions[clean_f] = round(float(v), 4)
 

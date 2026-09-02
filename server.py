@@ -12,14 +12,12 @@ Works with pure standard library (http.server) — zero pip dependencies require
 
 from __future__ import annotations
 
-from http.server import HTTPServer, SimpleHTTPRequestHandler, ThreadingHTTPServer
 import json
 import logging
-import mimetypes
-import os
-from pathlib import Path
 import time
 import urllib.parse
+from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
 logger = logging.getLogger("scanvidence.server")
@@ -37,7 +35,13 @@ PATIENT_REGISTRY = {
         "sequences": ["T1-Native", "T1-Contrast", "T2-Weighted", "T2-FLAIR"],
         "centroid": {"z": 79, "y": 95, "x": 140},
         "slice_ranges": {"z": [54, 104], "y": [70, 120], "x": [115, 165]},
-        "volumes_cm3": {"wt": 136.90, "tc": 31.01, "et": 20.47, "ncr": 10.54, "ed": 105.90},
+        "volumes_cm3": {
+            "wt": 136.90,
+            "tc": 31.01,
+            "et": 20.47,
+            "ncr": 10.54,
+            "ed": 105.90,
+        },
         "ratios_percent": {"enhancing_to_core": 66.0, "necrosis_fraction": 34.0},
         "mgmt_status": "MGMT_Unmethylated (Resistant Risk)",
         "mgmt_probability": 57.0,
@@ -47,9 +51,18 @@ PATIENT_REGISTRY = {
         "codeletion_1p19q": "Non-Codeleted (Intact 1p/19q)",
         "codeletion_confidence": 98.5,
         "ki67_index": "22.7% (High Proliferation Rate)",
-        "triage_recommendation": "Priority Telehealth Escalation to Neuro-Oncology Tumor Board (Biopsy Confirmatory Guardrail)",
+        "triage_recommendation": (
+            "Priority Telehealth Escalation to Neuro-Oncology Tumor Board "
+            "(Biopsy Confirmatory Guardrail)"
+        ),
         "triage_tier": "HIGH_RISK_PRIORITY",
-        "component_latency_ms": {"segresnet_forward": 1050, "radiomics_extract": 420, "qsvm_kernel": 110, "shap_triage": 20, "total": 1600}
+        "component_latency_ms": {
+            "segresnet_forward": 1050,
+            "radiomics_extract": 420,
+            "qsvm_kernel": 110,
+            "shap_triage": 20,
+            "total": 1600,
+        },
     },
     "BraTS-GLI-00003-000": {
         "patient_id": "BraTS-GLI-00003-000",
@@ -60,7 +73,13 @@ PATIENT_REGISTRY = {
         "sequences": ["T1-Native", "T1-Contrast", "T2-Weighted", "T2-FLAIR"],
         "centroid": {"z": 108, "y": 116, "x": 133},
         "slice_ranges": {"z": [83, 133], "y": [91, 141], "x": [108, 158]},
-        "volumes_cm3": {"wt": 84.50, "tc": 22.10, "et": 12.80, "ncr": 9.30, "ed": 62.40},
+        "volumes_cm3": {
+            "wt": 84.50,
+            "tc": 22.10,
+            "et": 12.80,
+            "ncr": 9.30,
+            "ed": 62.40,
+        },
         "ratios_percent": {"enhancing_to_core": 57.9, "necrosis_fraction": 42.1},
         "mgmt_status": "MGMT_Methylated (Favorable TMZ Sensitivity)",
         "mgmt_probability": 52.1,
@@ -70,9 +89,17 @@ PATIENT_REGISTRY = {
         "codeletion_1p19q": "Non-Codeleted (Intact 1p/19q)",
         "codeletion_confidence": 95.0,
         "ki67_index": "14.5% (Moderate Proliferation Rate)",
-        "triage_recommendation": "Standard Surgical Queue with Pre-Operative Chemotherapy Sensitivity Stratification",
+        "triage_recommendation": (
+            "Standard Surgical Queue with Pre-Operative Chemotherapy Sensitivity Stratification"
+        ),
         "triage_tier": "ROUTINE_MONITORING",
-        "component_latency_ms": {"segresnet_forward": 1010, "radiomics_extract": 405, "qsvm_kernel": 110, "shap_triage": 20, "total": 1545}
+        "component_latency_ms": {
+            "segresnet_forward": 1010,
+            "radiomics_extract": 405,
+            "qsvm_kernel": 110,
+            "shap_triage": 20,
+            "total": 1545,
+        },
     },
     "BraTS-GLI-00000-000": {
         "patient_id": "BraTS-GLI-00000-000",
@@ -83,7 +110,13 @@ PATIENT_REGISTRY = {
         "sequences": ["T1-Native", "T1-Contrast", "T2-Weighted", "T2-FLAIR"],
         "centroid": {"z": 70, "y": 83, "x": 139},
         "slice_ranges": {"z": [45, 95], "y": [58, 108], "x": [114, 164]},
-        "volumes_cm3": {"wt": 112.30, "tc": 28.40, "et": 18.20, "ncr": 10.20, "ed": 83.90},
+        "volumes_cm3": {
+            "wt": 112.30,
+            "tc": 28.40,
+            "et": 18.20,
+            "ncr": 10.20,
+            "ed": 83.90,
+        },
         "ratios_percent": {"enhancing_to_core": 64.1, "necrosis_fraction": 35.9},
         "mgmt_status": "MGMT_Unmethylated (Resistant Risk)",
         "mgmt_probability": 55.8,
@@ -95,8 +128,14 @@ PATIENT_REGISTRY = {
         "ki67_index": "21.0% (High Proliferation Rate)",
         "triage_recommendation": "Priority Telehealth Escalation to Regional Neuro-Oncology Board",
         "triage_tier": "HIGH_RISK_PRIORITY",
-        "component_latency_ms": {"segresnet_forward": 1040, "radiomics_extract": 415, "qsvm_kernel": 110, "shap_triage": 20, "total": 1585}
-    }
+        "component_latency_ms": {
+            "segresnet_forward": 1040,
+            "radiomics_extract": 415,
+            "qsvm_kernel": 110,
+            "shap_triage": 20,
+            "total": 1585,
+        },
+    },
 }
 
 
@@ -126,19 +165,26 @@ class ScanvidenceHandler(SimpleHTTPRequestHandler):
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path.rstrip("/")
 
-        if path == "" or path == "/index.html":
+        if path in ("", "/index.html"):
             return super().do_GET()
 
         if path == "/api/health":
-            return self._send_json({
-                "status": "ONLINE",
-                "platform": "Scanvidence Clinical Platform v2.0",
-                "device": "Edge Workstation (ONNX / MPS / CUDA)",
-                "model_weights": "Falcon7211/Scanvidence-SegResNetB0 (1.6M Params)",
-                "qpu_backend": "IBM Heron (156 Qubits, ibm_fez)",
-                "standards": ["ABDM Milestone-2", "HL7/FHIR JSON", "IBSI Radiomics", "WHO CNS5"],
-                "average_inference_latency_seconds": 1.60
-            })
+            return self._send_json(
+                {
+                    "status": "ONLINE",
+                    "platform": "Scanvidence Clinical Platform v2.0",
+                    "device": "Edge Workstation (ONNX / MPS / CUDA)",
+                    "model_weights": "Falcon7211/Scanvidence-SegResNetB0 (1.6M Params)",
+                    "qpu_backend": "IBM Heron (156 Qubits, ibm_fez)",
+                    "standards": [
+                        "ABDM Milestone-2",
+                        "HL7/FHIR JSON",
+                        "IBSI Radiomics",
+                        "WHO CNS5",
+                    ],
+                    "average_inference_latency_seconds": 1.60,
+                }
+            )
 
         if path == "/api/patients":
             patients = [
@@ -149,7 +195,7 @@ class ScanvidenceHandler(SimpleHTTPRequestHandler):
                     "gender": p["gender"],
                     "scanner": p["scanner"],
                     "wt_volume_cm3": p["volumes_cm3"]["wt"],
-                    "triage_tier": p["triage_tier"]
+                    "triage_tier": p["triage_tier"],
                 }
                 for pid, p in PATIENT_REGISTRY.items()
             ]
@@ -165,13 +211,19 @@ class ScanvidenceHandler(SimpleHTTPRequestHandler):
             pid = path.split("/")[3]
             if pid in PATIENT_REGISTRY:
                 p = PATIENT_REGISTRY[pid]
+                conclusion_str = (
+                    f"{p['triage_tier']}: {p['mgmt_status']} | {p['idh_status']}. "
+                    f"Action: {p['triage_recommendation']}"
+                )
                 fhir_bundle = {
                     "resourceType": "Bundle",
                     "id": f"scanvidence-report-{pid}",
                     "meta": {
                         "versionId": "2.0",
                         "lastUpdated": time.strftime("%Y-%m-%dT%H:%M:%SZ"),
-                        "profile": ["https://nrces.in/ndhm/fhir/r4/StructureDefinition/DiagnosticReportRecord"]
+                        "profile": [
+                            "https://nrces.in/ndhm/fhir/r4/StructureDefinition/DiagnosticReportRecord"
+                        ],
                     },
                     "type": "document",
                     "entry": [
@@ -180,17 +232,48 @@ class ScanvidenceHandler(SimpleHTTPRequestHandler):
                                 "resourceType": "DiagnosticReport",
                                 "id": f"dr-{pid}",
                                 "status": "preliminary",
-                                "category": [{"coding": [{"system": "http://loinc.org", "code": "18748-4", "display": "Diagnostic Imaging Report"}]}],
-                                "code": {"coding": [{"system": "http://snomed.info/sct", "code": "250421003", "display": "MRI of Brain for Neuro-Oncology"}]},
-                                "subject": {"display": f"ABHA ID: {p['abha_id']} (Age: {p['age']}, {p['gender']})"},
-                                "conclusion": f"{p['triage_tier']}: {p['mgmt_status']} | {p['idh_status']}. Action: {p['triage_recommendation']}",
+                                "category": [
+                                    {
+                                        "coding": [
+                                            {
+                                                "system": "http://loinc.org",
+                                                "code": "18748-4",
+                                                "display": "Diagnostic Imaging Report",
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://snomed.info/sct",
+                                            "code": "250421003",
+                                            "display": "MRI of Brain for Neuro-Oncology",
+                                        }
+                                    ]
+                                },
+                                "subject": {
+                                    "display": (
+                                        f"ABHA ID: {p['abha_id']} (Age: {p['age']}, {p['gender']})"
+                                    )
+                                },
+                                "conclusion": conclusion_str,
                                 "extension": [
-                                    {"url": "https://scanvidence.ai/volumetrics", "valueQuantity": {"value": p["volumes_cm3"]["wt"], "unit": "cm3"}},
-                                    {"url": "https://scanvidence.ai/uncertainty", "valueDecimal": p["calibrated_uncertainty"]}
-                                ]
+                                    {
+                                        "url": "https://scanvidence.ai/volumetrics",
+                                        "valueQuantity": {
+                                            "value": p["volumes_cm3"]["wt"],
+                                            "unit": "cm3",
+                                        },
+                                    },
+                                    {
+                                        "url": "https://scanvidence.ai/uncertainty",
+                                        "valueDecimal": p["calibrated_uncertainty"],
+                                    },
+                                ],
                             }
                         }
-                    ]
+                    ],
                 }
                 return self._send_json(fhir_bundle)
             return self._send_json({"error": f"Patient {pid} not found"}, 404)
@@ -207,30 +290,34 @@ class ScanvidenceHandler(SimpleHTTPRequestHandler):
             if pid in PATIENT_REGISTRY:
                 p = PATIENT_REGISTRY[pid]
                 time.sleep(0.2)
-                return self._send_json({
-                    "status": "SUCCESS",
-                    "patient_id": pid,
-                    "inference_timestamp": time.strftime("%Y-%m-%d %H:%M:%S UTC"),
-                    "latency_breakdown": p["component_latency_ms"],
-                    "total_duration_seconds": round(p["component_latency_ms"]["total"] / 1000.0, 2),
-                    "results": {
-                        "morphometrics": p["volumes_cm3"],
-                        "ratios": p["ratios_percent"],
-                        "molecular_profile": {
-                            "mgmt_status": p["mgmt_status"],
-                            "mgmt_probability": p["mgmt_probability"],
-                            "calibrated_uncertainty": p["calibrated_uncertainty"],
-                            "idh_status": p["idh_status"],
-                            "codeletion_1p19q": p["codeletion_1p19q"],
-                            "ki67_index": p["ki67_index"]
+                return self._send_json(
+                    {
+                        "status": "SUCCESS",
+                        "patient_id": pid,
+                        "inference_timestamp": time.strftime("%Y-%m-%d %H:%M:%S UTC"),
+                        "latency_breakdown": p["component_latency_ms"],
+                        "total_duration_seconds": round(
+                            p["component_latency_ms"]["total"] / 1000.0, 2
+                        ),
+                        "results": {
+                            "morphometrics": p["volumes_cm3"],
+                            "ratios": p["ratios_percent"],
+                            "molecular_profile": {
+                                "mgmt_status": p["mgmt_status"],
+                                "mgmt_probability": p["mgmt_probability"],
+                                "calibrated_uncertainty": p["calibrated_uncertainty"],
+                                "idh_status": p["idh_status"],
+                                "codeletion_1p19q": p["codeletion_1p19q"],
+                                "ki67_index": p["ki67_index"],
+                            },
+                            "clinical_triage": {
+                                "tier": p["triage_tier"],
+                                "action": p["triage_recommendation"],
+                                "abdm_sync_status": "READY_FOR_DISPATCH",
+                            },
                         },
-                        "clinical_triage": {
-                            "tier": p["triage_tier"],
-                            "action": p["triage_recommendation"],
-                            "abdm_sync_status": "READY_FOR_DISPATCH"
-                        }
                     }
-                })
+                )
             return self._send_json({"error": f"Patient {pid} not found"}, 404)
 
         return self._send_json({"error": "Endpoint not found"}, 404)
@@ -249,5 +336,6 @@ def run(port: int = 8000):
 
 if __name__ == "__main__":
     import sys
+
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
     run(port)
