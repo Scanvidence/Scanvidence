@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scanvidence — Advanced Neuro-Oncology Triage & PACS Workstation</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+    
+    :root {
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-heading: 'Plus Jakarta Sans', var(--font-sans);
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+    body {
+      font-family: var(--font-sans);
+      background-color: #080c14;
+      color: #f1f5f9;
+      letter-spacing: -0.012em;
+    }
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+    }
+    .font-mono {
+      font-family: var(--font-mono);
+    }
+    .hero-glow {
+      background: radial-gradient(circle at 50% 20%, rgba(14, 165, 233, 0.15) 0%, rgba(99, 102, 241, 0.05) 50%, transparent 80%);
+    }
+    .card-glass {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+    }
+    .card-hover:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateY(-2px);
+      transition: all 0.2s ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-[#080c14] text-slate-100 antialiased selection:bg-sky-500 selection:text-white">
+
+  <!-- TOP NAVIGATION -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-[#080c14]/85 backdrop-blur-md border-b border-white/10 px-4 sm:px-8 py-3.5 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <div class="w-8 h-8 rounded-lg bg-sky-600 flex items-center justify-center font-bold text-white text-sm shadow-md shadow-sky-500/20">
+        SC
+      </div>
+      <div>
+        <span class="text-base font-bold tracking-tight text-white">Scanvidence</span>
+        <span class="hidden sm:inline-block ml-2 px-2 py-0.5 text-[10px] font-mono uppercase bg-slate-800 text-sky-400 rounded border border-slate-700">Clinical Platform</span>
+      </div>
+    </div>
+
+    <nav class="hidden md:flex items-center space-x-6 text-xs font-medium text-slate-300">
+      <a href="#pipeline" class="hover:text-white transition">Pipeline Architecture</a>
+      <a href="#workstation-preview" class="hover:text-white transition">PACS Slicer</a>
+      <a href="benchmarks.html" class="hover:text-sky-400 transition font-semibold">Benchmarks & Defense Audit</a>
+      <a href="workstation.html" class="hover:text-white transition">Live Workstation</a>
+    </nav>
+
+    <div class="flex items-center space-x-3 text-xs">
+      <a href="workstation.html" class="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-semibold transition shadow-md shadow-sky-600/20 flex items-center space-x-1.5">
+        <span>Launch PACS Workstation</span>
+        <span>→</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero-glow min-h-[85vh] pt-36 pb-20 px-4 sm:px-8 max-w-6xl mx-auto flex flex-col items-center justify-center text-center space-y-8">
+    
+    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-sky-950/70 border border-sky-800/60 text-sky-300 text-xs font-semibold">
+      <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+      <span>AI-Assisted Neuro-Oncology Triage & Molecular Profiling</span>
+    </div>
+
+    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white max-w-4xl leading-[1.1]">
+      Multi-Parametric 3D Neuro-MRI <br>
+      <span class="bg-gradient-to-r from-sky-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent">Triage & Radiogenomic Profiling</span>
+    </h1>
+
+    <p class="text-slate-400 text-base sm:text-lg max-w-2xl font-normal leading-relaxed">
+      An institutional-grade clinical platform integrating 3D deep volumetric segmentation, quantum-optimized radiomic feature selection, and WHO CNS5 molecular risk stratification.
+    </p>
+
+    <!-- ACTION BUTTONS -->
+    <div class="flex flex-col sm:flex-row items-center gap-4 pt-2">
+      <a href="workstation.html" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-sm transition shadow-lg shadow-sky-600/25 flex items-center justify-center space-x-2">
+        <span>Open Clinical Workstation</span>
+        <span>→</span>
+      </a>
+      <a href="#pipeline" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold text-sm border border-slate-800 transition flex items-center justify-center space-x-2">
+        <span>View Scientific Pipeline</span>
+      </a>
+    </div>
+
+    <!-- 4 CAPABILITY PILLARS -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full pt-8 text-left">
+      <div class="card-glass p-5 rounded-2xl border border-white/5 space-y-2">
+        <div class="text-xs font-mono font-bold text-sky-400 uppercase tracking-wider">3D Volumetric Vision</div>
+        <div class="text-sm font-semibold text-white">Multi-Parametric Segmentation</div>
+        <div class="text-xs text-slate-400">Automated sub-region contouring of enhancing rim, cavity necrosis, and edema.</div>
+      </div>
+      <div class="card-glass p-5 rounded-2xl border border-white/5 space-y-2">
+        <div class="text-xs font-mono font-bold text-indigo-400 uppercase tracking-wider">Quantum Optimization</div>
+        <div class="text-sm font-semibold text-white">Ising Hamiltonian Pruning</div>
+        <div class="text-xs text-slate-400">NP-hard feature selection evaluated on physical 156-qubit quantum hardware.</div>
+      </div>
+      <div class="card-glass p-5 rounded-2xl border border-white/5 space-y-2">
+        <div class="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider">Clinical Profiling</div>
+        <div class="text-sm font-semibold text-white">WHO CNS5 Molecular Index</div>
+        <div class="text-xs text-slate-400">Non-invasive MGMT methylation & IDH1/2 risk assessment with calibrated uncertainty.</div>
+      </div>
+      <div class="card-glass p-5 rounded-2xl border border-white/5 space-y-2">
+        <div class="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">Interoperability</div>
+        <div class="text-sm font-semibold text-white">ABDM Milestone-2 Standard</div>
+        <div class="text-xs text-slate-400">Native HL7/FHIR DiagnosticReport JSON generation linked with ABHA records.</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- PIPELINE ARCHITECTURE SECTION -->
+  <section id="pipeline" class="py-20 px-4 sm:px-8 max-w-6xl mx-auto space-y-12 border-t border-white/10">
+    <div class="text-center space-y-3 max-w-3xl mx-auto">
+      <div class="text-xs font-mono uppercase text-sky-400 font-bold tracking-wider">System Architecture</div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        6-Stage Diagnostic & Radiogenomic Pipeline
+      </h2>
+      <p class="text-slate-400 text-sm">
+        From multi-sequence MRI ingestion to automated institutional report dispatch.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- STAGE 1 -->
+      <div class="card-glass card-hover p-6 rounded-2xl space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono font-bold text-slate-400">STAGE 01</span>
+          <span class="px-2 py-0.5 rounded bg-sky-950 text-sky-300 text-[10px] font-mono font-semibold">ACQUISITION</span>
+        </div>
+        <h3 class="text-base font-bold text-white">Multi-Parametric MRI Ingestion</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Standardized pre-processing of 4 core neuro-MRI modalities (T1w, T1c, T2w, T2-FLAIR) with rigid registration and intensity z-score normalization.
+        </p>
+      </div>
+
+      <!-- STAGE 2 -->
+      <div class="card-glass card-hover p-6 rounded-2xl space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono font-bold text-slate-400">STAGE 02</span>
+          <span class="px-2 py-0.5 rounded bg-sky-950 text-sky-300 text-[10px] font-mono font-semibold">3D SEGMENTATION</span>
+        </div>
+        <h3 class="text-base font-bold text-white">3D Deep Volumetric Vision</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          SegResNetB0 architecture with autoencoder regularization loss performing sliding-window multi-class sub-region delineation.
+        </p>
+      </div>
+
+      <!-- STAGE 3 -->
+      <div class="card-glass card-hover p-6 rounded-2xl space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono font-bold text-slate-400">STAGE 03</span>
+          <span class="px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 text-[10px] font-mono font-semibold">RADIOMICS</span>
+        </div>
+        <h3 class="text-base font-bold text-white">Standardized IBSI Radiomics</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          High-throughput extraction of 107 mathematically standardized shape, first-order intensity, and second-order GLCM texture biomarkers.
+        </p>
+      </div>
+
+      <!-- STAGE 4 -->
+      <div class="card-glass card-hover p-6 rounded-2xl space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono font-bold text-slate-400">STAGE 04</span>
+          <span class="px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 text-[10px] font-mono font-semibold">QUANTUM HAMILTONIAN</span>
+        </div>
+        <h3 class="text-base font-bold text-white">QUBO Combinatorial Optimization</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Ising Hamiltonian feature correlation minimization executed on the 156-qubit IBM Heron processor to extract orthogonal biomarkers.
+        </p>
+      </div>
+
+      <!-- STAGE 5 -->
+      <div class="card-glass card-hover p-6 rounded-2xl space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono font-bold text-slate-400">STAGE 05</span>
+          <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 text-[10px] font-mono font-semibold">QSVM KERNEL</span>
+        </div>
+        <h3 class="text-base font-bold text-white">Quantum Hilbert Space Embedding</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          9-qubit ZZFeatureMap encoding continuous radiomic vectors into a 512-dimensional complex Hilbert space for non-Euclidean fidelity estimation.
+        </p>
+      </div>
+
+      <!-- STAGE 6 -->
+      <div class="card-glass card-hover p-6 rounded-2xl space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-mono font-bold text-slate-400">STAGE 06</span>
+          <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 text-[10px] font-mono font-semibold">ABDM M2 DELIVERY</span>
+        </div>
+        <h3 class="text-base font-bold text-white">Clinical Triage & FHIR Export</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Automated routing of urgent high-risk cases to tertiary neuro-oncology boards with cryptographic NRCES FHIR diagnostic bundles.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WORKSTATION PREVIEW CTA -->
+  <section id="workstation-preview" class="py-20 px-4 sm:px-8 max-w-6xl mx-auto space-y-8 border-t border-white/10 text-center">
+    <div class="card-glass p-8 sm:p-12 rounded-3xl border border-sky-500/20 space-y-6">
+      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-sky-950 text-sky-400 text-xs font-mono font-semibold">
+        <span>INTERACTIVE MEDICAL WORKSTATION</span>
+      </div>
+
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        Experience the Multi-Planar PACS Workstation
+      </h2>
+
+      <p class="text-slate-400 text-sm max-w-2xl mx-auto leading-relaxed">
+        Navigate synchronized Axial, Coronal, and Sagittal orthogonal cross-sections with real-time crosshair coordinates, window/level contrast tuning, and instant diagnostic PDF report generation.
+      </p>
+
+      <div class="pt-2">
+        <a href="workstation.html" class="inline-flex items-center space-x-2 px-8 py-4 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-sm transition shadow-lg shadow-sky-600/30">
+          <span>Launch Clinical Workstation</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-white/10 bg-[#06090f] py-10 px-6">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+      <div>
+        <span class="font-bold text-slate-300">Scanvidence Platform</span>
+        <span class="mx-2">•</span>
+        <span>Team WunderBär • SIH26139</span>
+      </div>
+      <div class="flex items-center space-x-6 font-medium">
+        <a href="workstation.html" class="hover:text-sky-400 transition">Workstation</a>
+        <a href="https://huggingface.co/Falcon7211/Scanvidence-SegResNetB0" target="_blank" class="hover:text-sky-400 transition">Model Weights</a>
+        <a href="https://github.com/Scanvidence/Scanvidence" target="_blank" class="hover:text-sky-400 transition">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
