@@ -172,6 +172,10 @@ class ScanvidenceHandler(SimpleHTTPRequestHandler):
             self.path = "/workstation.html"
             return super().do_GET()
 
+        if path == "/benchmarks":
+            self.path = "/benchmarks.html"
+            return super().do_GET()
+
         if path == "/api/health":
             return self._send_json(
                 {
