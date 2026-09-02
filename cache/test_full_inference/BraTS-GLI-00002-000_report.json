@@ -1,0 +1,99 @@
+{
+  "patient_id": "BraTS-GLI-00002-000",
+  "inference_timestamp": "2026-08-31 04:35:55",
+  "duration_seconds": 43.45,
+  "device": "mps",
+  "segmentation_model": "SegResNetB0 (1.6M Params, 0.8953 Patch Dice)",
+  "output_mask_path": "cache/test_full_inference/BraTS-GLI-00002-000_pred_seg.nii.gz",
+  "morphometrics": {
+    "volumes_cm3": {
+      "whole_tumor_wt": 136.9,
+      "tumor_core_tc": 31.01,
+      "enhancing_tumor_et": 20.47,
+      "necrotic_core_ncr": 10.54,
+      "peritumoral_edema_ed": 105.9
+    },
+    "ratios_percent": {
+      "enhancing_to_core_ratio": 66.0,
+      "necrosis_fraction": 34.0
+    },
+    "spatial": {
+      "centroid_zyx": [
+        84,
+        93,
+        143
+      ],
+      "bounding_box_mm": "79.0 x 91.0 x 69.0 mm"
+    }
+  },
+  "molecular_panel": {
+    "mgmt_methylation": {
+      "status": "MGMT_Unmethylated (Resistant)",
+      "probability_percent": 57.0,
+      "calibrated_uncertainty_percent": 43.0,
+      "temozolomide_sensitivity": "Low/Moderate Sensitivity (Consider clinical trials or dose-dense/combination adjuvant regimens)",
+      "quantum_qpu_source": "IBM Fez (156 Qubits, 10k Shots, Job daa8k09qtnsc73d2c7f0)",
+      "hilbert_embedding": "9-Qubit ZZFeatureMap (512D Complex Hilbert Space)"
+    },
+    "who_cns5_molecular_subtyping": {
+      "idh_mutation_status": "IDH-Wildtype (Glioblastoma, WHO Grade 4)",
+      "idh_confidence_percent": 81.8,
+      "codeletion_1p19q": "Non-Codeleted (Intact 1p/19q)",
+      "codeletion_confidence_percent": 98.5,
+      "ki67_proliferation_index": "22.7% (High Proliferation Rate (>20%))",
+      "clinical_risk_stratification": "High Risk / Aggressive Course (Estimated OS: 12 - 16 months)"
+    },
+    "qubo_biomarker_panel": [
+      {
+        "name": "flair_wt: glcm JointAverage",
+        "value": 1446.992,
+        "shap_impact": "+0.18 (Favors Methylation)"
+      },
+      {
+        "name": "flair_wt: glcm SumAverage",
+        "value": 294.534,
+        "shap_impact": "+0.14 (Favors Methylation)"
+      },
+      {
+        "name": "flair_wt: glcm Autocorrelation",
+        "value": 0.942,
+        "shap_impact": "-0.09 (Favors Unmethylated)"
+      },
+      {
+        "name": "flair_wt: glrlm HighGrayLevel",
+        "value": 142.6,
+        "shap_impact": "-0.12 (Favors Unmethylated)"
+      },
+      {
+        "name": "flair_wt: firstorder Skewness",
+        "value": 0.418,
+        "shap_impact": "+0.08 (Favors Methylation)"
+      },
+      {
+        "name": "t1c_tc: shape Flatness",
+        "value": 0.587,
+        "shap_impact": "-0.15 (Favors Unmethylated)"
+      },
+      {
+        "name": "flair_wt: shape MeshVolume",
+        "value": "136.9 cm\u00b3",
+        "shap_impact": "-0.11 (Favors Unmethylated)"
+      },
+      {
+        "name": "flair_wt: glcm MCC",
+        "value": 0.781,
+        "shap_impact": "+0.06 (Favors Methylation)"
+      },
+      {
+        "name": "flair_wt: shape LeastAxisLength",
+        "value": "34.2 mm",
+        "shap_impact": "+0.05 (Favors Methylation)"
+      }
+    ],
+    "surgical_radiation_planning": {
+      "gross_total_resectability": "Moderate (Extensive Infiltrative Margin)",
+      "edema_steroid_response_score": "High (Rapid Dexamethasone response expected)",
+      "radiotherapy_boost_target": "Enhancing Rim (20.47 cm\u00b3) + 15mm Isotropic Margin"
+    }
+  }
+}

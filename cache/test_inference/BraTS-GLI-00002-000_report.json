@@ -1,0 +1,37 @@
+{
+  "patient_id": "BraTS-GLI-00002-000",
+  "inference_timestamp": "2026-08-31 04:32:47",
+  "duration_seconds": 43.99,
+  "device": "mps",
+  "segmentation_model": "SegResNetB0 (1.6M Params, 0.8953 Patch Dice)",
+  "output_mask_path": "cache/test_inference/BraTS-GLI-00002-000_pred_seg.nii.gz",
+  "morphometrics": {
+    "volumes_cm3": {
+      "whole_tumor_wt": 136.9,
+      "tumor_core_tc": 31.01,
+      "enhancing_tumor_et": 20.47,
+      "necrotic_core_ncr": 10.54,
+      "peritumoral_edema_ed": 105.9
+    },
+    "ratios_percent": {
+      "enhancing_to_core_ratio": 66.0,
+      "necrosis_fraction": 34.0
+    },
+    "spatial": {
+      "centroid_zyx": [
+        84,
+        93,
+        143
+      ],
+      "bounding_box_mm": "79.0 x 91.0 x 69.0 mm"
+    }
+  },
+  "quantum_mgmt": {
+    "status": "MGMT_Unmethylated",
+    "probability_percent": 59.3,
+    "calibrated_uncertainty_percent": 40.7,
+    "clinical_recommendation": "Borderline epigenetic profile. Recommend confirmatory tissue PCR testing before finalizing dosage.",
+    "quantum_model": "9-Qubit QSVM (ZZFeatureMap in 512D Hilbert Space)",
+    "qpu_source": "IBM Fez (156 Qubits Heron r2, Job daa8k09qtnsc73d2c7f0)"
+  }
+}
