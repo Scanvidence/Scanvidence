@@ -210,7 +210,7 @@
         </div>
 
         <!-- PROGRESS STEPS INDICATOR -->
-        <div class="flex items-center space-x-1 font-mono text-xs bg-slate-900/90 p-1.5 rounded comp-border">
+        <div class="flex items-center space-x-1 font-mono text-xs bg-[#141413] p-1.5 rounded-lg border border-white/10">
           <button onclick="setStage(1)" id="step-btn-1" class="px-2.5 py-1 rounded bg-[#00E5FF]/20 text-[#00E5FF] font-semibold transition">01 MRI</button>
           <button onclick="setStage(2)" id="step-btn-2" class="px-2.5 py-1 rounded text-slate-400 hover:text-white transition">02 Seg</button>
           <button onclick="setStage(3)" id="step-btn-3" class="px-2.5 py-1 rounded text-slate-400 hover:text-white transition">03 Radiomics</button>
@@ -225,11 +225,17 @@
         
         <!-- LEFT: SCIENTIFIC INSTRUMENT NARRATIVE & METRICS (5 COLS) -->
         <div class="lg:col-span-5 space-y-6">
-          <div class="bg-slate-900/80 p-6 rounded-lg comp-border space-y-5">
+          <div id="narrative-card" class="bg-[#FAF9F5] text-slate-900 p-7 rounded-2xl border border-slate-300/80 shadow-2xl space-y-5 transition-colors duration-300">
             
-            <div class="flex items-center justify-between font-mono text-xs pb-3 comp-border-b">
-              <span class="text-slate-400">SPECIMEN ID</span>
-              <span class="text-white font-bold tracking-wide">BraTS-GLI-00002-000</span>
+            <div class="flex items-center justify-between font-mono text-xs pb-3 border-b border-slate-200" id="card-header">
+              <div class="flex items-center space-x-2">
+                <span id="card-specimen-label" class="text-slate-500 uppercase text-[10px] tracking-wider font-semibold">SPECIMEN ID</span>
+                <span id="card-specimen-val" class="text-slate-950 font-bold tracking-wide">BraTS-GLI-00002-000</span>
+              </div>
+              <div class="flex items-center space-x-1 p-0.5 rounded-full bg-slate-200/80 border border-slate-300 text-[10px]">
+                <button onclick="setCardTheme('light')" id="theme-btn-light" class="px-2 py-0.5 rounded-full bg-white text-slate-950 font-medium shadow-xs">Ivory</button>
+                <button onclick="setCardTheme('dark')" id="theme-btn-dark" class="px-2 py-0.5 rounded-full text-slate-600 hover:text-slate-950">Obsidian</button>
+              </div>
             </div>
 
             <div id="stage-narrative-container" class="space-y-4">
@@ -237,27 +243,27 @@
             </div>
 
             <!-- HARDWARE & RUNTIME STRIP -->
-            <div class="p-3.5 bg-black/50 rounded comp-border font-mono text-xs space-y-1.5">
-              <div class="flex justify-between text-slate-400">
+            <div id="card-telemetry" class="p-4 bg-[#F4F4EB] rounded-xl border border-slate-200 font-mono text-xs space-y-2 text-slate-600">
+              <div class="flex justify-between">
                 <span>COMPUTE ENGINE</span>
-                <span id="telemetry-engine" class="text-[#00E5FF]">3D PyTorch MPS/CUDA</span>
+                <span id="telemetry-engine" class="text-slate-900 font-semibold">3D Monai Preprocessing</span>
               </div>
-              <div class="flex justify-between text-slate-400">
+              <div class="flex justify-between">
                 <span>EXECUTION LATENCY</span>
-                <span id="telemetry-latency" class="text-emerald-400">1.60 s</span>
+                <span id="telemetry-latency" class="text-emerald-700 font-semibold">~50 ms</span>
               </div>
-              <div class="flex justify-between text-slate-400">
+              <div class="flex justify-between">
                 <span>PROVENANCE</span>
-                <span class="text-slate-300">BraTS 2023 Validation Set</span>
+                <span class="text-slate-700">BraTS 2023 Validation Set</span>
               </div>
             </div>
 
             <!-- STAGE NAVIGATION BUTTONS -->
             <div class="flex items-center justify-between pt-2">
-              <button onclick="prevStage()" class="px-3.5 py-2 rounded bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-200 transition comp-border">
+              <button id="card-btn-prev" onclick="prevStage()" class="px-4 py-2.5 rounded-lg bg-white hover:bg-slate-100 text-xs font-mono font-medium text-slate-800 border border-slate-300 transition shadow-xs">
                 ← Previous Stage
               </button>
-              <button onclick="nextStage()" class="px-3.5 py-2 rounded bg-[#00E5FF]/20 hover:bg-[#00E5FF]/30 text-[#00E5FF] text-xs font-mono font-semibold transition comp-border">
+              <button id="card-btn-next" onclick="nextStage()" class="px-4 py-2.5 rounded-lg bg-slate-950 hover:bg-slate-800 text-white text-xs font-mono font-semibold transition shadow-sm">
                 Next Stage →
               </button>
             </div>
@@ -266,10 +272,10 @@
         </div>
 
         <!-- RIGHT: HIGH-CONTRAST MEDICAL IMAGING VIEWPORT (7 COLS) -->
-        <div class="lg:col-span-7 bg-slate-950 rounded-lg comp-border overflow-hidden relative shadow-2xl flex flex-col">
+        <div class="lg:col-span-7 bg-[#0A0D14] rounded-2xl border border-white/10 overflow-hidden relative shadow-2xl flex flex-col">
           
           <!-- VIEWPORT HEADER -->
-          <div class="bg-slate-900/90 px-4 py-2.5 comp-border-b flex items-center justify-between font-mono text-xs">
+          <div class="bg-[#141413] px-4 py-2.5 border-b border-white/10 flex items-center justify-between font-mono text-xs">
             <div class="flex items-center space-x-3 text-slate-300">
               <span class="text-[#00E5FF] font-semibold">VIEWPORT:</span>
               <span id="viewport-label">Multi-Modal MRI (T1, T1c, T2, FLAIR)</span>
@@ -293,7 +299,7 @@
             </div>
 
             <!-- COMPARTMENT ANNOTATIONS (STAGE 2 ONLY) -->
-            <div id="segmentation-legend" class="hidden absolute bottom-6 right-6 font-mono text-[10px] bg-slate-900/90 p-2 rounded comp-border space-y-1">
+            <div id="segmentation-legend" class="hidden absolute bottom-6 right-6 font-mono text-[10px] bg-[#141413]/95 p-2.5 rounded-lg border border-white/10 space-y-1">
               <div class="flex items-center space-x-2">
                 <span class="w-2.5 h-2.5 rounded-sm bg-[#F43F5E]"></span>
                 <span class="text-slate-300">NCR: Necrotic Core (10.5 cm³)</span>
@@ -310,7 +316,7 @@
           </div>
 
           <!-- DOCKED REAL-TIME OUTPUT BAR -->
-          <div class="bg-slate-900/95 px-4 py-2.5 comp-border-t grid grid-cols-2 sm:grid-cols-5 gap-3 font-mono text-[11px] text-slate-400">
+          <div class="bg-[#141413] px-4 py-2.5 border-t border-white/10 grid grid-cols-2 sm:grid-cols-5 gap-3 font-mono text-[11px] text-slate-400">
             <div>
               <span class="text-slate-500">MODEL:</span> <span class="text-slate-200">SegResNetB0</span>
             </div>
@@ -706,17 +712,59 @@
     ];
 
     let currentStageIndex = 0;
+    let cardTheme = 'light';
+
+    function setCardTheme(theme) {
+      cardTheme = theme;
+      const card = document.getElementById("narrative-card");
+      const telemetry = document.getElementById("card-telemetry");
+      const btnPrev = document.getElementById("card-btn-prev");
+      const btnNext = document.getElementById("card-btn-next");
+      const btnLight = document.getElementById("theme-btn-light");
+      const btnDark = document.getElementById("theme-btn-dark");
+      const specLabel = document.getElementById("card-specimen-label");
+      const specVal = document.getElementById("card-specimen-val");
+      const header = document.getElementById("card-header");
+
+      if (theme === 'dark') {
+        card.className = "bg-[#141413] text-[#FAF9F5] p-7 rounded-2xl border border-white/10 shadow-2xl space-y-5 transition-colors duration-300";
+        header.className = "flex items-center justify-between font-mono text-xs pb-3 border-b border-white/10";
+        specLabel.className = "text-[#8E8C85] uppercase text-[10px] tracking-wider font-semibold";
+        specVal.className = "text-[#FAF9F5] font-bold tracking-wide";
+        telemetry.className = "p-4 bg-black/60 rounded-xl border border-white/10 font-mono text-xs space-y-2 text-slate-400";
+        btnPrev.className = "px-4 py-2.5 rounded-lg bg-transparent hover:bg-white/5 text-xs font-mono font-medium text-[#FAF9F5] border border-white/15 transition";
+        btnNext.className = "px-4 py-2.5 rounded-lg bg-[#FAF9F5] hover:bg-white text-slate-950 text-xs font-mono font-semibold transition shadow-sm";
+        btnDark.className = "px-2 py-0.5 rounded-full bg-slate-800 text-white font-medium shadow-xs";
+        btnLight.className = "px-2 py-0.5 rounded-full text-slate-400 hover:text-white";
+      } else {
+        card.className = "bg-[#FAF9F5] text-slate-900 p-7 rounded-2xl border border-slate-300/80 shadow-2xl space-y-5 transition-colors duration-300";
+        header.className = "flex items-center justify-between font-mono text-xs pb-3 border-b border-slate-200";
+        specLabel.className = "text-slate-500 uppercase text-[10px] tracking-wider font-semibold";
+        specVal.className = "text-slate-950 font-bold tracking-wide";
+        telemetry.className = "p-4 bg-[#F4F4EB] rounded-xl border border-slate-200 font-mono text-xs space-y-2 text-slate-600";
+        btnPrev.className = "px-4 py-2.5 rounded-lg bg-white hover:bg-slate-100 text-xs font-mono font-medium text-slate-800 border border-slate-300 transition shadow-xs";
+        btnNext.className = "px-4 py-2.5 rounded-lg bg-slate-950 hover:bg-slate-800 text-white text-xs font-mono font-semibold transition shadow-sm";
+        btnLight.className = "px-2 py-0.5 rounded-full bg-white text-slate-950 font-medium shadow-xs";
+        btnDark.className = "px-2 py-0.5 rounded-full text-slate-600 hover:text-slate-950";
+      }
+      renderStage(currentStageIndex);
+    }
 
     function renderStage(index) {
       const stage = stages[index];
       const container = document.getElementById("stage-narrative-container");
       
+      const isDark = (cardTheme === 'dark');
+      const subtitleClass = isDark ? "text-[#00E5FF]" : "text-[#D47F2A]";
+      const titleClass = isDark ? "text-[#FAF9F5]" : "text-slate-950";
+      const bodyClass = isDark ? "text-[#C2C0B8]" : "text-slate-700";
+
       container.innerHTML = `
         <div class="space-y-1">
-          <div class="font-mono text-xs text-[#00E5FF] font-semibold">${stage.subtitle}</div>
-          <h3 class="font-editorial text-2xl text-white font-normal">${stage.title}</h3>
+          <div class="font-mono text-xs ${subtitleClass} font-semibold uppercase tracking-wider">${stage.subtitle}</div>
+          <h3 class="font-editorial text-2xl sm:text-3xl ${titleClass} font-normal leading-snug">${stage.title}</h3>
         </div>
-        <p class="text-slate-300 text-xs sm:text-sm font-light leading-relaxed">
+        <p class="${bodyClass} text-xs sm:text-sm font-light leading-relaxed">
           ${stage.narrative}
         </p>
       `;
