@@ -11,40 +11,43 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,600&display=swap');
     
     :root {
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --font-heading: 'Plus Jakarta Sans', var(--font-sans);
+      --font-editorial: 'Newsreader', serif;
       --font-mono: 'JetBrains Mono', monospace;
     }
     body {
       font-family: var(--font-sans);
-      background-color: #0b0f17;
-      color: #e2e8f0;
+      background-color: #0A0D14;
+      color: #F8FAFC;
       letter-spacing: -0.011em;
     }
     h1, h2, h3, h4 {
-      font-family: var(--font-heading);
+      font-family: var(--font-editorial);
+    }
+    .font-editorial {
+      font-family: var(--font-editorial);
     }
     .font-mono {
       font-family: var(--font-mono);
     }
     
     .pacs-panel {
-      background: #111827;
-      border: 1px solid #1f2937;
-      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+      background: #0F172A;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.6);
     }
     .pacs-viewport {
       background: #000000;
-      border: 1px solid #1e293b;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
     .pacs-nav {
-      background: rgba(17, 24, 39, 0.95);
+      background: rgba(10, 13, 20, 0.95);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid #1f2937;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
     
     .crosshair-h {
@@ -52,9 +55,9 @@
       left: 0;
       right: 0;
       height: 1px;
-      background: #38bdf8;
+      background: #00E5FF;
       pointer-events: none;
-      box-shadow: 0 0 3px rgba(56, 189, 248, 0.8);
+      box-shadow: 0 0 4px rgba(0, 229, 255, 0.9);
       z-index: 10;
     }
     .crosshair-v {
@@ -62,19 +65,19 @@
       top: 0;
       bottom: 0;
       width: 1px;
-      background: #38bdf8;
+      background: #00E5FF;
       pointer-events: none;
-      box-shadow: 0 0 3px rgba(56, 189, 248, 0.8);
+      box-shadow: 0 0 4px rgba(0, 229, 255, 0.9);
       z-index: 10;
     }
     
     .pacs-slider::-webkit-slider-thumb {
       appearance: none;
-      width: 14px;
-      height: 14px;
+      width: 13px;
+      height: 13px;
       border-radius: 50%;
-      background: #38bdf8;
-      box-shadow: 0 0 6px rgba(56, 189, 248, 0.6);
+      background: #00E5FF;
+      box-shadow: 0 0 6px rgba(0, 229, 255, 0.8);
       cursor: pointer;
     }
 
@@ -188,97 +191,211 @@
     </div>
 
     <!-- ========================================================================= -->
-    <!-- TAB 1: 4-QUADRANT MULTI-PLANAR SLICER -->
+    <!-- TAB 1: 4-QUADRANT MULTI-PLANAR SLICER (60 / 40 INSTRUMENT SPLIT) -->
     <!-- ========================================================================= -->
     <div id="tab-content-pacs" class="space-y-4">
       
-      <div class="pacs-panel rounded-xl p-3 space-y-3">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
         
-        <!-- Viewport Controls & Coordinate HUD -->
-        <div class="bg-slate-950 px-3 py-1.5 rounded-lg flex flex-wrap items-center justify-between text-xs font-mono border border-slate-800 text-slate-400">
-          <div class="flex items-center space-x-4">
-            <span id="coords-readout" class="text-sky-400 font-bold">Coords: X: 140 mm | Y: 95 mm | Z: 79 mm</span>
-            <span id="voxel-intensity" class="text-slate-300">Intensity: 2,287 a.u.</span>
-          </div>
-          <div class="flex items-center space-x-3 text-[11px]">
-            <span class="text-slate-400">Series: <strong class="text-slate-200">Axial T1CE 1.0mm</strong></span>
-            <button onclick="resetViewport()" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px]">Center View</button>
-          </div>
-        </div>
-
-        <!-- 4 Viewports Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 bg-black p-2 rounded-lg border border-slate-800">
+        <!-- LEFT: ANALYSIS RAIL (40% / 5 COLS) -->
+        <div class="lg:col-span-5 space-y-4">
           
-          <!-- CORONAL -->
-          <div id="quad-coronal" onclick="handleQuadrantClick(event, 'coronal')" class="pacs-viewport relative rounded overflow-hidden aspect-square flex items-center justify-center cursor-crosshair select-none">
-            <img id="img-coronal" src="assets/slices/BraTS-GLI-00002-000/coronal_95.png" alt="Coronal Slice" class="w-full h-full object-contain pointer-events-none">
-            <div id="cross-coronal-h" class="crosshair-h" style="top: 50%;"></div>
-            <div id="cross-coronal-v" class="crosshair-v" style="left: 50%;"></div>
-            <span class="absolute top-1.5 left-2 text-[10px] font-mono font-bold text-sky-400">CORONAL (Y)</span>
-            <span class="absolute top-1.5 right-2 text-[10px] font-mono text-slate-500">S</span>
-            <span class="absolute bottom-1.5 right-2 text-[10px] font-mono text-slate-500">I</span>
-            <div class="absolute bottom-1.5 left-2 bg-black/80 px-1.5 py-0.5 rounded text-[9px] font-mono text-slate-300" id="label-coronal">y = 95 / 240</div>
-          </div>
-
-          <!-- SAGITTAL -->
-          <div id="quad-sagittal" onclick="handleQuadrantClick(event, 'sagittal')" class="pacs-viewport relative rounded overflow-hidden aspect-square flex items-center justify-center cursor-crosshair select-none">
-            <img id="img-sagittal" src="assets/slices/BraTS-GLI-00002-000/sagittal_140.png" alt="Sagittal Slice" class="w-full h-full object-contain pointer-events-none">
-            <div id="cross-sagittal-h" class="crosshair-h" style="top: 50%;"></div>
-            <div id="cross-sagittal-v" class="crosshair-v" style="left: 50%;"></div>
-            <span class="absolute top-1.5 left-2 text-[10px] font-mono font-bold text-sky-400">SAGITTAL (X)</span>
-            <span class="absolute top-1.5 right-2 text-[10px] font-mono text-slate-500">S</span>
-            <span class="absolute bottom-1.5 right-2 text-[10px] font-mono text-slate-500">I</span>
-            <div class="absolute bottom-1.5 left-2 bg-black/80 px-1.5 py-0.5 rounded text-[9px] font-mono text-slate-300" id="label-sagittal">x = 140 / 240</div>
-          </div>
-
-          <!-- AXIAL -->
-          <div id="quad-axial" onclick="handleQuadrantClick(event, 'axial')" class="pacs-viewport relative rounded overflow-hidden aspect-square flex items-center justify-center cursor-crosshair select-none">
-            <img id="img-axial" src="assets/slices/BraTS-GLI-00002-000/axial_79.png" alt="Axial Slice" class="w-full h-full object-contain pointer-events-none">
-            <div id="cross-axial-h" class="crosshair-h" style="top: 50%;"></div>
-            <div id="cross-axial-v" class="crosshair-v" style="left: 50%;"></div>
-            <span class="absolute top-1.5 left-2 text-[10px] font-mono font-bold text-sky-400">AXIAL (Z)</span>
-            <span class="absolute top-1.5 right-2 text-[10px] font-mono text-slate-500">A</span>
-            <span class="absolute bottom-1.5 right-2 text-[10px] font-mono text-slate-500">P</span>
-            <div class="absolute bottom-1.5 left-2 bg-black/80 px-1.5 py-0.5 rounded text-[9px] font-mono text-slate-300" id="label-axial">z = 79 / 155</div>
-          </div>
-
-          <!-- 3D COMPARTMENT OVERLAY -->
-          <div class="pacs-viewport relative rounded overflow-hidden aspect-square flex items-center justify-center p-2 bg-slate-950">
-            <img id="img-3d-recon" src="assets/explainability/BraTS-GLI-00001-000_explainability.png" alt="3D Reconstruction" class="w-full h-full object-contain rounded">
-            <span class="absolute top-1.5 left-2 text-[10px] font-mono font-bold text-emerald-400">LESION COMPARTMENTS</span>
-            <div class="absolute bottom-1.5 right-2 flex items-center space-x-2 bg-black/85 px-2 py-0.5 rounded text-[9px] font-mono text-white border border-slate-800">
-              <span class="text-rose-400 font-bold">■ NCR (Necrosis)</span>
-              <span class="text-amber-300 font-bold">■ ED (Edema)</span>
-              <span class="text-emerald-400 font-bold">■ ET (Enhancing)</span>
+          <!-- INSTRUMENT CASE SPECIFICATION -->
+          <div class="pacs-panel rounded-xl p-4 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+              <span class="text-xs font-mono font-bold text-[#00E5FF] uppercase tracking-wider">Analysis Rail</span>
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[10px]">CASE STUDY</span>
             </div>
-          </div>
 
+            <!-- MODALITY LAYER TOGGLES -->
+            <div class="space-y-2">
+              <div class="text-[11px] font-mono uppercase text-slate-400 font-semibold">MRI Modality Inputs</div>
+              <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+                <label class="flex items-center space-x-2 p-2 rounded bg-slate-900 border border-slate-800 cursor-pointer hover:border-slate-700">
+                  <input type="checkbox" checked class="accent-[#00E5FF]">
+                  <span class="text-slate-200">T1-Native</span>
+                </label>
+                <label class="flex items-center space-x-2 p-2 rounded bg-slate-900 border border-slate-800 cursor-pointer hover:border-slate-700">
+                  <input type="checkbox" checked class="accent-[#00E5FF]">
+                  <span class="text-slate-200 font-semibold text-[#00E5FF]">T1-Contrast</span>
+                </label>
+                <label class="flex items-center space-x-2 p-2 rounded bg-slate-900 border border-slate-800 cursor-pointer hover:border-slate-700">
+                  <input type="checkbox" checked class="accent-[#00E5FF]">
+                  <span class="text-slate-200">T2-Weighted</span>
+                </label>
+                <label class="flex items-center space-x-2 p-2 rounded bg-slate-900 border border-slate-800 cursor-pointer hover:border-slate-700">
+                  <input type="checkbox" checked class="accent-[#00E5FF]">
+                  <span class="text-slate-200">T2-FLAIR</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- SEGMENTATION SUBREGIONS -->
+            <div class="space-y-2">
+              <div class="text-[11px] font-mono uppercase text-slate-400 font-semibold">Segmentation Compartments</div>
+              <div class="space-y-1.5 text-xs font-mono">
+                <div class="flex items-center justify-between p-2 rounded bg-slate-900/90 border border-slate-800">
+                  <span class="flex items-center space-x-2">
+                    <span class="w-2.5 h-2.5 rounded-sm bg-[#F43F5E]"></span>
+                    <span class="text-slate-200">Necrotic Core (NCR)</span>
+                  </span>
+                  <span class="text-slate-400 font-bold" id="rail-ncr">10.54 cm³</span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded bg-slate-900/90 border border-slate-800">
+                  <span class="flex items-center space-x-2">
+                    <span class="w-2.5 h-2.5 rounded-sm bg-yellow-400"></span>
+                    <span class="text-slate-200">Peritumoral Edema (ED)</span>
+                  </span>
+                  <span class="text-slate-400 font-bold" id="rail-ed">105.90 cm³</span>
+                </div>
+                <div class="flex items-center justify-between p-2 rounded bg-slate-900/90 border border-slate-800">
+                  <span class="flex items-center space-x-2">
+                    <span class="w-2.5 h-2.5 rounded-sm bg-emerald-400"></span>
+                    <span class="text-slate-200">Enhancing Rim (ET)</span>
+                  </span>
+                  <span class="text-emerald-400 font-bold" id="rail-et">20.47 cm³</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3-LEVEL INTERACTION SELECTOR -->
+            <div class="space-y-2 pt-1 border-t border-slate-800">
+              <div class="text-[11px] font-mono uppercase text-slate-400 font-semibold">Visualization Level</div>
+              <div class="space-y-1.5 font-mono text-xs">
+                <button onclick="setLevel(1)" id="btn-lvl-1" class="w-full text-left px-3 py-2 rounded bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 transition flex items-center justify-between">
+                  <span>Level 1: Clinical Reading</span>
+                  <span class="text-[10px] text-slate-500">Raw MRI</span>
+                </button>
+                <button onclick="setLevel(2)" id="btn-lvl-2" class="w-full text-left px-3 py-2 rounded bg-[#00E5FF]/20 border border-[#00E5FF]/40 text-[#00E5FF] font-semibold transition flex items-center justify-between">
+                  <span>Level 2: Computational</span>
+                  <span class="text-[10px] text-emerald-400">Seg Mask</span>
+                </button>
+                <button onclick="setLevel(3)" id="btn-lvl-3" class="w-full text-left px-3 py-2 rounded bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 transition flex items-center justify-between">
+                  <span>Level 3: Explainability</span>
+                  <span class="text-[10px] text-purple-400">Grad-CAM</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- ACTION CTA -->
+            <div class="pt-2 border-t border-slate-800 space-y-2">
+              <button onclick="openLiveInferenceConsole()" class="w-full py-2.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-mono text-xs font-semibold transition shadow flex items-center justify-center space-x-2">
+                <span>⚡ Execute Real-Time Inference</span>
+              </button>
+              <div class="flex items-center space-x-2">
+                <button onclick="switchTab('findings')" class="w-1/2 py-2 rounded bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-mono text-xs transition">
+                  Findings →
+                </button>
+                <button onclick="switchTab('report')" class="w-1/2 py-2 rounded bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-mono text-xs transition">
+                  PDF Report ↗
+                </button>
+              </div>
+            </div>
+
+          </div>
         </div>
 
-        <!-- SLICE SCRUBBER SLIDERS -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1">
-          <div class="p-2.5 bg-slate-900 rounded-lg border border-slate-800 space-y-1">
-            <div class="flex justify-between text-xs font-medium text-slate-300">
-              <span>Axial (Z-Axis)</span>
-              <span id="slider-txt-z" class="font-mono text-sky-400 font-bold">z = 79</span>
+        <!-- RIGHT: VIEWPORT & DOCKED OUTPUT BAR (60% / 7 COLS) -->
+        <div class="lg:col-span-7 space-y-3">
+          <div class="pacs-panel rounded-xl p-3 space-y-3">
+            
+            <!-- Viewport Controls & Coordinate HUD -->
+            <div class="bg-black px-3 py-1.5 rounded-lg flex flex-wrap items-center justify-between text-xs font-mono border border-slate-800 text-slate-400">
+              <div class="flex items-center space-x-4">
+                <span id="coords-readout" class="text-[#00E5FF] font-bold">Coords: X: 140 mm | Y: 95 mm | Z: 79 mm</span>
+                <span id="voxel-intensity" class="text-slate-300">Intensity: 2,287 a.u.</span>
+              </div>
+              <div class="flex items-center space-x-3 text-[11px]">
+                <span class="text-slate-400">Series: <strong class="text-slate-200">Axial T1CE 1.0mm</strong></span>
+                <button onclick="resetViewport()" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px]">Center View</button>
+              </div>
             </div>
-            <input id="slider-z" type="range" min="54" max="104" step="1" value="79" oninput="onScrubZ(this.value)" class="pacs-slider w-full h-1 bg-slate-800 rounded appearance-none cursor-pointer">
-          </div>
 
-          <div class="p-2.5 bg-slate-900 rounded-lg border border-slate-800 space-y-1">
-            <div class="flex justify-between text-xs font-medium text-slate-300">
-              <span>Coronal (Y-Axis)</span>
-              <span id="slider-txt-y" class="font-mono text-sky-400 font-bold">y = 95</span>
-            </div>
-            <input id="slider-y" type="range" min="70" max="120" step="1" value="95" oninput="onScrubY(this.value)" class="pacs-slider w-full h-1 bg-slate-800 rounded appearance-none cursor-pointer">
-          </div>
+            <!-- 4 Viewports Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 bg-black p-2 rounded-lg border border-slate-800">
+              
+              <!-- CORONAL -->
+              <div id="quad-coronal" onclick="handleQuadrantClick(event, 'coronal')" class="pacs-viewport relative rounded overflow-hidden aspect-square flex items-center justify-center cursor-crosshair select-none">
+                <img id="img-coronal" src="assets/slices/BraTS-GLI-00002-000/coronal_95.png" alt="Coronal Slice" class="w-full h-full object-contain pointer-events-none">
+                <div id="cross-coronal-h" class="crosshair-h" style="top: 50%;"></div>
+                <div id="cross-coronal-v" class="crosshair-v" style="left: 50%;"></div>
+                <span class="absolute top-1.5 left-2 text-[10px] font-mono font-bold text-[#00E5FF]">CORONAL (Y)</span>
+                <span class="absolute top-1.5 right-2 text-[10px] font-mono text-slate-500">S</span>
+                <span class="absolute bottom-1.5 right-2 text-[10px] font-mono text-slate-500">I</span>
+                <div class="absolute bottom-1.5 left-2 bg-black/80 px-1.5 py-0.5 rounded text-[9px] font-mono text-slate-300" id="label-coronal">y = 95 / 240</div>
+              </div>
 
-          <div class="p-2.5 bg-slate-900 rounded-lg border border-slate-800 space-y-1">
-            <div class="flex justify-between text-xs font-medium text-slate-300">
-              <span>Sagittal (X-Axis)</span>
-              <span id="slider-txt-x" class="font-mono text-sky-400 font-bold">x = 140</span>
+              <!-- SAGITTAL -->
+              <div id="quad-sagittal" onclick="handleQuadrantClick(event, 'sagittal')" class="pacs-viewport relative rounded overflow-hidden aspect-square flex items-center justify-center cursor-crosshair select-none">
+                <img id="img-sagittal" src="assets/slices/BraTS-GLI-00002-000/sagittal_140.png" alt="Sagittal Slice" class="w-full h-full object-contain pointer-events-none">
+                <div id="cross-sagittal-h" class="crosshair-h" style="top: 50%;"></div>
+                <div id="cross-sagittal-v" class="crosshair-v" style="left: 50%;"></div>
+                <span class="absolute top-1.5 left-2 text-[10px] font-mono font-bold text-[#00E5FF]">SAGITTAL (X)</span>
+                <span class="absolute top-1.5 right-2 text-[10px] font-mono text-slate-500">S</span>
+                <span class="absolute bottom-1.5 right-2 text-[10px] font-mono text-slate-500">I</span>
+                <div class="absolute bottom-1.5 left-2 bg-black/80 px-1.5 py-0.5 rounded text-[9px] font-mono text-slate-300" id="label-sagittal">x = 140 / 240</div>
+              </div>
+
+              <!-- AXIAL -->
+              <div id="quad-axial" onclick="handleQuadrantClick(event, 'axial')" class="pacs-viewport relative rounded overflow-hidden aspect-square flex items-center justify-center cursor-crosshair select-none">
+                <img id="img-axial" src="assets/slices/BraTS-GLI-00002-000/axial_79.png" alt="Axial Slice" class="w-full h-full object-contain pointer-events-none">
+                <div id="cross-axial-h" class="crosshair-h" style="top: 50%;"></div>
+                <div id="cross-axial-v" class="crosshair-v" style="left: 50%;"></div>
+                <span class="absolute top-1.5 left-2 text-[10px] font-mono font-bold text-[#00E5FF]">AXIAL (Z)</span>
+                <span class="absolute top-1.5 right-2 text-[10px] font-mono text-slate-500">A</span>
+                <span class="absolute bottom-1.5 right-2 text-[10px] font-mono text-slate-500">P</span>
+                <div class="absolute bottom-1.5 left-2 bg-black/80 px-1.5 py-0.5 rounded text-[9px] font-mono text-slate-300" id="label-axial">z = 79 / 155</div>
+              </div>
+
+              <!-- 3D COMPARTMENT OVERLAY -->
+              <div class="pacs-viewport relative rounded overflow-hidden aspect-square flex items-center justify-center p-2 bg-slate-950">
+                <img id="img-3d-recon" src="assets/explainability/BraTS-GLI-00001-000_explainability.png" alt="3D Reconstruction" class="w-full h-full object-contain rounded">
+                <span class="absolute top-1.5 left-2 text-[10px] font-mono font-bold text-emerald-400">LESION COMPARTMENTS</span>
+                <div class="absolute bottom-1.5 right-2 flex items-center space-x-2 bg-black/85 px-2 py-0.5 rounded text-[9px] font-mono text-white border border-slate-800">
+                  <span class="text-rose-400 font-bold">■ NCR</span>
+                  <span class="text-amber-300 font-bold">■ ED</span>
+                  <span class="text-emerald-400 font-bold">■ ET</span>
+                </div>
+              </div>
+
             </div>
-            <input id="slider-x" type="range" min="115" max="165" step="1" value="140" oninput="onScrubX(this.value)" class="pacs-slider w-full h-1 bg-slate-800 rounded appearance-none cursor-pointer">
+
+            <!-- SLICE SCRUBBER SLIDERS -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1">
+              <div class="p-2.5 bg-black rounded-lg border border-slate-800 space-y-1">
+                <div class="flex justify-between text-xs font-medium text-slate-300 font-mono">
+                  <span>Axial (Z)</span>
+                  <span id="slider-txt-z" class="text-[#00E5FF] font-bold">z = 79</span>
+                </div>
+                <input id="slider-z" type="range" min="54" max="104" step="1" value="79" oninput="onScrubZ(this.value)" class="pacs-slider w-full h-1 bg-slate-800 rounded appearance-none cursor-pointer">
+              </div>
+
+              <div class="p-2.5 bg-black rounded-lg border border-slate-800 space-y-1">
+                <div class="flex justify-between text-xs font-medium text-slate-300 font-mono">
+                  <span>Coronal (Y)</span>
+                  <span id="slider-txt-y" class="text-[#00E5FF] font-bold">y = 95</span>
+                </div>
+                <input id="slider-y" type="range" min="70" max="120" step="1" value="95" oninput="onScrubY(this.value)" class="pacs-slider w-full h-1 bg-slate-800 rounded appearance-none cursor-pointer">
+              </div>
+
+              <div class="p-2.5 bg-black rounded-lg border border-slate-800 space-y-1">
+                <div class="flex justify-between text-xs font-medium text-slate-300 font-mono">
+                  <span>Sagittal (X)</span>
+                  <span id="slider-txt-x" class="text-[#00E5FF] font-bold">x = 140</span>
+                </div>
+                <input id="slider-x" type="range" min="115" max="165" step="1" value="140" oninput="onScrubX(this.value)" class="pacs-slider w-full h-1 bg-slate-800 rounded appearance-none cursor-pointer">
+              </div>
+            </div>
+
+            <!-- DOCKED REAL-TIME OUTPUT BAR -->
+            <div class="bg-black/90 p-3 rounded-lg border border-slate-800 grid grid-cols-2 sm:grid-cols-5 gap-2 font-mono text-[11px] text-slate-400">
+              <div><span class="text-slate-500">MODEL:</span> <span class="text-white">SegResNetB0</span></div>
+              <div><span class="text-slate-500">PARAMS:</span> <span class="text-white">1.6M</span></div>
+              <div><span class="text-slate-500">FEATURES:</span> <span class="text-[#00E5FF]">107 → 9</span></div>
+              <div><span class="text-slate-500">INFERENCE:</span> <span class="text-emerald-400">1.60 s</span></div>
+              <div><span class="text-slate-500">STATUS:</span> <span class="text-emerald-400">VALIDATED</span></div>
+            </div>
+
           </div>
         </div>
 
@@ -822,6 +939,12 @@
       document.getElementById("f-ed").innerText = `${p.ed.toFixed(2)} cm³`;
       document.getElementById("f-nec").innerText = `${p.nec.toFixed(1)}%`;
 
+      if (document.getElementById("rail-ncr")) {
+        document.getElementById("rail-ncr").innerText = `${p.ncr.toFixed(2)} cm³`;
+        document.getElementById("rail-ed").innerText = `${p.ed.toFixed(2)} cm³`;
+        document.getElementById("rail-et").innerText = `${p.et.toFixed(2)} cm³`;
+      }
+
       document.getElementById("f-mgmt").innerText = p.mgmt;
       document.getElementById("f-unc").innerText = p.unc;
       document.getElementById("f-idh").innerText = p.idh;
@@ -852,6 +975,34 @@
       document.getElementById("rpt-m-mgmt").innerText = p.mgmt;
       document.getElementById("rpt-m-unc").innerText = p.unc;
       document.getElementById("rpt-m-idh").innerText = p.idh;
+    }
+
+    function setLevel(lvl) {
+      const crosshairs = document.querySelectorAll('.crosshair-h, .crosshair-v');
+      const recon = document.getElementById("img-3d-recon");
+      
+      for (let i = 1; i <= 3; i++) {
+        const btn = document.getElementById(`btn-lvl-${i}`);
+        if (btn) {
+          if (i === lvl) {
+            btn.className = "w-full text-left px-3 py-2 rounded bg-[#00E5FF]/20 border border-[#00E5FF]/40 text-[#00E5FF] font-semibold transition flex items-center justify-between";
+          } else {
+            btn.className = "w-full text-left px-3 py-2 rounded bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 transition flex items-center justify-between";
+          }
+        }
+      }
+
+      if (lvl === 1) {
+        crosshairs.forEach(ch => ch.style.display = 'none');
+        if (recon) recon.style.opacity = '0.4';
+      } else if (lvl === 2) {
+        crosshairs.forEach(ch => ch.style.display = 'block');
+        if (recon) recon.style.opacity = '1.0';
+      } else if (lvl === 3) {
+        crosshairs.forEach(ch => ch.style.display = 'block');
+        if (recon) recon.style.opacity = '1.0';
+        switchTab('findings');
+      }
     }
 
     // LIVE REAL-TIME INFERENCE STREAM CONSOLE

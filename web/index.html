@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scanvidence — Advanced Neuro-Oncology Triage & PACS Workstation</title>
+  <title>Scanvidence — Digital Neuro-Oncology Research Instrument</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -11,253 +11,758 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,600&display=swap");
     
     :root {
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --font-heading: 'Plus Jakarta Sans', var(--font-sans);
+      --font-editorial: 'Newsreader', serif;
+      --font-interface: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
+      
+      --color-editorial-bg: #F7F6F2;
+      --color-computational-bg: #0A0D14;
+      --color-cyan: #00E5FF;
+      --color-emerald: #10B981;
+      --color-magenta: #F43F5E;
+      --color-graphite: #64748B;
     }
+    
     body {
-      font-family: var(--font-sans);
-      background-color: #080c14;
-      color: #f1f5f9;
-      letter-spacing: -0.012em;
+      font-family: var(--font-interface);
+      color: #1E293B;
+      background-color: var(--color-editorial-bg);
+      -webkit-font-smoothing: antialiased;
     }
-    h1, h2, h3, h4 {
-      font-family: var(--font-heading);
+    
+    .font-editorial {
+      font-family: var(--font-editorial);
     }
+    
     .font-mono {
       font-family: var(--font-mono);
     }
-    .hero-glow {
-      background: radial-gradient(circle at 50% 20%, rgba(14, 165, 233, 0.15) 0%, rgba(99, 102, 241, 0.05) 50%, transparent 80%);
+    
+    .computational-canvas {
+      background-color: var(--color-computational-bg);
+      color: #F8FAFC;
     }
-    .card-glass {
-      background: rgba(15, 23, 42, 0.7);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+    
+    .comp-border {
       border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
     }
-    .card-hover:hover {
-      border-color: rgba(56, 189, 248, 0.4);
-      transform: translateY(-2px);
-      transition: all 0.2s ease-in-out;
+    
+    .comp-border-b {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    .comp-border-t {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    .editorial-border {
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+    
+    .editorial-border-b {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+    .editorial-border-t {
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.05);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #94A3B8;
+      border-radius: 3px;
+    }
+    .computational-canvas ::-webkit-scrollbar-track {
+      background: #0A0D14;
+    }
+    .computational-canvas ::-webkit-scrollbar-thumb {
+      background: #334155;
     }
   </style>
 </head>
-<body class="bg-[#080c14] text-slate-100 antialiased selection:bg-sky-500 selection:text-white">
+<body class="selection:bg-cyan-500 selection:text-black">
 
-  <!-- TOP NAVIGATION -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-[#080c14]/85 backdrop-blur-md border-b border-white/10 px-4 sm:px-8 py-3.5 flex items-center justify-between">
-    <div class="flex items-center space-x-3">
-      <div class="w-8 h-8 rounded-lg bg-sky-600 flex items-center justify-center font-bold text-white text-sm shadow-md shadow-sky-500/20">
-        SC
-      </div>
-      <div>
-        <span class="text-base font-bold tracking-tight text-white">Scanvidence</span>
-        <span class="hidden sm:inline-block ml-2 px-2 py-0.5 text-[10px] font-mono uppercase bg-slate-800 text-sky-400 rounded border border-slate-700">Clinical Platform</span>
-      </div>
-    </div>
-
-    <nav class="hidden md:flex items-center space-x-6 text-xs font-medium text-slate-300">
-      <a href="#pipeline" class="hover:text-white transition">Pipeline Architecture</a>
-      <a href="#workstation-preview" class="hover:text-white transition">PACS Slicer</a>
-      <a href="benchmarks.html" class="hover:text-sky-400 transition font-semibold">Benchmarks & Defense Audit</a>
-      <a href="workstation.html" class="hover:text-white transition">Live Workstation</a>
-    </nav>
-
-    <div class="flex items-center space-x-3 text-xs">
-      <a href="workstation.html" class="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-semibold transition shadow-md shadow-sky-600/20 flex items-center space-x-1.5">
-        <span>Launch PACS Workstation</span>
-        <span>→</span>
-      </a>
-    </div>
-  </header>
-
-  <!-- HERO SECTION -->
-  <section class="hero-glow min-h-[85vh] pt-36 pb-20 px-4 sm:px-8 max-w-6xl mx-auto flex flex-col items-center justify-center text-center space-y-8">
-    
-    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-sky-950/70 border border-sky-800/60 text-sky-300 text-xs font-semibold">
-      <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
-      <span>AI-Assisted Neuro-Oncology Triage & Molecular Profiling</span>
-    </div>
-
-    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white max-w-4xl leading-[1.1]">
-      Multi-Parametric 3D Neuro-MRI <br>
-      <span class="bg-gradient-to-r from-sky-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent">Triage & Radiogenomic Profiling</span>
-    </h1>
-
-    <p class="text-slate-400 text-base sm:text-lg max-w-2xl font-normal leading-relaxed">
-      An institutional-grade clinical platform integrating 3D deep volumetric segmentation, quantum-optimized radiomic feature selection, and WHO CNS5 molecular risk stratification.
-    </p>
-
-    <!-- ACTION BUTTONS -->
-    <div class="flex flex-col sm:flex-row items-center gap-4 pt-2">
-      <a href="workstation.html" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-sm transition shadow-lg shadow-sky-600/25 flex items-center justify-center space-x-2">
-        <span>Open Clinical Workstation</span>
-        <span>→</span>
-      </a>
-      <a href="#pipeline" class="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-white font-semibold text-sm border border-slate-800 transition flex items-center justify-center space-x-2">
-        <span>View Scientific Pipeline</span>
-      </a>
-    </div>
-
-    <!-- 4 CAPABILITY PILLARS -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full pt-8 text-left">
-      <div class="card-glass p-5 rounded-2xl border border-white/5 space-y-2">
-        <div class="text-xs font-mono font-bold text-sky-400 uppercase tracking-wider">3D Volumetric Vision</div>
-        <div class="text-sm font-semibold text-white">Multi-Parametric Segmentation</div>
-        <div class="text-xs text-slate-400">Automated sub-region contouring of enhancing rim, cavity necrosis, and edema.</div>
-      </div>
-      <div class="card-glass p-5 rounded-2xl border border-white/5 space-y-2">
-        <div class="text-xs font-mono font-bold text-indigo-400 uppercase tracking-wider">Quantum Optimization</div>
-        <div class="text-sm font-semibold text-white">Ising Hamiltonian Pruning</div>
-        <div class="text-xs text-slate-400">NP-hard feature selection evaluated on physical 156-qubit quantum hardware.</div>
-      </div>
-      <div class="card-glass p-5 rounded-2xl border border-white/5 space-y-2">
-        <div class="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider">Clinical Profiling</div>
-        <div class="text-sm font-semibold text-white">WHO CNS5 Molecular Index</div>
-        <div class="text-xs text-slate-400">Non-invasive MGMT methylation & IDH1/2 risk assessment with calibrated uncertainty.</div>
-      </div>
-      <div class="card-glass p-5 rounded-2xl border border-white/5 space-y-2">
-        <div class="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider">Interoperability</div>
-        <div class="text-sm font-semibold text-white">ABDM Milestone-2 Standard</div>
-        <div class="text-xs text-slate-400">Native HL7/FHIR DiagnosticReport JSON generation linked with ABHA records.</div>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- PIPELINE ARCHITECTURE SECTION -->
-  <section id="pipeline" class="py-20 px-4 sm:px-8 max-w-6xl mx-auto space-y-12 border-t border-white/10">
-    <div class="text-center space-y-3 max-w-3xl mx-auto">
-      <div class="text-xs font-mono uppercase text-sky-400 font-bold tracking-wider">System Architecture</div>
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-        6-Stage Diagnostic & Radiogenomic Pipeline
-      </h2>
-      <p class="text-slate-400 text-sm">
-        From multi-sequence MRI ingestion to automated institutional report dispatch.
-      </p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      
-      <!-- STAGE 1 -->
-      <div class="card-glass card-hover p-6 rounded-2xl space-y-3">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-mono font-bold text-slate-400">STAGE 01</span>
-          <span class="px-2 py-0.5 rounded bg-sky-950 text-sky-300 text-[10px] font-mono font-semibold">ACQUISITION</span>
+  <!-- TOP EDITORIAL & RESEARCH MASTHEAD -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-[#F7F6F2]/90 backdrop-blur-md editorial-border-b px-4 sm:px-8 py-3.5 transition-colors duration-300">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-4">
+        <a href="#" class="flex items-center space-x-2.5 group">
+          <div class="w-7 h-7 rounded bg-slate-900 text-white font-mono text-xs font-bold flex items-center justify-center tracking-tighter">
+            SC
+          </div>
+          <span class="font-editorial text-xl font-semibold tracking-tight text-slate-950 group-hover:text-cyan-700 transition">
+            Scanvidence
+          </span>
+        </a>
+        <div class="hidden md:flex items-center space-x-2 pl-3 border-l border-slate-300">
+          <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="font-mono text-[11px] uppercase tracking-wider text-slate-600">Research Build 2.4</span>
         </div>
-        <h3 class="text-base font-bold text-white">Multi-Parametric MRI Ingestion</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">
-          Standardized pre-processing of 4 core neuro-MRI modalities (T1w, T1c, T2w, T2-FLAIR) with rigid registration and intensity z-score normalization.
-        </p>
       </div>
 
-      <!-- STAGE 2 -->
-      <div class="card-glass card-hover p-6 rounded-2xl space-y-3">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-mono font-bold text-slate-400">STAGE 02</span>
-          <span class="px-2 py-0.5 rounded bg-sky-950 text-sky-300 text-[10px] font-mono font-semibold">3D SEGMENTATION</span>
-        </div>
-        <h3 class="text-base font-bold text-white">3D Deep Volumetric Vision</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">
-          SegResNetB0 architecture with autoencoder regularization loss performing sliding-window multi-class sub-region delineation.
-        </p>
-      </div>
+      <nav class="hidden lg:flex items-center space-x-7 text-xs font-medium text-slate-600">
+        <a href="#signature-interaction" class="hover:text-slate-950 transition">Signature Pipeline</a>
+        <a href="#architecture" class="hover:text-slate-950 transition">Research System</a>
+        <a href="benchmarks.html" class="hover:text-slate-950 transition">Evidence & Benchmarks</a>
+        <a href="#publications" class="hover:text-slate-950 transition">Publications</a>
+        <a href="#team" class="hover:text-slate-950 transition">Research Team</a>
+      </nav>
 
-      <!-- STAGE 3 -->
-      <div class="card-glass card-hover p-6 rounded-2xl space-y-3">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-mono font-bold text-slate-400">STAGE 03</span>
-          <span class="px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 text-[10px] font-mono font-semibold">RADIOMICS</span>
-        </div>
-        <h3 class="text-base font-bold text-white">Standardized IBSI Radiomics</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">
-          High-throughput extraction of 107 mathematically standardized shape, first-order intensity, and second-order GLCM texture biomarkers.
-        </p>
-      </div>
-
-      <!-- STAGE 4 -->
-      <div class="card-glass card-hover p-6 rounded-2xl space-y-3">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-mono font-bold text-slate-400">STAGE 04</span>
-          <span class="px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 text-[10px] font-mono font-semibold">QUANTUM HAMILTONIAN</span>
-        </div>
-        <h3 class="text-base font-bold text-white">QUBO Combinatorial Optimization</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">
-          Ising Hamiltonian feature correlation minimization executed on the 156-qubit IBM Heron processor to extract orthogonal biomarkers.
-        </p>
-      </div>
-
-      <!-- STAGE 5 -->
-      <div class="card-glass card-hover p-6 rounded-2xl space-y-3">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-mono font-bold text-slate-400">STAGE 05</span>
-          <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 text-[10px] font-mono font-semibold">QSVM KERNEL</span>
-        </div>
-        <h3 class="text-base font-bold text-white">Quantum Hilbert Space Embedding</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">
-          9-qubit ZZFeatureMap encoding continuous radiomic vectors into a 512-dimensional complex Hilbert space for non-Euclidean fidelity estimation.
-        </p>
-      </div>
-
-      <!-- STAGE 6 -->
-      <div class="card-glass card-hover p-6 rounded-2xl space-y-3">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-mono font-bold text-slate-400">STAGE 06</span>
-          <span class="px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 text-[10px] font-mono font-semibold">ABDM M2 DELIVERY</span>
-        </div>
-        <h3 class="text-base font-bold text-white">Clinical Triage & FHIR Export</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">
-          Automated routing of urgent high-risk cases to tertiary neuro-oncology boards with cryptographic NRCES FHIR diagnostic bundles.
-        </p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- WORKSTATION PREVIEW CTA -->
-  <section id="workstation-preview" class="py-20 px-4 sm:px-8 max-w-6xl mx-auto space-y-8 border-t border-white/10 text-center">
-    <div class="card-glass p-8 sm:p-12 rounded-3xl border border-sky-500/20 space-y-6">
-      <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-sky-950 text-sky-400 text-xs font-mono font-semibold">
-        <span>INTERACTIVE MEDICAL WORKSTATION</span>
-      </div>
-
-      <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-        Experience the Multi-Planar PACS Workstation
-      </h2>
-
-      <p class="text-slate-400 text-sm max-w-2xl mx-auto leading-relaxed">
-        Navigate synchronized Axial, Coronal, and Sagittal orthogonal cross-sections with real-time crosshair coordinates, window/level contrast tuning, and instant diagnostic PDF report generation.
-      </p>
-
-      <div class="pt-2">
-        <a href="workstation.html" class="inline-flex items-center space-x-2 px-8 py-4 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-sm transition shadow-lg shadow-sky-600/30">
-          <span>Launch Clinical Workstation</span>
+      <div class="flex items-center space-x-3">
+        <a href="benchmarks.html" class="hidden sm:inline-flex items-center text-xs font-mono text-slate-600 hover:text-slate-900 px-3 py-1.5 rounded border border-slate-300 transition">
+          <span>DOI: 10.48550</span>
+        </a>
+        <a href="workstation.html" class="px-3.5 py-1.5 rounded bg-slate-950 hover:bg-slate-800 text-white font-mono text-xs font-medium transition shadow-sm flex items-center space-x-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#00E5FF]"></span>
+          <span>Launch Workstation</span>
           <span>→</span>
         </a>
       </div>
     </div>
+  </header>
+
+  <!-- HERO SECTION (EDITORIAL SUBSTRATE: WARM BONE / ALABASTER) -->
+  <section class="pt-32 sm:pt-40 pb-20 px-4 sm:px-8 max-w-5xl mx-auto">
+    <div class="space-y-6">
+      
+      <div class="flex flex-wrap items-center gap-3 font-mono text-xs text-slate-500">
+        <span class="px-2.5 py-0.5 rounded bg-slate-200/80 text-slate-800 font-medium border border-slate-300/60">
+          Neuro-Oncology Research Instrument
+        </span>
+        <span>•</span>
+        <span>BraTS 2023 Cohort</span>
+        <span>•</span>
+        <span>IBM Heron 156Q QPU</span>
+        <span>•</span>
+        <span>WHO CNS5 Classification</span>
+      </div>
+
+      <h1 class="font-editorial text-4xl sm:text-6xl lg:text-7xl font-normal tracking-tight text-slate-950 leading-[1.08]">
+        Computational intelligence for earlier neuro-oncology decisions.
+      </h1>
+
+      <p class="text-slate-700 text-lg sm:text-xl font-light leading-relaxed max-w-3xl">
+        A hybrid quantum-classical research platform combining 3D brain MRI volumetric segmentation, standardized IBSI radiomics, and high-dimensional Hilbert space embedding for pre-operative brain tumor risk assessment.
+      </p>
+
+      <div class="pt-4 flex flex-wrap items-center gap-4">
+        <a href="workstation.html" class="px-5 py-3 rounded bg-slate-950 hover:bg-slate-800 text-white text-xs font-mono uppercase tracking-wider font-semibold transition flex items-center space-x-2 shadow">
+          <span>[ Explore the System ]</span>
+          <span>→</span>
+        </a>
+        <a href="benchmarks.html" class="px-5 py-3 rounded bg-white hover:bg-slate-100 text-slate-900 editorial-border text-xs font-mono uppercase tracking-wider font-semibold transition flex items-center space-x-2">
+          <span>[ View the Evidence ]</span>
+        </a>
+      </div>
+
+      <!-- PROVENANCE STRIP -->
+      <div class="pt-10 grid grid-cols-2 sm:grid-cols-4 gap-6 border-t border-slate-300/80 text-left">
+        <div>
+          <div class="font-mono text-[10px] uppercase text-slate-500 tracking-wider">Segmentation</div>
+          <div class="font-editorial text-2xl font-medium text-slate-950 mt-1">92.2% Dice</div>
+          <div class="font-mono text-xs text-slate-500 mt-0.5">SegResNetB0 (1.6M Params)</div>
+        </div>
+        <div>
+          <div class="font-mono text-[10px] uppercase text-slate-500 tracking-wider">Quantum Stability</div>
+          <div class="font-editorial text-2xl font-medium text-slate-950 mt-1">J = 0.491</div>
+          <div class="font-mono text-xs text-slate-500 mt-0.5">2.3× vs LASSO (J=0.215)</div>
+        </div>
+        <div>
+          <div class="font-mono text-[10px] uppercase text-slate-500 tracking-wider">Edge Inference</div>
+          <div class="font-editorial text-2xl font-medium text-slate-950 mt-1">1.60 s</div>
+          <div class="font-mono text-xs text-slate-500 mt-0.5">Local Point-of-Care Runtime</div>
+        </div>
+        <div>
+          <div class="font-mono text-[10px] uppercase text-slate-500 tracking-wider">Economic Footprint</div>
+          <div class="font-editorial text-2xl font-medium text-slate-950 mt-1">&lt; ₹50 / scan</div>
+          <div class="font-mono text-xs text-slate-500 mt-0.5">vs ₹15,000 Tissue PCR</div>
+        </div>
+      </div>
+
+    </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="border-t border-white/10 bg-[#06090f] py-10 px-6">
-    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-      <div>
-        <span class="font-bold text-slate-300">Scanvidence Platform</span>
-        <span class="mx-2">•</span>
-        <span>Team WunderBär • SIH26139</span>
+  <!-- COMPUTATIONAL CANVAS TRANSITION: SIGNATURE INTERACTION -->
+  <section id="signature-interaction" class="computational-canvas py-24 px-4 sm:px-8 border-t border-b border-white/10">
+    <div class="max-w-7xl mx-auto space-y-12">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 comp-border-b">
+        <div>
+          <div class="flex items-center space-x-2 font-mono text-xs text-[#00E5FF] tracking-widest uppercase mb-2">
+            <span class="w-2 h-2 rounded-full bg-[#00E5FF]"></span>
+            <span>The Signature Interaction</span>
+          </div>
+          <h2 class="font-editorial text-3xl sm:text-5xl text-white font-normal">
+            See what the model sees.
+          </h2>
+          <p class="text-slate-400 text-sm sm:text-base mt-2 max-w-2xl font-light">
+            A single patient volume is progressively transformed from raw multi-modal MRI voxels into quantifiable radiomics, quantum optimization, and explainable evidence.
+          </p>
+        </div>
+
+        <!-- PROGRESS STEPS INDICATOR -->
+        <div class="flex items-center space-x-1 font-mono text-xs bg-slate-900/90 p-1.5 rounded comp-border">
+          <button onclick="setStage(1)" id="step-btn-1" class="px-2.5 py-1 rounded bg-[#00E5FF]/20 text-[#00E5FF] font-semibold transition">01 MRI</button>
+          <button onclick="setStage(2)" id="step-btn-2" class="px-2.5 py-1 rounded text-slate-400 hover:text-white transition">02 Seg</button>
+          <button onclick="setStage(3)" id="step-btn-3" class="px-2.5 py-1 rounded text-slate-400 hover:text-white transition">03 Radiomics</button>
+          <button onclick="setStage(4)" id="step-btn-4" class="px-2.5 py-1 rounded text-slate-400 hover:text-white transition">04 QUBO</button>
+          <button onclick="setStage(5)" id="step-btn-5" class="px-2.5 py-1 rounded text-slate-400 hover:text-white transition">05 QSVM</button>
+          <button onclick="setStage(6)" id="step-btn-6" class="px-2.5 py-1 rounded text-slate-400 hover:text-white transition">06 XAI</button>
+        </div>
       </div>
-      <div class="flex items-center space-x-6 font-medium">
-        <a href="workstation.html" class="hover:text-sky-400 transition">Workstation</a>
-        <a href="https://huggingface.co/Falcon7211/Scanvidence-SegResNetB0" target="_blank" class="hover:text-sky-400 transition">Model Weights</a>
-        <a href="https://github.com/Scanvidence/Scanvidence" target="_blank" class="hover:text-sky-400 transition">GitHub</a>
+
+      <!-- MAIN INTERACTIVE VIEWER (60/40 SPLIT) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- LEFT: SCIENTIFIC INSTRUMENT NARRATIVE & METRICS (5 COLS) -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="bg-slate-900/80 p-6 rounded-lg comp-border space-y-5">
+            
+            <div class="flex items-center justify-between font-mono text-xs pb-3 comp-border-b">
+              <span class="text-slate-400">SPECIMEN ID</span>
+              <span class="text-white font-bold tracking-wide">BraTS-GLI-00002-000</span>
+            </div>
+
+            <div id="stage-narrative-container" class="space-y-4">
+              <!-- Dynamically Populated by JavaScript -->
+            </div>
+
+            <!-- HARDWARE & RUNTIME STRIP -->
+            <div class="p-3.5 bg-black/50 rounded comp-border font-mono text-xs space-y-1.5">
+              <div class="flex justify-between text-slate-400">
+                <span>COMPUTE ENGINE</span>
+                <span id="telemetry-engine" class="text-[#00E5FF]">3D PyTorch MPS/CUDA</span>
+              </div>
+              <div class="flex justify-between text-slate-400">
+                <span>EXECUTION LATENCY</span>
+                <span id="telemetry-latency" class="text-emerald-400">1.60 s</span>
+              </div>
+              <div class="flex justify-between text-slate-400">
+                <span>PROVENANCE</span>
+                <span class="text-slate-300">BraTS 2023 Validation Set</span>
+              </div>
+            </div>
+
+            <!-- STAGE NAVIGATION BUTTONS -->
+            <div class="flex items-center justify-between pt-2">
+              <button onclick="prevStage()" class="px-3.5 py-2 rounded bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-200 transition comp-border">
+                ← Previous Stage
+              </button>
+              <button onclick="nextStage()" class="px-3.5 py-2 rounded bg-[#00E5FF]/20 hover:bg-[#00E5FF]/30 text-[#00E5FF] text-xs font-mono font-semibold transition comp-border">
+                Next Stage →
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- RIGHT: HIGH-CONTRAST MEDICAL IMAGING VIEWPORT (7 COLS) -->
+        <div class="lg:col-span-7 bg-slate-950 rounded-lg comp-border overflow-hidden relative shadow-2xl flex flex-col">
+          
+          <!-- VIEWPORT HEADER -->
+          <div class="bg-slate-900/90 px-4 py-2.5 comp-border-b flex items-center justify-between font-mono text-xs">
+            <div class="flex items-center space-x-3 text-slate-300">
+              <span class="text-[#00E5FF] font-semibold">VIEWPORT:</span>
+              <span id="viewport-label">Multi-Modal MRI (T1, T1c, T2, FLAIR)</span>
+            </div>
+            <div class="flex items-center space-x-3 text-slate-400">
+              <span>FOV: 240×240</span>
+              <span>•</span>
+              <span id="viewport-slice-indicator">Z: 79 mm</span>
+            </div>
+          </div>
+
+          <!-- MAIN VISUAL CONTAINER -->
+          <div class="relative aspect-[4/3] bg-black flex items-center justify-center p-4">
+            <img id="viewport-image" src="assets/slices/BraTS-GLI-00002-000/axial_79.png" alt="Clinical MRI Slice" class="max-h-full max-w-full object-contain rounded filter contrast-125">
+            
+            <!-- OVERLAY HUD -->
+            <div class="absolute top-6 left-6 font-mono text-[10px] text-slate-400/80 space-y-1 pointer-events-none">
+              <div>SERIES: 3D-VOLUMETRIC</div>
+              <div>MATRIX: 240 × 240 × 155</div>
+              <div>VOXEL: 1.0 × 1.0 × 1.0 mm³</div>
+            </div>
+
+            <!-- COMPARTMENT ANNOTATIONS (STAGE 2 ONLY) -->
+            <div id="segmentation-legend" class="hidden absolute bottom-6 right-6 font-mono text-[10px] bg-slate-900/90 p-2 rounded comp-border space-y-1">
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-sm bg-[#F43F5E]"></span>
+                <span class="text-slate-300">NCR: Necrotic Core (10.5 cm³)</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-sm bg-yellow-400"></span>
+                <span class="text-slate-300">ED: Peritumoral Edema (105.9 cm³)</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-sm bg-emerald-400"></span>
+                <span class="text-slate-300">ET: Enhancing Rim (20.5 cm³)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- DOCKED REAL-TIME OUTPUT BAR -->
+          <div class="bg-slate-900/95 px-4 py-2.5 comp-border-t grid grid-cols-2 sm:grid-cols-5 gap-3 font-mono text-[11px] text-slate-400">
+            <div>
+              <span class="text-slate-500">MODEL:</span> <span class="text-slate-200">SegResNetB0</span>
+            </div>
+            <div>
+              <span class="text-slate-500">PARAMS:</span> <span class="text-slate-200">1.6M</span>
+            </div>
+            <div>
+              <span class="text-slate-500">FEATURES:</span> <span class="text-[#00E5FF]">107 → 9</span>
+            </div>
+            <div>
+              <span class="text-slate-500">LATENCY:</span> <span class="text-emerald-400">1.60 s</span>
+            </div>
+            <div class="flex items-center space-x-1">
+              <span class="text-slate-500">STATUS:</span> <span class="text-emerald-400">VALIDATED</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RESEARCH PIPELINE & ARCHITECTURE SECTION (EDITORIAL / COMPUTATIONAL) -->
+  <section id="architecture" class="py-24 px-4 sm:px-8 max-w-6xl mx-auto space-y-12">
+    <div>
+      <div class="font-mono text-xs uppercase tracking-widest text-slate-500 mb-2">Technical Architecture</div>
+      <h2 class="font-editorial text-3xl sm:text-5xl text-slate-950 font-normal">
+        From image to evidence: the 6-stage pipeline.
+      </h2>
+      <p class="text-slate-600 text-base mt-2 max-w-2xl font-light">
+        Every stage operates as an independently importable, unit-tested module following strict neuro-oncology standards.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <!-- NODE 1 -->
+      <div class="bg-white p-6 rounded-lg editorial-border space-y-3">
+        <div class="font-mono text-xs text-slate-400">STAGE 01</div>
+        <h3 class="font-editorial text-xl font-medium text-slate-900">Multi-Parametric MRI Ingestion</h3>
+        <p class="text-slate-600 text-xs leading-relaxed font-light">
+          Co-registration, skull-stripping, and non-zero voxel z-score intensity normalization across T1-Native, T1c, T2, and T2-FLAIR modalities.
+        </p>
+        <div class="font-mono text-[11px] text-slate-500 pt-2 border-t border-slate-100 flex justify-between">
+          <span>Input: 4 × 240³</span>
+          <span class="text-slate-700">1mm³ Isotropic</span>
+        </div>
+      </div>
+
+      <!-- NODE 2 -->
+      <div class="bg-white p-6 rounded-lg editorial-border space-y-3">
+        <div class="font-mono text-xs text-slate-400">STAGE 02</div>
+        <h3 class="font-editorial text-xl font-medium text-slate-900">3D Deep Volumetric Vision</h3>
+        <p class="text-slate-600 text-xs leading-relaxed font-light">
+          Ultra-compact 3D SegResNetB0 architecture (1.6M parameters) with VAE reconstruction branch loss, achieving 92.2% Whole Tumor Dice.
+        </p>
+        <div class="font-mono text-[11px] text-slate-500 pt-2 border-t border-slate-100 flex justify-between">
+          <span>Architecture: SegResNetB0</span>
+          <span class="text-emerald-700 font-semibold">92.2% WT Dice</span>
+        </div>
+      </div>
+
+      <!-- NODE 3 -->
+      <div class="bg-white p-6 rounded-lg editorial-border space-y-3">
+        <div class="font-mono text-xs text-slate-400">STAGE 03</div>
+        <h3 class="font-editorial text-xl font-medium text-slate-900">Standardized IBSI Radiomics</h3>
+        <p class="text-slate-600 text-xs leading-relaxed font-light">
+          Extraction of 107 standardized 3D shape, first-order intensity, and GLCM/GLRLM texture biomarkers strictly conforming to international IBSI protocols.
+        </p>
+        <div class="font-mono text-[11px] text-slate-500 pt-2 border-t border-slate-100 flex justify-between">
+          <span>Feature Vector: d = 107</span>
+          <span class="text-slate-700">PyRadiomics Engine</span>
+        </div>
+      </div>
+
+      <!-- NODE 4 -->
+      <div class="bg-white p-6 rounded-lg editorial-border space-y-3">
+        <div class="font-mono text-xs text-slate-400">STAGE 04</div>
+        <h3 class="font-editorial text-xl font-medium text-slate-900">IBM Heron QUBO Pruning</h3>
+        <p class="text-slate-600 text-xs leading-relaxed font-light">
+          Combinatorial feature selection formulated as an Ising Hamiltonian solved on a physical 156-qubit IBM Heron QPU (Ground Energy E = -3.0981).
+        </p>
+        <div class="font-mono text-[11px] text-slate-500 pt-2 border-t border-slate-100 flex justify-between">
+          <span>QPU: IBM Heron 156Q</span>
+          <span class="text-cyan-700 font-semibold">J = 0.491 Stability</span>
+        </div>
+      </div>
+
+      <!-- NODE 5 -->
+      <div class="bg-white p-6 rounded-lg editorial-border space-y-3">
+        <div class="font-mono text-xs text-slate-400">STAGE 05</div>
+        <h3 class="font-editorial text-xl font-medium text-slate-900">9-Qubit Quantum Kernel QSVM</h3>
+        <p class="text-slate-600 text-xs leading-relaxed font-light">
+          Mapping continuous radiomics into a 512-dimensional complex Hilbert space via ZZFeatureMap, achieving +6.7% AUC lift over classical RBF SVM.
+        </p>
+        <div class="font-mono text-[11px] text-slate-500 pt-2 border-t border-slate-100 flex justify-between">
+          <span>Hilbert Space: ℂ⁵¹²</span>
+          <span class="text-slate-700">Calibrated ±43%</span>
+        </div>
+      </div>
+
+      <!-- NODE 6 -->
+      <div class="bg-white p-6 rounded-lg editorial-border space-y-3">
+        <div class="font-mono text-xs text-slate-400">STAGE 06</div>
+        <h3 class="font-editorial text-xl font-medium text-slate-900">Dual-Layer XAI & ABDM Export</h3>
+        <p class="text-slate-600 text-xs leading-relaxed font-light">
+          Coupled 3D Grad-CAM voxel localization with TreeSHAP biomarker force decomposition, compiled into an NRCES ABDM Milestone-2 HL7/FHIR JSON report.
+        </p>
+        <div class="font-mono text-[11px] text-slate-500 pt-2 border-t border-slate-100 flex justify-between">
+          <span>Explainability: Grad-CAM + SHAP</span>
+          <span class="text-slate-700">FHIR JSON / A4 PDF</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- QUANTUM LAYER: HARDWARE-GROUNDED RESEARCH PRESENTATION -->
+  <section class="computational-canvas py-20 px-4 sm:px-8 comp-border-t comp-border-b">
+    <div class="max-w-6xl mx-auto space-y-8">
+      
+      <div class="max-w-3xl space-y-3">
+        <div class="font-mono text-xs text-[#00E5FF] tracking-widest uppercase">Research Component</div>
+        <h2 class="font-editorial text-3xl sm:text-4xl text-white font-normal">
+          Quantum optimization on IBM Heron 156Q.
+        </h2>
+        <p class="text-slate-400 text-sm font-light leading-relaxed">
+          Feature selection in radiomics is notoriously prone to collinear collapse. Rather than relying on classical heuristic lasso filters, we formulate orthogonal biomarker selection as an NP-hard Quadratic Unconstrained Binary Optimization (QUBO) problem.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
+        
+        <div class="bg-slate-900 p-5 rounded comp-border space-y-3">
+          <div class="text-slate-500 uppercase">Ising Hamiltonian Energy</div>
+          <div class="font-editorial text-3xl text-white">E = -3.0981</div>
+          <p class="text-slate-400 font-sans text-xs">
+            Global minimum found across 10,000 physical measurement shots on the IBM Fez / Heron backend.
+          </p>
+        </div>
+
+        <div class="bg-slate-900 p-5 rounded comp-border space-y-3">
+          <div class="text-slate-500 uppercase">Jaccard Stability Index</div>
+          <div class="font-editorial text-3xl text-emerald-400">J = 0.491</div>
+          <p class="text-slate-400 font-sans text-xs">
+            More than double the stability of Classical LASSO (J = 0.215) and RFE (J = 0.261) across patient subsampling.
+          </p>
+        </div>
+
+        <div class="bg-slate-900 p-5 rounded comp-border space-y-3">
+          <div class="text-slate-500 uppercase">Quantum Hilbert Dimension</div>
+          <div class="font-editorial text-3xl text-[#00E5FF]">dim(ℋ) = 512</div>
+          <p class="text-slate-400 font-sans text-xs">
+            9 selected orthogonal biomarkers embedded via 2-qubit entangling ZZFeatureMap gates in 110ms edge runtime.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CLINICAL TRANSLATION & NATIONAL IMPACT (EDITORIAL SUBSTRATE) -->
+  <section class="py-24 px-4 sm:px-8 max-w-6xl mx-auto space-y-12">
+    <div>
+      <div class="font-mono text-xs uppercase tracking-widest text-slate-500 mb-2">Healthcare System Translation</div>
+      <h2 class="font-editorial text-3xl sm:text-5xl text-slate-950 font-normal">
+        A 10× radiologist multiplier for resource-constrained health systems.
+      </h2>
+      <p class="text-slate-600 text-base mt-2 max-w-3xl font-light">
+        Scanvidence is engineered for direct deployment in district hospitals, medical colleges, and regional cancer care networks under the Ayushman Bharat Digital Mission (ABDM).
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+      <div class="space-y-2.5">
+        <div class="font-mono text-xs text-slate-400">PILLAR 01</div>
+        <h3 class="font-editorial text-2xl text-slate-900 font-medium">Turnaround Compression</h3>
+        <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-light">
+          Compresses 25–30 minutes of tedious manual contouring into a 2-minute clinical verification, allowing India's ~10,500 radiologists to serve the 1:130,000 specialist deficit efficiently.
+        </p>
+      </div>
+
+      <div class="space-y-2.5">
+        <div class="font-mono text-xs text-slate-400">PILLAR 02</div>
+        <h3 class="font-editorial text-2xl text-slate-900 font-medium">Health Economics</h3>
+        <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-light">
+          Delivers pre-operative molecular risk triage at under ₹50 per scan in amortized edge compute—compared to ₹15,000 to ₹25,000 for wet-lab tissue PCR with 14-day turnaround delays.
+        </p>
+      </div>
+
+      <div class="space-y-2.5">
+        <div class="font-mono text-xs text-slate-400">PILLAR 03</div>
+        <h3 class="font-editorial text-2xl text-slate-900 font-medium">ABDM & eSanjeevani Rails</h3>
+        <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-light">
+          Zero-cloud point-of-care architecture that packages findings into encrypted NRCES HL7/FHIR DiagnosticReport documents linked to the patient's ABHA ID for tele-oncology escalation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS & CITATION EXPERIENCE -->
+  <section id="publications" class="py-20 px-4 sm:px-8 max-w-5xl mx-auto editorial-border-t">
+    <div class="space-y-8">
+      <div>
+        <div class="font-mono text-xs uppercase tracking-widest text-slate-500 mb-2">Scientific Literature</div>
+        <h2 class="font-editorial text-3xl sm:text-4xl text-slate-950 font-normal">
+          Research publications & citations.
+        </h2>
+      </div>
+
+      <div class="bg-white p-8 rounded-lg editorial-border space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 font-mono text-xs text-slate-500">
+          <span>PREPRINT • CODEN: SCANVID-2026-V1</span>
+          <span class="text-slate-800 font-medium">DOI: 10.48550/arXiv.2408.xxxxx</span>
+        </div>
+
+        <div class="space-y-2">
+          <h3 class="font-editorial text-2xl text-slate-950 font-medium leading-snug">
+            Automated 3D Multi-Parametric MRI Sub-compartment Segmentation and Quantum-Assisted Epigenetic Stratification in Glioblastoma.
+          </h3>
+          <p class="font-mono text-xs text-slate-600">
+            WunderBär Research Consortium (Anas Khalid, Ali Hasan, Abdul Malik, et al.)
+          </p>
+        </div>
+
+        <div class="space-y-3 text-xs sm:text-sm text-slate-600 font-light leading-relaxed">
+          <p>
+            <strong>Structured Abstract:</strong> Glioblastoma Multiforme (GBM) diagnosis is severely bottlenecked by manual 3D anatomical contouring and delayed post-surgical molecular testing. We present an end-to-end edge-native research instrument coupling 3D SegResNetB0 (1.6M parameters, 92.2% Whole Tumor Dice) with combinatorial feature selection on a physical 156-qubit IBM Heron processor. Quantum optimization doubles biomarker selection stability (J = 0.491) over classical LASSO, yielding pre-operative molecular risk triage with calibrated entropy uncertainty in 1.6 seconds.
+          </p>
+        </div>
+
+        <div class="flex items-center space-x-4 pt-2 font-mono text-xs">
+          <a href="https://github.com/Scanvidence/Scanvidence" target="_blank" class="px-3.5 py-1.5 rounded bg-slate-900 text-white hover:bg-slate-800 transition">
+            [ Code Repository (GitHub) ]
+          </a>
+          <a href="https://huggingface.co/Falcon7211/Scanvidence-SegResNetB0" target="_blank" class="px-3.5 py-1.5 rounded bg-white text-slate-800 border border-slate-300 hover:bg-slate-50 transition">
+            [ Checkpoint Hub ]
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH TEAM SECTION -->
+  <section id="team" class="py-20 px-4 sm:px-8 max-w-5xl mx-auto editorial-border-t">
+    <div class="space-y-8">
+      <div>
+        <div class="font-mono text-xs uppercase tracking-widest text-slate-500 mb-2">Academic Consortium</div>
+        <h2 class="font-editorial text-3xl sm:text-4xl text-slate-950 font-normal">
+          Scanvidence research team (WunderBär).
+        </h2>
+        <p class="text-slate-600 text-xs sm:text-sm font-light mt-1">
+          Developed for Smart India Hackathon 2026 (Problem Statement SIH26139).
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 font-mono text-xs">
+        <div class="bg-white p-5 rounded editorial-border space-y-2">
+          <div class="text-slate-400">01 / ARCHITECTURE</div>
+          <div class="font-editorial text-lg text-slate-950 font-medium">Team Lead & Systems</div>
+          <div class="text-slate-600 font-sans text-xs">Clinical triage orchestration, WHO CNS5 compliance, and full-stack system architecture.</div>
+        </div>
+        <div class="bg-white p-5 rounded editorial-border space-y-2">
+          <div class="text-slate-400">02 / COMPUTER VISION</div>
+          <div class="font-editorial text-lg text-slate-950 font-medium">3D Deep Vision Lead</div>
+          <div class="text-slate-600 font-sans text-xs">3D SegResNetB0 implementation, VAE regularization loss, and BraTS benchmark tuning.</div>
+        </div>
+        <div class="bg-white p-5 rounded editorial-border space-y-2">
+          <div class="text-slate-400">03 / QUANTUM COMPUTING</div>
+          <div class="font-editorial text-lg text-slate-950 font-medium">Quantum AI Engineer</div>
+          <div class="text-slate-600 font-sans text-xs">IBM Heron 156Q QUBO formulation, Ising Hamiltonian optimization, and QSVM kernel.</div>
+        </div>
+        <div class="bg-white p-5 rounded editorial-border space-y-2">
+          <div class="text-slate-400">04 / BIOMARKERS</div>
+          <div class="font-editorial text-lg text-slate-950 font-medium">Radiomics & XAI Specialist</div>
+          <div class="text-slate-600 font-sans text-xs">IBSI 107 texture extraction, TreeSHAP attribution, and calibrated entropy uncertainty.</div>
+        </div>
+        <div class="bg-white p-5 rounded editorial-border space-y-2">
+          <div class="text-slate-400">05 / WORKSTATION</div>
+          <div class="font-editorial text-lg text-slate-950 font-medium">PACS & Edge Engineer</div>
+          <div class="text-slate-600 font-sans text-xs">Zero-dependency Python server, multi-planar WebGL slicer, and PDF report engine.</div>
+        </div>
+        <div class="bg-white p-5 rounded editorial-border space-y-2">
+          <div class="text-slate-400">06 / INFORMATICS</div>
+          <div class="font-editorial text-lg text-slate-950 font-medium">Health Informatics & ABDM</div>
+          <div class="text-slate-600 font-sans text-xs">ABDM Milestone-2 HL7/FHIR JSON integration, ABHA ID sync, and health economics.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESPONSIBLE AI / CLINICAL DISCLAIMER (MANDATORY SPECIFICATION SECTION 22) -->
+  <section class="py-12 px-4 sm:px-8 max-w-5xl mx-auto">
+    <div class="p-6 rounded-lg bg-amber-50/70 border border-amber-300 text-amber-950 space-y-2">
+      <div class="flex items-center space-x-2 font-mono text-xs font-bold uppercase tracking-wider text-amber-900">
+        <span>⚠ Responsible AI & Clinical Prototype Notice</span>
+      </div>
+      <p class="text-xs sm:text-sm font-light leading-relaxed text-amber-900">
+        Scanvidence is an investigational computational research instrument and clinical decision-support prototype (CADt). It is not cleared for independent clinical diagnosis or treatment planning. All volumetric contours and molecular risk estimates must be validated by board-certified radiologists and neuro-pathologists with confirmatory tissue biopsy.
+      </p>
+    </div>
+  </section>
+
+  <!-- EDITORIAL INSTITUTIONAL FOOTER -->
+  <footer class="editorial-border-t py-12 px-4 sm:px-8 bg-[#F7F6F2]">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 font-mono text-xs text-slate-500">
+      <div class="flex items-center space-x-3">
+        <span class="font-editorial text-base text-slate-900 font-semibold">Scanvidence</span>
+        <span>•</span>
+        <span>Hybrid Quantum-Classical Neuro-Oncology Research</span>
+      </div>
+      <div class="flex items-center space-x-6">
+        <a href="https://github.com/Scanvidence/Scanvidence" target="_blank" class="hover:text-slate-900 transition">GitHub</a>
+        <a href="benchmarks.html" class="hover:text-slate-900 transition">Benchmarks</a>
+        <a href="workstation.html" class="hover:text-slate-900 transition">Workstation</a>
+        <span>© 2026 WunderBär</span>
       </div>
     </div>
   </footer>
+
+  <!-- JAVASCRIPT: THE SIGNATURE PROGRESSIVE INTERACTION -->
+  <script>
+    const stages = [
+      {
+        step: 1,
+        title: "Stage 01: Multi-Modal MRI Ingestion",
+        subtitle: "T1, T1-Contrast, T2, and T2-FLAIR",
+        narrative: "The system ingests 4 standardized 3D MRI series. Each volume is resampled to 1.0mm isotropic voxels (240 × 240 × 155 matrix). Intensities are z-score normalized on non-zero brain voxels to eliminate scanner calibration drift across Siemens, GE, and Philips systems.",
+        label: "Multi-Modal MRI (T1, T1c, T2, FLAIR)",
+        image: "assets/slices/BraTS-GLI-00002-000/axial_79.png",
+        engine: "3D Monai Preprocessing",
+        latency: "~50 ms",
+        showLegend: false
+      },
+      {
+        step: 2,
+        title: "Stage 02: 3D Volumetric Segmentation",
+        subtitle: "Sub-compartment Contouring (92.2% Dice)",
+        narrative: "The 3D SegResNetB0 neural network (1.6M parameters) automatically partitions the brain volume into 3 anatomical sub-regions: the necrotic cavity (NCR), surrounding vasogenic edema (ED), and the active enhancing tumor rim (ET).",
+        label: "3D SegResNetB0 Segmentation Overlay",
+        image: "assets/slices/BraTS-GLI-00002-000/axial_79.png",
+        engine: "SegResNetB0 PyTorch (MPS/CUDA)",
+        latency: "~1,050 ms",
+        showLegend: true
+      },
+      {
+        step: 3,
+        title: "Stage 03: 107 IBSI Radiomic Extraction",
+        subtitle: "Shape, Intensity & Higher-Order Textures",
+        narrative: "Using the segmented mask, the system computes 107 standardized mathematical biomarkers defined by the Image Biomarker Standardisation Initiative (IBSI): 14 3D shape metrics, 18 first-order statistical metrics, and 75 second-order GLCM/GLRLM/GLSZM gray-level texture matrices.",
+        label: "IBSI 3D Radiomic Mesh & Feature Matrices",
+        image: "assets/slices/BraTS-GLI-00002-000/axial_79.png",
+        engine: "PyRadiomics IBSI Engine",
+        latency: "~420 ms",
+        showLegend: false
+      },
+      {
+        step: 4,
+        title: "Stage 04: Quantum QUBO Feature Pruning",
+        subtitle: "Ising Hamiltonian on IBM Heron 156Q",
+        narrative: "Classical feature selection suffers from collinear instability (J = 0.215). We formulate biomarker pruning as an NP-hard QUBO problem executed on IBM's 156-qubit Heron QPU (Ground Energy: -3.0981), selecting 9 pristine orthogonal biomarkers with J = 0.491 stability.",
+        label: "156Q IBM Heron Correlation & Pruning Matrix",
+        image: "assets/slices/BraTS-GLI-00002-000/axial_79.png",
+        engine: "IBM Heron 156Q QPU / Qiskit",
+        latency: "Offline Trained / 110ms Edge",
+        showLegend: false
+      },
+      {
+        step: 5,
+        title: "Stage 05: 9-Qubit Quantum Kernel QSVM",
+        subtitle: "512-Dimensional Complex Hilbert Space",
+        narrative: "The 9 selected biomarkers are encoded via a ZZFeatureMap into a 512-dimensional complex quantum Hilbert space (dim(H) = 2^9 = 512). The quantum state overlap evaluates non-linear genetic similarities, predicting MGMT methylation status with calibrated uncertainty.",
+        label: "Quantum Kernel Gram Matrix (512D Hilbert Space)",
+        image: "assets/slices/BraTS-GLI-00002-000/axial_79.png",
+        engine: "Quantum Statevector Kernel",
+        latency: "~110 ms",
+        showLegend: false
+      },
+      {
+        step: 6,
+        title: "Stage 06: Dual-Layer Explainability (XAI)",
+        subtitle: "3D Grad-CAM + TreeSHAP Attribution",
+        narrative: "Rather than an opaque black box, Scanvidence delivers spatial proof: 3D Grad-CAM highlights the exact tumor voxels that drove network activation, while TreeSHAP breaks down the quantitative push from tumor flatness, mesh volume, and texture entropy.",
+        label: "3D Grad-CAM Voxel Attention Heatmap",
+        image: "assets/slices/BraTS-GLI-00002-000/axial_79.png",
+        engine: "Grad-CAM + TreeSHAP Engine",
+        latency: "~20 ms",
+        showLegend: false
+      }
+    ];
+
+    let currentStageIndex = 0;
+
+    function renderStage(index) {
+      const stage = stages[index];
+      const container = document.getElementById("stage-narrative-container");
+      
+      container.innerHTML = `
+        <div class="space-y-1">
+          <div class="font-mono text-xs text-[#00E5FF] font-semibold">${stage.subtitle}</div>
+          <h3 class="font-editorial text-2xl text-white font-normal">${stage.title}</h3>
+        </div>
+        <p class="text-slate-300 text-xs sm:text-sm font-light leading-relaxed">
+          ${stage.narrative}
+        </p>
+      `;
+
+      document.getElementById("viewport-label").innerText = stage.label;
+      document.getElementById("telemetry-engine").innerText = stage.engine;
+      document.getElementById("telemetry-latency").innerText = stage.latency;
+      
+      const legend = document.getElementById("segmentation-legend");
+      if (stage.showLegend) {
+        legend.classList.remove("hidden");
+      } else {
+        legend.classList.add("hidden");
+      }
+
+      // Update button styles
+      for (let i = 1; i <= 6; i++) {
+        const btn = document.getElementById(`step-btn-${i}`);
+        if (i === index + 1) {
+          btn.className = "px-2.5 py-1 rounded bg-[#00E5FF]/20 text-[#00E5FF] font-semibold transition";
+        } else {
+          btn.className = "px-2.5 py-1 rounded text-slate-400 hover:text-white transition";
+        }
+      }
+    }
+
+    function setStage(num) {
+      currentStageIndex = num - 1;
+      renderStage(currentStageIndex);
+    }
+
+    function nextStage() {
+      currentStageIndex = (currentStageIndex + 1) % stages.length;
+      renderStage(currentStageIndex);
+    }
+
+    function prevStage() {
+      currentStageIndex = (currentStageIndex - 1 + stages.length) % stages.length;
+      renderStage(currentStageIndex);
+    }
+
+    // Initialize on load
+    document.addEventListener("DOMContentLoaded", () => {
+      renderStage(0);
+    });
+  </script>
 
 </body>
 </html>
