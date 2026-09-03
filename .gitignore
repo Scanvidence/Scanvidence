@@ -54,5 +54,6 @@ notebooks/*.png
 
 # --- OS / editor ---
 .DS_Store
+*.zip
 .vscode/
 .idea/
