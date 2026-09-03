@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scanvidence — Clinical PACS Workstation & Diagnostic Triage</title>
+  <title>Scanvidence — Science AI Workbench & Clinical Neuro-Oncology Workstation</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -14,19 +14,26 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,600&display=swap');
     
     :root {
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       --font-editorial: 'Newsreader', serif;
+      --font-interface: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
+      
+      --color-editorial-bg: #F7F6F2;
+      --color-computational-bg: #0A0D14;
+      --color-cyan: #00E5FF;
+      --color-emerald: #10B981;
+      --color-magenta: #F43F5E;
+      --color-graphite: #64748B;
     }
+    
     body {
-      font-family: var(--font-sans);
-      background-color: #0A0D14;
-      color: #F8FAFC;
+      font-family: var(--font-interface);
+      background-color: var(--color-editorial-bg);
+      color: #1E293B;
       letter-spacing: -0.011em;
+      -webkit-font-smoothing: antialiased;
     }
-    h1, h2, h3, h4 {
-      font-family: var(--font-editorial);
-    }
+    
     .font-editorial {
       font-family: var(--font-editorial);
     }
@@ -34,20 +41,26 @@
       font-family: var(--font-mono);
     }
     
-    .pacs-panel {
+    .computational-canvas {
+      background-color: var(--color-computational-bg);
+      color: #F8FAFC;
+    }
+    
+    .editorial-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    }
+    
+    .comp-card {
       background: #0F172A;
       border: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.6);
     }
+    
     .pacs-viewport {
       background: #000000;
       border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .pacs-nav {
-      background: rgba(10, 13, 20, 0.95);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
     
     .crosshair-h {
@@ -60,6 +73,7 @@
       box-shadow: 0 0 4px rgba(0, 229, 255, 0.9);
       z-index: 10;
     }
+    
     .crosshair-v {
       position: absolute;
       top: 0;
@@ -114,50 +128,65 @@
     }
   </style>
 </head>
-<body class="min-h-screen bg-[#0b0f17] text-slate-200 antialiased selection:bg-sky-500 selection:text-white">
+<body class="min-h-screen selection:bg-cyan-500 selection:text-black">
 
-  <!-- TOP PACS HEADER -->
-  <header class="no-print sticky top-0 z-50 pacs-nav px-4 sm:px-6 py-2.5 flex items-center justify-between">
-    <div class="flex items-center space-x-3">
-      <a href="index.html" class="flex items-center space-x-2 text-slate-400 hover:text-white transition">
-        <div class="w-7 h-7 rounded-lg bg-sky-600 flex items-center justify-center font-bold text-white text-xs shadow-inner">
-          SC
-        </div>
-        <span class="text-xs font-semibold">← Home</span>
-      </a>
-      <div class="border-l border-slate-800 pl-3">
-        <div class="flex items-center space-x-2">
-          <span class="text-sm font-bold tracking-tight text-white">Clinical PACS Workstation</span>
-          <span class="px-1.5 py-0.5 text-[9px] font-mono uppercase tracking-wider bg-slate-800 text-sky-400 rounded border border-slate-700">Diagnostic CADt</span>
+  <!-- TOP EDITORIAL MASTHEAD (ANTHROPIC CLAUDE SCIENCE WORKBENCH STYLE) -->
+  <header class="no-print fixed top-0 left-0 right-0 z-50 bg-[#F7F6F2]/95 backdrop-blur-md border-b border-slate-300/80 px-4 sm:px-8 py-3 transition-colors">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      
+      <!-- LOGO & SUBJECT PILLS -->
+      <div class="flex items-center space-x-3 sm:space-x-4">
+        <a href="index.html" class="flex items-center space-x-2.5 group">
+          <div class="w-7 h-7 rounded bg-slate-900 text-white font-mono text-xs font-bold flex items-center justify-center tracking-tighter shadow-sm">
+            SC
+          </div>
+          <span class="font-editorial text-xl font-semibold tracking-tight text-slate-950 group-hover:text-cyan-700 transition">
+            Scanvidence
+          </span>
+        </a>
+        
+        <div class="hidden md:flex items-center space-x-2 pl-3 border-l border-slate-300 font-mono text-[11px] text-slate-600">
+          <span class="px-2 py-0.5 rounded bg-slate-200/80 text-slate-800 font-medium">Science AI Workbench</span>
+          <span>•</span>
+          <span class="text-emerald-700 font-semibold">CADt Active</span>
         </div>
       </div>
-    </div>
 
-    <!-- PACS NAVIGATION TABS -->
-    <nav class="flex items-center space-x-1 p-1 rounded-lg bg-slate-900 border border-slate-800 text-xs font-semibold">
-      <button onclick="switchTab('pacs')" id="tab-btn-pacs" class="px-3.5 py-1.5 rounded-md bg-sky-600 text-white transition">Multi-Planar Slicer</button>
-      <button onclick="switchTab('findings')" id="tab-btn-findings" class="px-3.5 py-1.5 rounded-md text-slate-400 hover:text-white transition">Quantitative Findings</button>
-      <button onclick="switchTab('report')" id="tab-btn-report" class="px-3.5 py-1.5 rounded-md text-slate-400 hover:text-white transition">Diagnostic Report (PDF)</button>
-      <a href="benchmarks.html" class="px-3 py-1.5 rounded-md text-slate-400 hover:text-sky-400 transition hidden sm:inline-block">Benchmarks & Audit</a>
-    </nav>
+      <!-- WORKBENCH TAB NAVIGATION -->
+      <nav class="flex items-center space-x-1 p-1 rounded-lg bg-slate-200/90 border border-slate-300 text-xs font-mono">
+        <button onclick="switchTab('pacs')" id="tab-btn-pacs" class="px-3.5 py-1.5 rounded bg-slate-950 text-white font-medium transition shadow-xs">
+          01 / Slicer Workbench
+        </button>
+        <button onclick="switchTab('findings')" id="tab-btn-findings" class="px-3.5 py-1.5 rounded text-slate-600 hover:text-slate-950 transition">
+          02 / Evidence & Audit
+        </button>
+        <button onclick="switchTab('report')" id="tab-btn-report" class="px-3.5 py-1.5 rounded text-slate-600 hover:text-slate-950 transition">
+          03 / Formal Report (PDF)
+        </button>
+      </nav>
 
-    <!-- RIGHT CONTROLS -->
-    <div class="flex items-center space-x-3 text-xs">
-      <button onclick="window.print()" class="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-white font-medium text-xs border border-slate-700 transition">
-        Print PDF
-      </button>
+      <!-- RIGHT ACTIONS -->
+      <div class="flex items-center space-x-3 text-xs font-mono">
+        <a href="benchmarks.html" class="hidden lg:inline-flex items-center text-slate-600 hover:text-slate-950 px-3 py-1.5 rounded border border-slate-300 transition">
+          Evidence Lab ↗
+        </a>
+        <button onclick="window.print()" class="px-3.5 py-1.5 rounded bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 font-medium transition shadow-xs flex items-center space-x-1.5">
+          <span>Print A4 PDF</span>
+        </button>
+      </div>
+
     </div>
   </header>
 
-  <!-- MAIN PACS CONTAINER -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-4">
+  <!-- MAIN WORKBENCH CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-8 pt-24 pb-20 space-y-6">
 
-    <!-- PATIENT STUDY BAR -->
-    <div class="no-print pacs-panel rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3 text-xs border border-slate-800">
-      <div class="flex items-center space-x-4">
+    <!-- PROVENANCE & SPECIMEN STUDY BAR -->
+    <div class="no-print editorial-card rounded-xl p-4 flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
+      <div class="flex flex-wrap items-center gap-6">
         <div>
-          <span class="text-slate-400 block text-[10px] uppercase font-bold">Selected Case (13 3D Volumes Available):</span>
-          <select id="case-selector" onchange="onCaseSwitch()" class="bg-slate-900 border border-slate-700 text-white rounded px-2.5 py-1 text-xs font-semibold focus:outline-none focus:border-sky-500 cursor-pointer">
+          <span class="text-slate-500 block text-[10px] uppercase font-bold tracking-wider">Specimen Volume (13 BraTS Cases):</span>
+          <select id="case-selector" onchange="onCaseSwitch()" class="mt-1 bg-white border border-slate-300 text-slate-900 rounded px-3 py-1.5 text-xs font-semibold focus:outline-none focus:border-cyan-600 cursor-pointer shadow-xs">
             <option value="BraTS-GLI-00002-000">BraTS-GLI-00002-000 (Glioblastoma, High-Risk Profile)</option>
             <option value="BraTS-GLI-00003-000">BraTS-GLI-00003-000 (Astrocytoma, Moderate-Risk Profile)</option>
             <option value="BraTS-GLI-00000-000">BraTS-GLI-00000-000 (Infiltrative Intra-Axial Lesion)</option>
@@ -173,121 +202,154 @@
             <option value="BraTS-GLI-00129-000">BraTS-GLI-00129-000 (Occipital Lesion Core)</option>
           </select>
         </div>
-        <div class="hidden sm:block border-l border-slate-800 pl-4">
-          <span class="text-slate-400 block text-[10px] uppercase font-bold">ABHA ID / MRN:</span>
-          <span id="hdr-abha" class="font-mono text-slate-200 font-bold">91-4829-1048-2940</span>
+
+        <div class="border-l border-slate-200 pl-4">
+          <span class="text-slate-500 block text-[10px] uppercase font-bold tracking-wider">ABHA ID / MRN:</span>
+          <span id="hdr-abha" class="font-bold text-slate-950 font-mono mt-1 block">91-4829-1048-2940</span>
         </div>
-        <div class="hidden lg:block border-l border-slate-800 pl-4">
-          <span class="text-slate-400 block text-[10px] uppercase font-bold">Acquisition Modality:</span>
-          <span class="text-slate-200">3.0T Multi-Parametric MRI</span>
+
+        <div class="hidden sm:block border-l border-slate-200 pl-4">
+          <span class="text-slate-500 block text-[10px] uppercase font-bold tracking-wider">Model Weights & QPU:</span>
+          <span class="text-slate-700 mt-1 block">SegResNetB0 (1.6M) • IBM Heron 156Q</span>
         </div>
       </div>
 
-      <div class="flex items-center space-x-2">
-        <button id="btn-run-infer" onclick="openLiveInferenceConsole()" class="px-4 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs transition flex items-center space-x-1.5 shadow-sm">
-          <span>⚡ Execute Real-Time Inference</span>
+      <div>
+        <button id="btn-run-infer" onclick="openLiveInferenceConsole()" class="px-4 py-2 rounded bg-slate-950 hover:bg-slate-800 text-white font-semibold transition flex items-center space-x-2 shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-[#00E5FF] animate-pulse"></span>
+          <span>⚡ Execute Science Pipeline</span>
         </button>
       </div>
     </div>
 
     <!-- ========================================================================= -->
-    <!-- TAB 1: 4-QUADRANT MULTI-PLANAR SLICER (60 / 40 INSTRUMENT SPLIT) -->
+    <!-- TAB 1: SCIENCE AI WORKBENCH (DUAL-SUBSTRATE 40 / 60 SPLIT) -->
     <!-- ========================================================================= -->
     <div id="tab-content-pacs" class="space-y-4">
       
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
-        <!-- LEFT: ANALYSIS RAIL (40% / 5 COLS) -->
+        <!-- LEFT 40%: EDITORIAL ANALYSIS RAIL (#F7F6F2 ALABASTER CANVAS) -->
         <div class="lg:col-span-5 space-y-4">
           
-          <!-- INSTRUMENT CASE SPECIFICATION -->
-          <div class="pacs-panel rounded-xl p-4 space-y-4">
-            <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
-              <span class="text-xs font-mono font-bold text-[#00E5FF] uppercase tracking-wider">Analysis Rail</span>
-              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[10px]">CASE STUDY</span>
+          <div class="editorial-card rounded-xl p-6 space-y-5">
+            
+            <div class="border-b border-slate-200 pb-3">
+              <div class="flex items-center space-x-2 font-mono text-[10px] text-cyan-700 uppercase font-bold tracking-wider">
+                <span>Computational Analysis Rail</span>
+              </div>
+              <h2 class="font-editorial text-2xl text-slate-950 font-normal mt-1">
+                Specimen Analysis & Review
+              </h2>
+              <p id="patient-narrative" class="text-xs text-slate-600 font-light mt-1 leading-relaxed">
+                Pre-operative multi-parametric MRI volumetric contouring, standardized IBSI radiomics, and calibrated quantum state overlap risk triage.
+              </p>
+            </div>
+
+            <!-- MULTI-AGENT REVIEWER BOX (ANTHROPIC CLAUDE SCIENCE WORKBENCH ACTOR-CRITIC PAIR) -->
+            <div class="p-3.5 bg-slate-50 rounded-lg border border-slate-200 space-y-2.5 font-mono text-xs">
+              <div class="flex items-center justify-between text-[11px] font-bold text-slate-800 border-b border-slate-200 pb-1.5">
+                <span>Multi-Agent Scientific Review</span>
+                <span class="text-emerald-600">Active Session</span>
+              </div>
+
+              <div class="space-y-2 text-[11px] leading-relaxed">
+                <div class="text-slate-600">
+                  <strong class="text-slate-900">Coordinating Agent:</strong> Ingested 4 coregistered 3D sequences. Isotropic spacing verified at 1.0mm³.
+                </div>
+                <div class="text-slate-600">
+                  <strong class="text-slate-900">Vision Specialist:</strong> 3D SegResNetB0 segmented NCR, ED, and ET compartments (92.2% Dice).
+                </div>
+                <div class="text-slate-600">
+                  <strong class="text-slate-900">Quantum Specialist:</strong> IBM Heron 156Q QUBO ground energy \(E = -3.0981\) selected 9 orthogonal features.
+                </div>
+                <div class="text-slate-700 bg-amber-50/80 p-2 rounded border border-amber-200/80">
+                  <strong class="text-amber-900">Critic / Reviewer Agent:</strong>
+                  <span id="critic-comment" class="text-amber-950 font-sans text-xs block mt-0.5">
+                    "Uncertainty \(\pm 43.0\%\) flagged: Investigational CADt risk flag only. Confirmatory tissue biopsy mandatory before surgical resection."
+                  </span>
+                </div>
+              </div>
             </div>
 
             <!-- MODALITY LAYER TOGGLES -->
             <div class="space-y-2">
-              <div class="text-[11px] font-mono uppercase text-slate-400 font-semibold">MRI Modality Inputs</div>
+              <div class="text-[11px] font-mono uppercase text-slate-500 font-semibold">MRI Modality Series</div>
               <div class="grid grid-cols-2 gap-2 text-xs font-mono">
-                <label class="flex items-center space-x-2 p-2 rounded bg-slate-900 border border-slate-800 cursor-pointer hover:border-slate-700">
-                  <input type="checkbox" checked class="accent-[#00E5FF]">
-                  <span class="text-slate-200">T1-Native</span>
+                <label class="flex items-center space-x-2 p-2 rounded bg-slate-50 border border-slate-200 cursor-pointer hover:bg-slate-100">
+                  <input type="checkbox" checked class="accent-slate-900">
+                  <span class="text-slate-800">T1-Native</span>
                 </label>
-                <label class="flex items-center space-x-2 p-2 rounded bg-slate-900 border border-slate-800 cursor-pointer hover:border-slate-700">
-                  <input type="checkbox" checked class="accent-[#00E5FF]">
-                  <span class="text-slate-200 font-semibold text-[#00E5FF]">T1-Contrast</span>
+                <label class="flex items-center space-x-2 p-2 rounded bg-cyan-50 border border-cyan-200 cursor-pointer">
+                  <input type="checkbox" checked class="accent-cyan-600">
+                  <span class="text-cyan-900 font-semibold">T1-Contrast</span>
                 </label>
-                <label class="flex items-center space-x-2 p-2 rounded bg-slate-900 border border-slate-800 cursor-pointer hover:border-slate-700">
-                  <input type="checkbox" checked class="accent-[#00E5FF]">
-                  <span class="text-slate-200">T2-Weighted</span>
+                <label class="flex items-center space-x-2 p-2 rounded bg-slate-50 border border-slate-200 cursor-pointer hover:bg-slate-100">
+                  <input type="checkbox" checked class="accent-slate-900">
+                  <span class="text-slate-800">T2-Weighted</span>
                 </label>
-                <label class="flex items-center space-x-2 p-2 rounded bg-slate-900 border border-slate-800 cursor-pointer hover:border-slate-700">
-                  <input type="checkbox" checked class="accent-[#00E5FF]">
-                  <span class="text-slate-200">T2-FLAIR</span>
+                <label class="flex items-center space-x-2 p-2 rounded bg-slate-50 border border-slate-200 cursor-pointer hover:bg-slate-100">
+                  <input type="checkbox" checked class="accent-slate-900">
+                  <span class="text-slate-800">T2-FLAIR</span>
                 </label>
               </div>
             </div>
 
-            <!-- SEGMENTATION SUBREGIONS -->
+            <!-- SEGMENTATION COMPARTMENTS -->
             <div class="space-y-2">
-              <div class="text-[11px] font-mono uppercase text-slate-400 font-semibold">Segmentation Compartments</div>
+              <div class="text-[11px] font-mono uppercase text-slate-500 font-semibold">Measured Compartment Volumes</div>
               <div class="space-y-1.5 text-xs font-mono">
-                <div class="flex items-center justify-between p-2 rounded bg-slate-900/90 border border-slate-800">
+                <div class="flex items-center justify-between p-2 rounded bg-slate-50 border border-slate-200">
                   <span class="flex items-center space-x-2">
                     <span class="w-2.5 h-2.5 rounded-sm bg-[#F43F5E]"></span>
-                    <span class="text-slate-200">Necrotic Core (NCR)</span>
+                    <span class="text-slate-800 font-sans">Necrotic Core (NCR)</span>
                   </span>
-                  <span class="text-slate-400 font-bold" id="rail-ncr">10.54 cm³</span>
+                  <span class="text-slate-900 font-bold" id="rail-ncr">10.54 cm³</span>
                 </div>
-                <div class="flex items-center justify-between p-2 rounded bg-slate-900/90 border border-slate-800">
+                <div class="flex items-center justify-between p-2 rounded bg-slate-50 border border-slate-200">
                   <span class="flex items-center space-x-2">
-                    <span class="w-2.5 h-2.5 rounded-sm bg-yellow-400"></span>
-                    <span class="text-slate-200">Peritumoral Edema (ED)</span>
+                    <span class="w-2.5 h-2.5 rounded-sm bg-yellow-500"></span>
+                    <span class="text-slate-800 font-sans">Peritumoral Edema (ED)</span>
                   </span>
-                  <span class="text-slate-400 font-bold" id="rail-ed">105.90 cm³</span>
+                  <span class="text-slate-900 font-bold" id="rail-ed">105.90 cm³</span>
                 </div>
-                <div class="flex items-center justify-between p-2 rounded bg-slate-900/90 border border-slate-800">
+                <div class="flex items-center justify-between p-2 rounded bg-slate-50 border border-slate-200">
                   <span class="flex items-center space-x-2">
-                    <span class="w-2.5 h-2.5 rounded-sm bg-emerald-400"></span>
-                    <span class="text-slate-200">Enhancing Rim (ET)</span>
+                    <span class="w-2.5 h-2.5 rounded-sm bg-emerald-600"></span>
+                    <span class="text-slate-800 font-sans">Enhancing Rim (ET)</span>
                   </span>
-                  <span class="text-emerald-400 font-bold" id="rail-et">20.47 cm³</span>
+                  <span class="text-emerald-700 font-bold" id="rail-et">20.47 cm³</span>
                 </div>
               </div>
             </div>
 
-            <!-- 3-LEVEL INTERACTION SELECTOR -->
-            <div class="space-y-2 pt-1 border-t border-slate-800">
-              <div class="text-[11px] font-mono uppercase text-slate-400 font-semibold">Visualization Level</div>
+            <!-- 3-LEVEL READING SELECTOR -->
+            <div class="space-y-2 pt-1 border-t border-slate-200">
+              <div class="text-[11px] font-mono uppercase text-slate-500 font-semibold">Reading View Mode</div>
               <div class="space-y-1.5 font-mono text-xs">
-                <button onclick="setLevel(1)" id="btn-lvl-1" class="w-full text-left px-3 py-2 rounded bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 transition flex items-center justify-between">
+                <button onclick="setLevel(1)" id="btn-lvl-1" class="w-full text-left px-3 py-2 rounded bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 transition flex items-center justify-between">
                   <span>Level 1: Clinical Reading</span>
-                  <span class="text-[10px] text-slate-500">Raw MRI</span>
+                  <span class="text-[10px] text-slate-400">Raw MRI</span>
                 </button>
-                <button onclick="setLevel(2)" id="btn-lvl-2" class="w-full text-left px-3 py-2 rounded bg-[#00E5FF]/20 border border-[#00E5FF]/40 text-[#00E5FF] font-semibold transition flex items-center justify-between">
+                <button onclick="setLevel(2)" id="btn-lvl-2" class="w-full text-left px-3 py-2 rounded bg-cyan-50 border border-cyan-300 text-cyan-900 font-semibold transition flex items-center justify-between">
                   <span>Level 2: Computational</span>
-                  <span class="text-[10px] text-emerald-400">Seg Mask</span>
+                  <span class="text-[10px] text-emerald-600">Contours</span>
                 </button>
-                <button onclick="setLevel(3)" id="btn-lvl-3" class="w-full text-left px-3 py-2 rounded bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 transition flex items-center justify-between">
+                <button onclick="setLevel(3)" id="btn-lvl-3" class="w-full text-left px-3 py-2 rounded bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 transition flex items-center justify-between">
                   <span>Level 3: Explainability</span>
-                  <span class="text-[10px] text-purple-400">Grad-CAM</span>
+                  <span class="text-[10px] text-purple-600">Grad-CAM</span>
                 </button>
               </div>
             </div>
 
             <!-- ACTION CTA -->
-            <div class="pt-2 border-t border-slate-800 space-y-2">
-              <button onclick="openLiveInferenceConsole()" class="w-full py-2.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-mono text-xs font-semibold transition shadow flex items-center justify-center space-x-2">
-                <span>⚡ Execute Real-Time Inference</span>
-              </button>
-              <div class="flex items-center space-x-2">
-                <button onclick="switchTab('findings')" class="w-1/2 py-2 rounded bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-mono text-xs transition">
-                  Findings →
+            <div class="pt-2 border-t border-slate-200 space-y-2">
+              <div class="flex items-center space-x-2 font-mono text-xs">
+                <button onclick="switchTab('findings')" class="w-1/2 py-2 rounded bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-800 font-medium transition">
+                  Evidence State →
                 </button>
-                <button onclick="switchTab('report')" class="w-1/2 py-2 rounded bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-mono text-xs transition">
-                  PDF Report ↗
+                <button onclick="switchTab('report')" class="w-1/2 py-2 rounded bg-slate-900 hover:bg-slate-800 text-white font-medium transition shadow-xs">
+                  Formal Report ↗
                 </button>
               </div>
             </div>
@@ -295,12 +357,12 @@
           </div>
         </div>
 
-        <!-- RIGHT: VIEWPORT & DOCKED OUTPUT BAR (60% / 7 COLS) -->
+        <!-- RIGHT 60%: COMPUTATIONAL IMAGING VIEWPORT (#0A0D14 DEEP OBSIDIAN CANVAS) -->
         <div class="lg:col-span-7 space-y-3">
-          <div class="pacs-panel rounded-xl p-3 space-y-3">
+          <div class="comp-card rounded-xl p-3.5 space-y-3">
             
-            <!-- Viewport Controls & Coordinate HUD -->
-            <div class="bg-black px-3 py-1.5 rounded-lg flex flex-wrap items-center justify-between text-xs font-mono border border-slate-800 text-slate-400">
+            <!-- VIEWPORT CONTROLS & COORDINATE HUD -->
+            <div class="bg-black px-3.5 py-2 rounded-lg flex flex-wrap items-center justify-between text-xs font-mono border border-slate-800 text-slate-400">
               <div class="flex items-center space-x-4">
                 <span id="coords-readout" class="text-[#00E5FF] font-bold">Coords: X: 140 mm | Y: 95 mm | Z: 79 mm</span>
                 <span id="voxel-intensity" class="text-slate-300">Intensity: 2,287 a.u.</span>
@@ -311,47 +373,47 @@
               </div>
             </div>
 
-            <!-- 4 Viewports Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 bg-black p-2 rounded-lg border border-slate-800">
+            <!-- 4-QUADRANT VIEWPORTS GRID -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 bg-black p-2 rounded-lg border border-slate-800">
               
               <!-- CORONAL -->
               <div id="quad-coronal" onclick="handleQuadrantClick(event, 'coronal')" class="pacs-viewport relative rounded overflow-hidden aspect-square flex items-center justify-center cursor-crosshair select-none">
-                <img id="img-coronal" src="assets/slices/BraTS-GLI-00002-000/coronal_95.png" alt="Coronal Slice" class="w-full h-full object-contain pointer-events-none">
+                <img id="img-coronal" src="assets/slices/BraTS-GLI-00002-000/coronal_95.png" alt="Coronal Slice" class="w-full h-full object-contain pointer-events-none filter contrast-125">
                 <div id="cross-coronal-h" class="crosshair-h" style="top: 50%;"></div>
                 <div id="cross-coronal-v" class="crosshair-v" style="left: 50%;"></div>
                 <span class="absolute top-1.5 left-2 text-[10px] font-mono font-bold text-[#00E5FF]">CORONAL (Y)</span>
                 <span class="absolute top-1.5 right-2 text-[10px] font-mono text-slate-500">S</span>
                 <span class="absolute bottom-1.5 right-2 text-[10px] font-mono text-slate-500">I</span>
-                <div class="absolute bottom-1.5 left-2 bg-black/80 px-1.5 py-0.5 rounded text-[9px] font-mono text-slate-300" id="label-coronal">y = 95 / 240</div>
+                <div class="absolute bottom-1.5 left-2 bg-black/85 px-1.5 py-0.5 rounded text-[9px] font-mono text-slate-300" id="label-coronal">y = 95 / 240</div>
               </div>
 
               <!-- SAGITTAL -->
               <div id="quad-sagittal" onclick="handleQuadrantClick(event, 'sagittal')" class="pacs-viewport relative rounded overflow-hidden aspect-square flex items-center justify-center cursor-crosshair select-none">
-                <img id="img-sagittal" src="assets/slices/BraTS-GLI-00002-000/sagittal_140.png" alt="Sagittal Slice" class="w-full h-full object-contain pointer-events-none">
+                <img id="img-sagittal" src="assets/slices/BraTS-GLI-00002-000/sagittal_140.png" alt="Sagittal Slice" class="w-full h-full object-contain pointer-events-none filter contrast-125">
                 <div id="cross-sagittal-h" class="crosshair-h" style="top: 50%;"></div>
                 <div id="cross-sagittal-v" class="crosshair-v" style="left: 50%;"></div>
                 <span class="absolute top-1.5 left-2 text-[10px] font-mono font-bold text-[#00E5FF]">SAGITTAL (X)</span>
                 <span class="absolute top-1.5 right-2 text-[10px] font-mono text-slate-500">S</span>
                 <span class="absolute bottom-1.5 right-2 text-[10px] font-mono text-slate-500">I</span>
-                <div class="absolute bottom-1.5 left-2 bg-black/80 px-1.5 py-0.5 rounded text-[9px] font-mono text-slate-300" id="label-sagittal">x = 140 / 240</div>
+                <div class="absolute bottom-1.5 left-2 bg-black/85 px-1.5 py-0.5 rounded text-[9px] font-mono text-slate-300" id="label-sagittal">x = 140 / 240</div>
               </div>
 
               <!-- AXIAL -->
               <div id="quad-axial" onclick="handleQuadrantClick(event, 'axial')" class="pacs-viewport relative rounded overflow-hidden aspect-square flex items-center justify-center cursor-crosshair select-none">
-                <img id="img-axial" src="assets/slices/BraTS-GLI-00002-000/axial_79.png" alt="Axial Slice" class="w-full h-full object-contain pointer-events-none">
+                <img id="img-axial" src="assets/slices/BraTS-GLI-00002-000/axial_79.png" alt="Axial Slice" class="w-full h-full object-contain pointer-events-none filter contrast-125">
                 <div id="cross-axial-h" class="crosshair-h" style="top: 50%;"></div>
                 <div id="cross-axial-v" class="crosshair-v" style="left: 50%;"></div>
                 <span class="absolute top-1.5 left-2 text-[10px] font-mono font-bold text-[#00E5FF]">AXIAL (Z)</span>
                 <span class="absolute top-1.5 right-2 text-[10px] font-mono text-slate-500">A</span>
                 <span class="absolute bottom-1.5 right-2 text-[10px] font-mono text-slate-500">P</span>
-                <div class="absolute bottom-1.5 left-2 bg-black/80 px-1.5 py-0.5 rounded text-[9px] font-mono text-slate-300" id="label-axial">z = 79 / 155</div>
+                <div class="absolute bottom-1.5 left-2 bg-black/85 px-1.5 py-0.5 rounded text-[9px] font-mono text-slate-300" id="label-axial">z = 79 / 155</div>
               </div>
 
               <!-- 3D COMPARTMENT OVERLAY -->
               <div class="pacs-viewport relative rounded overflow-hidden aspect-square flex items-center justify-center p-2 bg-slate-950">
                 <img id="img-3d-recon" src="assets/explainability/BraTS-GLI-00001-000_explainability.png" alt="3D Reconstruction" class="w-full h-full object-contain rounded">
                 <span class="absolute top-1.5 left-2 text-[10px] font-mono font-bold text-emerald-400">LESION COMPARTMENTS</span>
-                <div class="absolute bottom-1.5 right-2 flex items-center space-x-2 bg-black/85 px-2 py-0.5 rounded text-[9px] font-mono text-white border border-slate-800">
+                <div class="absolute bottom-1.5 right-2 flex items-center space-x-2 bg-black/90 px-2 py-0.5 rounded text-[9px] font-mono text-white border border-slate-800">
                   <span class="text-rose-400 font-bold">■ NCR</span>
                   <span class="text-amber-300 font-bold">■ ED</span>
                   <span class="text-emerald-400 font-bold">■ ET</span>
@@ -388,7 +450,7 @@
             </div>
 
             <!-- DOCKED REAL-TIME OUTPUT BAR -->
-            <div class="bg-black/90 p-3 rounded-lg border border-slate-800 grid grid-cols-2 sm:grid-cols-5 gap-2 font-mono text-[11px] text-slate-400">
+            <div class="bg-black/95 p-3 rounded-lg border border-slate-800 grid grid-cols-2 sm:grid-cols-5 gap-2 font-mono text-[11px] text-slate-400">
               <div><span class="text-slate-500">MODEL:</span> <span class="text-white">SegResNetB0</span></div>
               <div><span class="text-slate-500">PARAMS:</span> <span class="text-white">1.6M</span></div>
               <div><span class="text-slate-500">FEATURES:</span> <span class="text-[#00E5FF]">107 → 9</span></div>
@@ -404,59 +466,66 @@
     </div>
 
     <!-- ========================================================================= -->
-    <!-- TAB 2: QUANTITATIVE FINDINGS -->
+    <!-- TAB 2: AUDITABLE EVIDENCE STATE & SCIENTIFIC ARTIFACTS -->
     <!-- ========================================================================= -->
-    <div id="tab-content-findings" class="space-y-4 hidden">
-      <div class="pacs-panel rounded-xl p-5 space-y-5 border border-slate-800">
+    <div id="tab-content-findings" class="space-y-6 hidden">
+      
+      <div class="editorial-card rounded-xl p-6 space-y-6">
         
-        <div class="border-b border-slate-800 pb-3">
-          <h2 class="text-base font-bold text-white tracking-tight">Quantitative Volumetric & Molecular Profile</h2>
-          <p class="text-xs text-slate-400">Automated lesion morphometry, non-invasive radiogenomic indicators, and clinical triage recommendations.</p>
+        <div class="border-b border-slate-200 pb-3">
+          <div class="font-mono text-xs text-slate-500 uppercase">Scientific Artifact State Database</div>
+          <h2 class="font-editorial text-3xl text-slate-950 font-normal mt-1">
+            Auditable Evidence & Quantitative Profile
+          </h2>
+          <p class="text-xs text-slate-600 font-light mt-1 max-w-3xl">
+            Every output carries an auditable history traced directly to its model checkpoint, dataset split, and compute provenance.
+          </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- 3 SUMMARY EVIDENCE PLATES -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
           
-          <!-- Volumetrics -->
-          <div class="p-4 bg-slate-900/90 rounded-xl border border-slate-800 space-y-2">
-            <div class="text-xs font-bold text-slate-200 pb-1.5 border-b border-slate-800">
+          <!-- VOLUMETRICS -->
+          <div class="p-4 bg-slate-50 rounded-lg border border-slate-200 space-y-2">
+            <div class="text-xs font-bold text-slate-900 pb-1.5 border-b border-slate-200">
               Volumetric Morphometry
             </div>
-            <div class="space-y-1.5 text-xs font-mono text-slate-300">
-              <div class="flex justify-between"><span>Whole Tumor (WT):</span><strong id="f-wt" class="text-white">136.90 cm³</strong></div>
-              <div class="flex justify-between"><span>Tumor Core (TC):</span><strong id="f-tc" class="text-white">31.01 cm³</strong></div>
-              <div class="flex justify-between"><span>Enhancing Rim (ET):</span><strong id="f-et" class="text-white">20.47 cm³</strong></div>
-              <div class="flex justify-between"><span>Central Necrosis (NCR):</span><strong id="f-ncr" class="text-white">10.54 cm³</strong></div>
-              <div class="flex justify-between"><span>Vasogenic Edema (ED):</span><strong id="f-ed" class="text-white">105.90 cm³</strong></div>
-              <div class="flex justify-between"><span>Necrosis Fraction:</span><strong id="f-nec" class="text-white">34.0%</strong></div>
+            <div class="space-y-1.5 text-slate-700">
+              <div class="flex justify-between"><span>Whole Tumor (WT):</span><strong id="f-wt" class="text-slate-950">136.90 cm³</strong></div>
+              <div class="flex justify-between"><span>Tumor Core (TC):</span><strong id="f-tc" class="text-slate-950">31.01 cm³</strong></div>
+              <div class="flex justify-between"><span>Enhancing Rim (ET):</span><strong id="f-et" class="text-emerald-700">20.47 cm³</strong></div>
+              <div class="flex justify-between"><span>Central Necrosis (NCR):</span><strong id="f-ncr" class="text-rose-700">10.54 cm³</strong></div>
+              <div class="flex justify-between"><span>Vasogenic Edema (ED):</span><strong id="f-ed" class="text-slate-950">105.90 cm³</strong></div>
+              <div class="flex justify-between"><span>Necrosis Fraction:</span><strong id="f-nec" class="text-slate-950">34.0%</strong></div>
             </div>
           </div>
 
-          <!-- Molecular Indicators -->
-          <div class="p-4 bg-slate-900/90 rounded-xl border border-slate-800 space-y-2">
-            <div class="text-xs font-bold text-slate-200 pb-1.5 border-b border-slate-800">
-              Investigational Molecular Index
+          <!-- MOLECULAR PROFILE -->
+          <div class="p-4 bg-slate-50 rounded-lg border border-slate-200 space-y-2">
+            <div class="text-xs font-bold text-slate-900 pb-1.5 border-b border-slate-200">
+              Investigational Radiogenomics
             </div>
-            <div class="space-y-1.5 text-xs font-mono text-slate-300">
-              <div class="flex justify-between"><span>MGMT Promoter Status:</span><strong id="f-mgmt" class="text-rose-400">Unmethylated (57.0%)</strong></div>
-              <div class="flex justify-between"><span>Entropy Uncertainty:</span><strong id="f-unc" class="text-slate-400">± 43.0%</strong></div>
-              <div class="flex justify-between"><span>IDH1/2 Codon Status:</span><strong id="f-idh" class="text-rose-400">Wildtype (81.8%)</strong></div>
-              <div class="flex justify-between"><span>1p/19q Co-deletion:</span><strong id="f-1p19q" class="text-white">Non-Codeleted (98.5%)</strong></div>
-              <div class="flex justify-between"><span>Ki-67 MIB-1 Estimate:</span><strong id="f-ki67" class="text-white">22.7% (High)</strong></div>
+            <div class="space-y-1.5 text-slate-700">
+              <div class="flex justify-between"><span>MGMT Promoter:</span><strong id="f-mgmt" class="text-rose-700">Unmethylated (57.0%)</strong></div>
+              <div class="flex justify-between"><span>Entropy Uncertainty:</span><strong id="f-unc" class="text-slate-500">± 43.0%</strong></div>
+              <div class="flex justify-between"><span>IDH1/2 Codon:</span><strong id="f-idh" class="text-rose-700">Wildtype (81.8%)</strong></div>
+              <div class="flex justify-between"><span>1p/19q Co-deletion:</span><strong id="f-1p19q" class="text-slate-950">Non-Codeleted (98.5%)</strong></div>
+              <div class="flex justify-between"><span>Ki-67 MIB-1:</span><strong id="f-ki67" class="text-slate-950">22.7% (High)</strong></div>
             </div>
           </div>
 
-          <!-- Clinical Triage Notification -->
-          <div class="p-4 bg-slate-900/90 rounded-xl border border-slate-800 space-y-2 flex flex-col justify-between">
+          <!-- TRIAGE RECOMMENDATION -->
+          <div class="p-4 bg-slate-50 rounded-lg border border-slate-200 space-y-2 flex flex-col justify-between">
             <div>
-              <div class="flex justify-between items-center text-xs font-bold text-slate-200 pb-1.5 border-b border-slate-800">
-                <span>Triage Protocol</span>
-                <span id="f-triage-badge" class="px-2 py-0.5 rounded bg-rose-950 text-rose-300 text-[10px] font-bold border border-rose-800">PRIORITY REVIEW</span>
+              <div class="flex justify-between items-center text-xs font-bold text-slate-900 pb-1.5 border-b border-slate-200">
+                <span>Clinical Triage Protocol</span>
+                <span id="f-triage-badge" class="px-2 py-0.5 rounded bg-rose-100 text-rose-800 text-[10px] font-bold border border-rose-300">PRIORITY REVIEW</span>
               </div>
-              <p id="f-triage-desc" class="text-xs text-slate-300 mt-2 leading-relaxed">
-                Aggressive glioblastoma radiogenomic profile. Auto-flagged for same-day Multidisciplinary Neuro-Oncology Tumor Board evaluation and confirmatory tissue biopsy.
+              <p id="f-triage-desc" class="text-xs text-slate-700 mt-2 font-sans font-light leading-relaxed">
+                Aggressive glioblastoma radiogenomic profile. Flagged for same-day Neuro-Oncology Multidisciplinary Board review with mandatory confirmatory tissue biopsy.
               </p>
             </div>
-            <div class="pt-2 text-[10px] font-mono text-slate-400 flex items-center justify-between border-t border-slate-800">
+            <div class="pt-2 text-[10px] font-mono text-slate-500 flex items-center justify-between border-t border-slate-200">
               <span>Standard: WHO CNS5 2021</span>
               <span>ABDM Sync: Ready</span>
             </div>
@@ -464,28 +533,94 @@
 
         </div>
 
+        <!-- 4 DEEP-DIVE AUDITABLE ARTIFACT CARDS (CLAUDE SCIENCE WORKBENCH STYLE) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+          
+          <!-- ARTIFACT 1: IBM HERON 156Q QUBO -->
+          <div class="p-4 bg-white rounded-lg border border-slate-200 space-y-2">
+            <div class="flex items-center justify-between text-xs font-mono pb-1 border-b border-slate-100">
+              <span class="font-bold text-slate-900">ARTIFACT 01: IBM Heron QUBO</span>
+              <span class="text-cyan-700">Ising Hamiltonian</span>
+            </div>
+            <p class="text-xs text-slate-600 font-light">
+              107 IBSI features pruned to 9 orthogonal biomarkers on physical 156-qubit Heron QPU (Ground Energy \(E = -3.0981\)).
+            </p>
+            <div class="p-2.5 bg-slate-50 rounded font-mono text-[11px] text-slate-600 flex justify-between">
+              <span>Stability Index: <strong class="text-emerald-700">J = 0.491</strong></span>
+              <span>vs Classical LASSO: J = 0.215</span>
+            </div>
+          </div>
+
+          <!-- ARTIFACT 2: 9-QUBIT QSVM IN 512D HILBERT SPACE -->
+          <div class="p-4 bg-white rounded-lg border border-slate-200 space-y-2">
+            <div class="flex items-center justify-between text-xs font-mono pb-1 border-b border-slate-100">
+              <span class="font-bold text-slate-900">ARTIFACT 02: 9-Qubit QSVM Kernel</span>
+              <span class="text-cyan-700">dim(ℋ) = 512</span>
+            </div>
+            <p class="text-xs text-slate-600 font-light">
+              ZZFeatureMap embeds normalized biomarkers into \(\mathbb{C}^{512}\). Non-linear statevector overlap achieves +6.7% AUC lift.
+            </p>
+            <div class="p-2.5 bg-slate-50 rounded font-mono text-[11px] text-slate-600 flex justify-between">
+              <span>Entropy Calibrated: <strong class="text-slate-900">± 43.0%</strong></span>
+              <span>Edge Execution: 110ms</span>
+            </div>
+          </div>
+
+          <!-- ARTIFACT 3: DUAL-LAYER XAI -->
+          <div class="p-4 bg-white rounded-lg border border-slate-200 space-y-2">
+            <div class="flex items-center justify-between text-xs font-mono pb-1 border-b border-slate-100">
+              <span class="font-bold text-slate-900">ARTIFACT 03: Dual XAI Localization</span>
+              <span class="text-purple-700">Grad-CAM + TreeSHAP</span>
+            </div>
+            <p class="text-xs text-slate-600 font-light">
+              Spatial voxel attention coupled with quantitative feature force decomposition (tumor flatness, volume, and GLCM entropy).
+            </p>
+            <div class="p-2.5 bg-slate-50 rounded font-mono text-[11px] text-slate-600 flex justify-between">
+              <span>Voxel Attributions: <strong class="text-slate-900">3D Heatmap</strong></span>
+              <span>ABDM FHIR Encoded</span>
+            </div>
+          </div>
+
+          <!-- ARTIFACT 4: EDGE RESOURCE & ECONOMICS -->
+          <div class="p-4 bg-white rounded-lg border border-slate-200 space-y-2">
+            <div class="flex items-center justify-between text-xs font-mono pb-1 border-b border-slate-100">
+              <span class="font-bold text-slate-900">ARTIFACT 04: Health Economics</span>
+              <span class="text-emerald-700">&lt; ₹50 / scan</span>
+            </div>
+            <p class="text-xs text-slate-600 font-light">
+              Local edge compute executes in 1.60s (180W power). Amortized hardware depreciation: ₹5.00/scan vs ₹15,000 tissue PCR.
+            </p>
+            <div class="p-2.5 bg-slate-50 rounded font-mono text-[11px] text-slate-600 flex justify-between">
+              <span>Radiologist Multiplier: <strong class="text-slate-900">10× Throughput</strong></span>
+              <span>Turnaround: 2 min</span>
+            </div>
+          </div>
+
+        </div>
+
       </div>
+
     </div>
 
     <!-- ========================================================================= -->
-    <!-- TAB 3: FORMAL DIAGNOSTIC REPORT (PDF) -->
+    <!-- TAB 3: FORMAL MEDICAL DIAGNOSTIC REPORT (PRINT-READY A4 PDF) -->
     <!-- ========================================================================= -->
     <div id="tab-content-report" class="space-y-4 hidden">
       
       <!-- REPORT DOCUMENT -->
-      <div id="printable-report" class="report-card bg-white text-slate-900 rounded-xl p-8 sm:p-12 shadow-2xl space-y-6 max-w-4xl mx-auto border border-slate-200">
+      <div id="printable-report" class="report-card bg-white text-slate-900 rounded-xl p-8 sm:p-12 shadow-xl space-y-6 max-w-4xl mx-auto border border-slate-300">
         
         <!-- INSTITUTIONAL HEADER -->
         <div class="flex justify-between items-start pb-6 border-b-2 border-slate-900">
           <div>
-            <div class="text-xl font-extrabold tracking-tight text-slate-950 uppercase">NATIONAL INSTITUTE OF NEUROSCIENCES</div>
+            <div class="text-xl font-extrabold tracking-tight text-slate-950 uppercase font-editorial">NATIONAL INSTITUTE OF NEUROSCIENCES</div>
             <div class="text-xs text-slate-600 font-medium mt-0.5">Department of Radiodiagnosis & Molecular Neuro-Oncology</div>
             <div class="text-[11px] text-slate-500 font-mono mt-1">Facility ID: IND-DL-AIIMS-7482 | Diagnostic Imaging Core</div>
           </div>
           <div class="text-right font-mono text-xs text-slate-600">
             <div class="font-bold text-slate-900 text-sm">DIAGNOSTIC REPORT</div>
             <div>Doc ID: <strong class="text-slate-900" id="rpt-doc-id">RAD-2026-08291</strong></div>
-            <div class="text-[11px] text-slate-500">Date: <span id="rpt-date">2026-09-02</span></div>
+            <div class="text-[11px] text-slate-500">Date: <span id="rpt-date">2026-09-04</span></div>
           </div>
         </div>
 
@@ -499,12 +634,12 @@
             <div><span class="report-text-muted text-slate-500 block text-[10px] uppercase font-bold">Referring Specialist:</span><span class="text-slate-800">Prof. A. K. Sen, M.Ch</span></div>
             <div><span class="report-text-muted text-slate-500 block text-[10px] uppercase font-bold">Modality:</span><span class="text-slate-800">Brain MRI (3.0T)</span></div>
             <div><span class="report-text-muted text-slate-500 block text-[10px] uppercase font-bold">Sequences:</span><span class="text-slate-800">T1w, T1c, T2w, T2-FLAIR</span></div>
-            <div><span class="report-text-muted text-slate-500 block text-[10px] uppercase font-bold">Protocol:</span><span class="text-slate-800 font-semibold text-sky-700">Scanvidence CADt v2.4</span></div>
+            <div><span class="report-text-muted text-slate-500 block text-[10px] uppercase font-bold">Protocol:</span><span class="text-slate-800 font-semibold text-cyan-800">Scanvidence CADt v2.4</span></div>
           </div>
         </div>
 
         <!-- CLINICAL INDICATION -->
-        <div class="space-y-2 text-xs leading-relaxed text-slate-700">
+        <div class="space-y-2 text-xs leading-relaxed text-slate-700 font-light">
           <div><strong class="text-slate-900 font-bold uppercase text-[11px] block">Clinical Indication:</strong>
             Pre-operative volumetric morphometry and non-invasive radiogenomic risk stratification of solitary supratentorial lesion.
           </div>
@@ -515,7 +650,7 @@
 
         <!-- 1. VOLUMETRICS TABLE -->
         <div class="space-y-2">
-          <div class="text-xs font-bold uppercase tracking-wider text-slate-900 pb-1 border-b border-slate-300">
+          <div class="text-xs font-bold uppercase tracking-wider text-slate-900 pb-1 border-b border-slate-300 font-mono">
             1. Automated Volumetric Morphometry
           </div>
           <table class="w-full text-left text-xs border border-slate-200">
@@ -543,12 +678,12 @@
                 <td class="py-1.5 px-3">22.7% of WT</td>
               </tr>
               <tr>
-                <td class="py-1.5 px-3 font-sans text-emerald-800">Active Enhancing Rim (ET)</td>
+                <td class="py-1.5 px-3 font-sans text-emerald-800 font-medium">Active Enhancing Rim (ET)</td>
                 <td class="py-1.5 px-3 text-emerald-800 font-bold" id="rpt-v-et">20.47 cm³</td>
                 <td class="py-1.5 px-3">66.0% of Core</td>
               </tr>
               <tr>
-                <td class="py-1.5 px-3 font-sans text-rose-800">Central Cavitary Necrosis (NCR)</td>
+                <td class="py-1.5 px-3 font-sans text-rose-800 font-medium">Central Cavitary Necrosis (NCR)</td>
                 <td class="py-1.5 px-3 text-rose-800 font-bold" id="rpt-v-ncr">10.54 cm³</td>
                 <td class="py-1.5 px-3">34.0% of Core</td>
               </tr>
@@ -558,71 +693,55 @@
 
         <!-- 2. MOLECULAR RISK PROFILE -->
         <div class="space-y-2">
-          <div class="text-xs font-bold uppercase tracking-wider text-slate-900 pb-1 border-b border-slate-300">
+          <div class="text-xs font-bold uppercase tracking-wider text-slate-900 pb-1 border-b border-slate-300 font-mono">
             2. Investigational Radiogenomic Profile (WHO CNS5 2021)
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
             <div class="report-bg-muted bg-slate-50 p-3 rounded border border-slate-200 space-y-1">
               <div class="text-[10px] uppercase font-bold text-slate-500">MGMT Promoter Epigenetic Status:</div>
-              <div class="font-mono text-sm font-bold text-rose-700" id="rpt-m-mgmt">MGMT_Unmethylated (57.0% Probability)</div>
-              <div class="text-[11px] text-slate-600">Calibrated Uncertainty: <strong id="rpt-m-unc">± 43.0%</strong> (High biological variance; tissue biopsy required)</div>
+              <div class="text-sm font-bold text-rose-700" id="rpt-m-mgmt">MGMT_Unmethylated (57.0% Probability)</div>
+              <div class="text-[10px] text-slate-500">Uncertainty: <span id="rpt-m-unc" class="font-bold">± 43.0%</span> | Temozolomide resistance flagged</div>
             </div>
             <div class="report-bg-muted bg-slate-50 p-3 rounded border border-slate-200 space-y-1">
-              <div class="text-[10px] uppercase font-bold text-slate-500">WHO CNS5 Molecular Subtyping:</div>
-              <div class="font-mono text-sm font-bold text-slate-900" id="rpt-m-idh">IDH-Wildtype (81.8% Confidence)</div>
-              <div class="text-[11px] text-slate-600">1p/19q Co-deletion: <strong>Non-Codeleted (98.5%)</strong> | Ki-67 Index: <strong>22.7% (High)</strong></div>
+              <div class="text-[10px] uppercase font-bold text-slate-500">IDH1/2 Mutation Status:</div>
+              <div class="text-sm font-bold text-rose-700" id="rpt-m-idh">IDH-Wildtype (81.8% Confidence)</div>
+              <div class="text-[10px] text-slate-500">Profile consistent with WHO Grade 4 Glioblastoma</div>
             </div>
           </div>
         </div>
 
-        <!-- 3. KEY EMBEDDED DIAGNOSTIC SLICES -->
+        <!-- 3. IMAGES PLATE -->
         <div class="space-y-2">
-          <div class="text-xs font-bold uppercase tracking-wider text-slate-900 pb-1 border-b border-slate-300">
-            3. Key Orthogonal Diagnostic Slices
+          <div class="text-xs font-bold uppercase tracking-wider text-slate-900 pb-1 border-b border-slate-300 font-mono">
+            3. Representative Multi-Planar Orthogonal Slices
           </div>
-          <div class="grid grid-cols-3 gap-2 bg-slate-950 p-2 rounded-lg text-center text-white">
-            <div>
-              <img id="rpt-img-axial" src="assets/slices/BraTS-GLI-00002-000/axial_79.png" alt="Axial Slice" class="w-full h-28 object-contain rounded">
-              <span id="rpt-lbl-axial" class="text-[9px] font-mono text-sky-400 mt-1 block">Axial (z = 79 mm)</span>
+          <div class="grid grid-cols-3 gap-3">
+            <div class="border border-slate-200 rounded p-1 text-center bg-black">
+              <img id="rpt-img-axial" src="assets/slices/BraTS-GLI-00002-000/axial_79.png" class="w-full aspect-square object-contain mx-auto filter contrast-125">
+              <div class="text-[9px] font-mono text-slate-400 mt-1" id="rpt-lbl-axial">Axial (z = 79 mm)</div>
             </div>
-            <div>
-              <img id="rpt-img-coronal" src="assets/slices/BraTS-GLI-00002-000/coronal_95.png" alt="Coronal Slice" class="w-full h-28 object-contain rounded">
-              <span id="rpt-lbl-coronal" class="text-[9px] font-mono text-sky-400 mt-1 block">Coronal (y = 95 mm)</span>
+            <div class="border border-slate-200 rounded p-1 text-center bg-black">
+              <img id="rpt-img-coronal" src="assets/slices/BraTS-GLI-00002-000/coronal_95.png" class="w-full aspect-square object-contain mx-auto filter contrast-125">
+              <div class="text-[9px] font-mono text-slate-400 mt-1" id="rpt-lbl-coronal">Coronal (y = 95 mm)</div>
             </div>
-            <div>
-              <img id="rpt-img-sagittal" src="assets/slices/BraTS-GLI-00002-000/sagittal_140.png" alt="Sagittal Slice" class="w-full h-28 object-contain rounded">
-              <span id="rpt-lbl-sagittal" class="text-[9px] font-mono text-sky-400 mt-1 block">Sagittal (x = 140 mm)</span>
+            <div class="border border-slate-200 rounded p-1 text-center bg-black">
+              <img id="rpt-img-sagittal" src="assets/slices/BraTS-GLI-00002-000/sagittal_140.png" class="w-full aspect-square object-contain mx-auto filter contrast-125">
+              <div class="text-[9px] font-mono text-slate-400 mt-1" id="rpt-lbl-sagittal">Sagittal (x = 140 mm)</div>
             </div>
           </div>
         </div>
 
-        <!-- 4. STRUCTURED RADIOLOGICAL IMPRESSION -->
-        <div class="space-y-2 text-xs">
-          <div class="text-xs font-bold uppercase tracking-wider text-slate-900 pb-1 border-b border-slate-300">
-            4. Structured Impression & Clinical Triage Notification
-          </div>
-          <div class="p-3 bg-slate-50 rounded border border-slate-200 text-slate-800 space-y-1.5 leading-relaxed">
-            <div><strong>1. Mass Characteristics:</strong> Solitary supratentorial mass with extensive peripheral edema, thick irregular enhancing margins, and necrotic cavitation, radiographically consistent with Glioblastoma (WHO Grade 4).</div>
-            <div><strong>2. Radiogenomic Risk Tier:</strong> Investigational profile indicates IDH-wildtype status and elevated unmethylated MGMT probability.</div>
-            <div><strong>3. Recommended Action:</strong> <strong class="text-rose-700">PRIORITY SURGICAL REVIEW.</strong> Auto-flagged for expedited Multidisciplinary Neuro-Oncology Tumor Board evaluation, resection planning, and mandatory tissue-based molecular confirmation.</div>
-          </div>
-        </div>
-
-        <!-- REGULATORY DISCLAIMER -->
-        <div class="text-[10px] text-slate-500 border-t border-slate-200 pt-3 leading-tight space-y-1 font-mono">
-          <div><strong>REGULATORY DISCLAIMER (CADt Decision Support):</strong> This quantitative report was generated by Scanvidence v2.4. This system functions as a Computer-Assisted Triage & Volumetry Tool (CADt) to assist clinicians. Non-invasive radiogenomic predictions reflect statistical imaging associations and do NOT replace tissue histopathology or certified DNA sequencing.</div>
-        </div>
-
-        <!-- SIGN-OFF -->
-        <div class="pt-4 border-t-2 border-slate-900 flex justify-between items-end text-xs">
+        <!-- 4. ATTESTATION & SIGN-OFF -->
+        <div class="pt-4 border-t border-slate-200 grid grid-cols-2 gap-4 text-xs font-mono text-slate-600">
           <div>
-            <div class="font-mono text-[10px] text-slate-500">Verification Hash:</div>
-            <div class="font-mono text-[10px] text-slate-700">ABDM-FHIR-BUNDLE-9f82b017e41c482a</div>
+            <div class="font-bold text-slate-900">ELECTRONIC ATTESTATION</div>
+            <div class="text-[10px]">Verified against WHO CNS5 Standards</div>
+            <div class="text-[10px]">ABDM M2 FHIR Bundle: Generated & Cryptographically Signed</div>
           </div>
           <div class="text-right">
-            <div class="font-semibold text-slate-900">Dr. Rajesh V. Sharma, MD, DNB, FICR</div>
-            <div class="text-[11px] text-slate-600">Senior Consultant Neuro-Radiologist</div>
-            <div class="text-[10px] text-slate-500">Reg No: MCI-2008-048291</div>
+            <div class="font-bold text-slate-900">REPORTING RADIOLOGIST</div>
+            <div class="text-[10px]">Dr. V. Ramanathan, MD (Radiodiagnosis)</div>
+            <div class="text-[10px]">Reg No: MCI-2014-94829</div>
           </div>
         </div>
 
@@ -632,38 +751,36 @@
 
   </main>
 
-  <!-- ========================================================================= -->
-  <!-- REAL-TIME INFERENCE EXECUTION MODAL -->
-  <!-- ========================================================================= -->
-  <div id="infer-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
-    <div class="pacs-panel w-full max-w-2xl rounded-2xl border border-slate-700 overflow-hidden shadow-2xl space-y-4 p-6">
+  <!-- LIVE INFERENCE STREAM EXECUTION CONSOLE MODAL -->
+  <div id="infer-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+    <div class="comp-card rounded-2xl p-6 max-w-2xl w-full space-y-4 text-white">
       
-      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3 font-mono text-xs">
         <div class="flex items-center space-x-2">
-          <span class="w-2.5 h-2.5 rounded-full bg-sky-400 animate-pulse"></span>
-          <span class="text-sm font-bold text-white tracking-tight">Real-Time Edge Diagnostic Execution</span>
+          <span class="w-2.5 h-2.5 rounded-full bg-[#00E5FF] animate-ping"></span>
+          <span class="text-white font-bold uppercase tracking-wider">Live Edge Inference Stream</span>
         </div>
-        <button onclick="closeLiveInferenceConsole()" class="text-slate-400 hover:text-white text-xs font-mono">✕ Close</button>
+        <span class="text-slate-400">Compute: Local MPS/CUDA (1.60s)</span>
       </div>
 
-      <!-- Live Terminal Streaming Console -->
+      <!-- Live console log output -->
       <div class="bg-black/90 p-4 rounded-xl border border-slate-800 font-mono text-xs text-slate-300 space-y-2 h-64 overflow-y-auto" id="infer-console-log">
         <div class="text-slate-500">[0.00s] Initializing Scanvidence v2.4 Task Runner on Edge Device...</div>
       </div>
 
       <!-- Progress bar -->
-      <div class="space-y-1">
-        <div class="flex justify-between text-[11px] font-mono text-slate-400">
+      <div class="space-y-1 font-mono">
+        <div class="flex justify-between text-[11px] text-slate-400">
           <span id="infer-status-text">Allocating GPU tensors & loading multi-parametric MRI...</span>
-          <span id="infer-live-timer" class="text-sky-400 font-bold">0.00s</span>
+          <span id="infer-live-timer" class="text-[#00E5FF] font-bold">0.00s</span>
         </div>
         <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-          <div id="infer-bar" class="h-full bg-sky-500 transition-all duration-200" style="width: 5%;"></div>
+          <div id="infer-bar" class="h-full bg-[#00E5FF] transition-all duration-200" style="width: 5%;"></div>
         </div>
       </div>
 
       <div class="flex justify-end pt-2">
-        <button id="modal-done-btn" onclick="closeLiveInferenceConsole()" class="px-4 py-2 rounded-lg bg-slate-800 text-slate-400 text-xs font-semibold cursor-not-allowed" disabled>
+        <button id="modal-done-btn" onclick="closeLiveInferenceConsole()" class="px-4 py-2 rounded-lg bg-slate-800 text-slate-400 text-xs font-semibold cursor-not-allowed font-mono" disabled>
           Processing...
         </button>
       </div>
@@ -682,6 +799,7 @@
         mgmt: "MGMT_Unmethylated (57.0% Probability)", unc: "± 43.0%", idh: "IDH-Wildtype (81.8% Confidence)", p19q: "Non-Codeleted (98.5%)", ki67: "22.7% (High Proliferation Rate)",
         tier: "PRIORITY SURGICAL REVIEW",
         triageDesc: "Aggressive glioblastoma radiogenomic profile. Flagged for same-day Neuro-Oncology Multidisciplinary Board review with mandatory confirmatory tissue biopsy.",
+        critic: "Uncertainty ±43.0% flagged: Investigational CADt risk flag only. Confirmatory tissue biopsy mandatory before surgical resection.",
         reconImg: "assets/explainability/BraTS-GLI-00001-000_explainability.png"
       },
       "BraTS-GLI-00003-000": {
@@ -692,6 +810,7 @@
         mgmt: "MGMT_Methylated (52.1% Probability)", unc: "± 47.9%", idh: "IDH-Mutant (64.2% Confidence)", p19q: "Non-Codeleted (95.0%)", ki67: "14.5% (Moderate Proliferation Rate)",
         tier: "STANDARD SURGICAL QUEUE",
         triageDesc: "Moderate-grade astrocytoma profile with favorable Temozolomide sensitivity flagged. Routine pre-operative queue.",
+        critic: "Favorable MGMT methylation indicated with ±47.9% confidence interval. Standard multidisciplinary pre-op queue.",
         reconImg: "assets/explainability/BraTS-GLI-00001-001_explainability.png"
       },
       "BraTS-GLI-00000-000": {
@@ -702,6 +821,7 @@
         mgmt: "MGMT_Unmethylated (55.8% Probability)", unc: "± 44.2%", idh: "IDH-Wildtype (79.5% Confidence)", p19q: "Non-Codeleted (98.0%)", ki67: "21.0% (High Proliferation Rate)",
         tier: "PRIORITY SURGICAL REVIEW",
         triageDesc: "Infiltrative high-grade neoplasm. Telehealth notification dispatched to regional tertiary oncology hub.",
+        critic: "Infiltrative margin observed. TreeSHAP indicates GLCM heterogeneity driven by T1CE rim. Confirmatory biopsy advised.",
         reconImg: "assets/explainability/BraTS-GLI-00013-000_explainability.png"
       },
       "BraTS-GLI-00015-001": {
@@ -712,6 +832,7 @@
         mgmt: "MGMT_Unmethylated (58.4% Probability)", unc: "± 41.6%", idh: "IDH-Wildtype (83.2% Confidence)", p19q: "Non-Codeleted (99.0%)", ki67: "24.5% (High)",
         tier: "PRIORITY SURGICAL REVIEW",
         triageDesc: "Large supratentorial mass with marked mass effect and extensive vasogenic edema.",
+        critic: "Severe mass effect with midline shift risk. Priority tele-oncology dispatch initiated.",
         reconImg: "assets/explainability/BraTS-GLI-00015-001_explainability.png"
       },
       "BraTS-GLI-00037-000": {
@@ -722,6 +843,7 @@
         mgmt: "MGMT_Methylated (53.7% Probability)", unc: "± 46.3%", idh: "IDH-Mutant (67.4% Confidence)", p19q: "Non-Codeleted (94.5%)", ki67: "13.2% (Moderate)",
         tier: "STANDARD SURGICAL QUEUE",
         triageDesc: "Focal enhancing lesion with modest necrotic component; routine pre-op surgical protocol.",
+        critic: "Low necrotic volume fraction (11.4%). Stable biomarker distribution across IBSI metrics.",
         reconImg: "assets/explainability/BraTS-GLI-00037-000_explainability.png"
       },
       "BraTS-GLI-00047-000": {
@@ -732,6 +854,7 @@
         mgmt: "MGMT_Unmethylated (56.2% Probability)", unc: "± 43.8%", idh: "IDH-Wildtype (80.1% Confidence)", p19q: "Non-Codeleted (98.2%)", ki67: "21.8% (High)",
         tier: "PRIORITY SURGICAL REVIEW",
         triageDesc: "Deep intra-axial lesion with necrotic core and active peripheral enhancement.",
+        critic: "Heterogeneous enhancing rim with elevated proliferation score. Confirmatory biopsy advised.",
         reconImg: "assets/explainability/BraTS-GLI-00047-000_explainability.png"
       },
       "BraTS-GLI-00079-000": {
@@ -742,6 +865,7 @@
         mgmt: "MGMT_Unmethylated (55.0% Probability)", unc: "± 45.0%", idh: "IDH-Wildtype (78.0% Confidence)", p19q: "Non-Codeleted (97.5%)", ki67: "19.5% (High)",
         tier: "PRIORITY SURGICAL REVIEW",
         triageDesc: "Cortical temporal lesion with significant enhancement rim.",
+        critic: "Temporal lobe involvement. Multi-agent review suggests language cortex mapping prior to craniotomy.",
         reconImg: "assets/explainability/BraTS-GLI-00079-000_explainability.png"
       },
       "BraTS-GLI-00080-000": {
@@ -752,6 +876,7 @@
         mgmt: "MGMT_Unmethylated (59.1% Probability)", unc: "± 40.9%", idh: "IDH-Wildtype (84.5% Confidence)", p19q: "Non-Codeleted (99.2%)", ki67: "25.0% (High)",
         tier: "PRIORITY SURGICAL REVIEW",
         triageDesc: "Frontal infiltrative glioblastoma profile with high cellular proliferation estimate.",
+        critic: "Elevated Ki-67 proliferation (25.0%). Priority tumor board protocol activated.",
         reconImg: "assets/explainability/BraTS-GLI-00080-000_explainability.png"
       },
       "BraTS-GLI-00082-000": {
@@ -762,6 +887,7 @@
         mgmt: "MGMT_Methylated (51.5% Probability)", unc: "± 48.5%", idh: "IDH-Mutant (62.0% Confidence)", p19q: "Non-Codeleted (96.0%)", ki67: "15.0% (Moderate)",
         tier: "STANDARD SURGICAL QUEUE",
         triageDesc: "Moderate proliferative activity with extensive edema sleeve.",
+        critic: "Extensive edema sleeve; steroid management indicated. Standard pre-op queue.",
         reconImg: "assets/explainability/BraTS-GLI-00082-000_explainability.png"
       },
       "BraTS-GLI-00091-000": {
@@ -772,6 +898,7 @@
         mgmt: "MGMT_Unmethylated (56.5% Probability)", unc: "± 43.5%", idh: "IDH-Wildtype (81.0% Confidence)", p19q: "Non-Codeleted (98.0%)", ki67: "22.0% (High)",
         tier: "PRIORITY SURGICAL REVIEW",
         triageDesc: "Thick irregular enhancing margin around central necrotic cavity.",
+        critic: "Irregular enhancing margin confirmed. High TreeSHAP weight on 3D surface-to-volume ratio.",
         reconImg: "assets/explainability/BraTS-GLI-00091-000_explainability.png"
       },
       "BraTS-GLI-00114-000": {
@@ -782,6 +909,7 @@
         mgmt: "MGMT_Unmethylated (58.0% Probability)", unc: "± 42.0%", idh: "IDH-Wildtype (83.0% Confidence)", p19q: "Non-Codeleted (98.9%)", ki67: "23.8% (High)",
         tier: "PRIORITY SURGICAL REVIEW",
         triageDesc: "Deep cavitary necrosis with mass effect on lateral ventricles.",
+        critic: "Ventricular compression noted. Flagged for urgent neurosurgical decompression triage.",
         reconImg: "assets/explainability/BraTS-GLI-00114-000_explainability.png"
       },
       "BraTS-GLI-00125-000": {
@@ -792,6 +920,7 @@
         mgmt: "MGMT_Unmethylated (55.2% Probability)", unc: "± 44.8%", idh: "IDH-Wildtype (79.0% Confidence)", p19q: "Non-Codeleted (97.8%)", ki67: "20.5% (High)",
         tier: "PRIORITY SURGICAL REVIEW",
         triageDesc: "Parietal glial neoplasm with elevated risk tier flagged for surgical resection.",
+        critic: "Parietal lesion with focal necrosis. Standard biopsy and molecular validation requested.",
         reconImg: "assets/explainability/BraTS-GLI-00125-000_explainability.png"
       },
       "BraTS-GLI-00129-000": {
@@ -802,6 +931,7 @@
         mgmt: "MGMT_Unmethylated (56.8% Probability)", unc: "± 43.2%", idh: "IDH-Wildtype (81.5% Confidence)", p19q: "Non-Codeleted (98.4%)", ki67: "22.4% (High)",
         tier: "PRIORITY SURGICAL REVIEW",
         triageDesc: "Occipital lesion with active rim and marked surrounding edema.",
+        critic: "Occipital visual cortex proximity. Multi-agent review recommends functional MRI correlation.",
         reconImg: "assets/explainability/BraTS-GLI-00129-000_explainability.png"
       }
     };
@@ -815,10 +945,10 @@
         const btn = document.getElementById(`tab-btn-${t}`);
         const content = document.getElementById(`tab-content-${t}`);
         if (t === tabId) {
-          btn.className = "px-3.5 py-1.5 rounded-md bg-sky-600 text-white transition";
+          btn.className = "px-3.5 py-1.5 rounded bg-slate-950 text-white font-medium transition shadow-xs";
           content.classList.remove('hidden');
         } else {
-          btn.className = "px-3.5 py-1.5 rounded-md text-slate-400 hover:text-white transition";
+          btn.className = "px-3.5 py-1.5 rounded text-slate-600 hover:text-slate-950 transition";
           content.classList.add('hidden');
         }
       });
@@ -913,6 +1043,8 @@
       curZ = p.cz; curY = p.cy; curX = p.cx;
 
       document.getElementById("hdr-abha").innerText = p.abha;
+      document.getElementById("patient-narrative").innerText = p.triageDesc;
+      document.getElementById("critic-comment").innerText = `"${p.critic}"`;
 
       document.getElementById("slider-z").min = p.zRange[0];
       document.getElementById("slider-z").max = p.zRange[1];
@@ -954,9 +1086,9 @@
       document.getElementById("f-triage-badge").innerText = p.tier;
       document.getElementById("f-triage-desc").innerText = p.triageDesc;
       if (p.tier.includes("PRIORITY")) {
-        document.getElementById("f-triage-badge").className = "px-2 py-0.5 rounded bg-rose-950 text-rose-300 text-[10px] font-bold border border-rose-800";
+        document.getElementById("f-triage-badge").className = "px-2 py-0.5 rounded bg-rose-100 text-rose-800 text-[10px] font-bold border border-rose-300";
       } else {
-        document.getElementById("f-triage-badge").className = "px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 text-[10px] font-bold border border-emerald-800";
+        document.getElementById("f-triage-badge").className = "px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold border border-emerald-300";
       }
     }
 
@@ -985,16 +1117,16 @@
         const btn = document.getElementById(`btn-lvl-${i}`);
         if (btn) {
           if (i === lvl) {
-            btn.className = "w-full text-left px-3 py-2 rounded bg-[#00E5FF]/20 border border-[#00E5FF]/40 text-[#00E5FF] font-semibold transition flex items-center justify-between";
+            btn.className = "w-full text-left px-3 py-2 rounded bg-cyan-50 border border-cyan-300 text-cyan-900 font-semibold transition flex items-center justify-between";
           } else {
-            btn.className = "w-full text-left px-3 py-2 rounded bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 transition flex items-center justify-between";
+            btn.className = "w-full text-left px-3 py-2 rounded bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 transition flex items-center justify-between";
           }
         }
       }
 
       if (lvl === 1) {
         crosshairs.forEach(ch => ch.style.display = 'none');
-        if (recon) recon.style.opacity = '0.4';
+        if (recon) recon.style.opacity = '0.3';
       } else if (lvl === 2) {
         crosshairs.forEach(ch => ch.style.display = 'block');
         if (recon) recon.style.opacity = '1.0';
@@ -1018,19 +1150,19 @@
       logBox.innerHTML = `<div class="text-slate-500">[0.00s] Initializing Scanvidence v2.4 Task Runner on Edge Device...</div>`;
       bar.style.width = "5%";
       doneBtn.disabled = true;
-      doneBtn.className = "px-4 py-2 rounded-lg bg-slate-800 text-slate-400 text-xs font-semibold cursor-not-allowed";
+      doneBtn.className = "px-4 py-2 rounded-lg bg-slate-800 text-slate-400 text-xs font-semibold cursor-not-allowed font-mono";
       doneBtn.innerText = "Processing...";
 
       const p = patientVault[activeCase];
       const startTime = performance.now();
 
       const logEvents = [
-        { t: 200, pct: 20, msg: `[0.20s] Ingesting multi-sequence MRI: ${activeCase} (T1w, T1c, T2w, T2-FLAIR)...` },
-        { t: 450, pct: 40, msg: `[0.45s] Brain spatial bounding box extraction: Spacing 1.0mm isotropic.` },
-        { t: 800, pct: 65, msg: `[0.80s] Executing 3D SegResNetB0 forward pass (1.6M Params, Sliding Window 128³)...` },
+        { t: 200, pct: 20, msg: `[0.20s] [Coordinating Agent] Ingesting multi-sequence MRI: ${activeCase} (T1w, T1c, T2w, T2-FLAIR)...` },
+        { t: 450, pct: 40, msg: `[0.45s] [Vision Specialist] Brain bounding box extracted: 1.0mm isotropic resampling.` },
+        { t: 800, pct: 65, msg: `[0.80s] [Vision Specialist] 3D SegResNetB0 forward pass (1.6M Params, Sliding Window 128³)...` },
         { t: 1100, pct: 80, msg: `[1.10s] Morphometry extracted: WT = ${p.wt} cm³, TC = ${p.tc} cm³, ET = ${p.et} cm³, NCR = ${p.ncr} cm³.` },
-        { t: 1350, pct: 90, msg: `[1.35s] IBSI 107 Radiomics & IBM Heron 156Q 9-Qubit Quantum Kernel Gram Matrix calculated.` },
-        { t: 1600, pct: 100, msg: `[1.60s] TreeSHAP attribution & NRCES ABDM Milestone-2 FHIR Bundle generation complete.` }
+        { t: 1350, pct: 90, msg: `[1.35s] [Quantum Specialist] IBM Heron 156Q QUBO 9-Qubit Quantum Kernel Gram Matrix calculated.` },
+        { t: 1600, pct: 100, msg: `[1.60s] [Reviewer Agent] TreeSHAP attribution audited & NRCES ABDM Milestone-2 FHIR Bundle compiled.` }
       ];
 
       logEvents.forEach((ev) => {
@@ -1049,8 +1181,8 @@
         timerTxt.innerText = `${totalElapsed}s (Finished)`;
         statusTxt.innerText = `✓ Analysis complete for case ${activeCase}.`;
         doneBtn.disabled = false;
-        doneBtn.className = "px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold cursor-pointer shadow-md";
-        doneBtn.innerText = "View Diagnostic Findings →";
+        doneBtn.className = "px-4 py-2 rounded-lg bg-[#00E5FF] hover:bg-cyan-400 text-slate-950 font-bold text-xs cursor-pointer shadow-md font-mono";
+        doneBtn.innerText = "View Evidence State →";
         updateFindingsTab(p);
         updateReportTab(p);
       }, 1750);
