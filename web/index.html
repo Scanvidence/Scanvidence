@@ -237,10 +237,11 @@
               </span>
               <span class="font-mono text-xs text-slate-400">01</span>
             </div>
-            <div class="aspect-[16/10] bg-slate-950 rounded-xl overflow-hidden relative flex items-center justify-center p-2 border border-slate-800">
-              <img src="assets/slices/BraTS-GLI-00002-000/axial_79.png" alt="Brain Slice" class="max-h-full object-contain filter contrast-125">
-              <div class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-black/70 backdrop-blur-sm text-[9px] font-mono text-emerald-400">
-                92.2% WT Dice
+            <div class="aspect-[16/10] bg-slate-950 rounded-xl overflow-hidden relative border border-slate-800 group">
+              <img src="assets/topics/brain_tractography_3d.jpg" alt="3D Diffusion Tensor Tractography" class="w-full h-full object-cover filter contrast-125 group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+              <div class="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded bg-black/75 backdrop-blur-sm text-[10px] font-mono text-emerald-400 font-medium">
+                92.2% WT Dice • 3D Connectomics
               </div>
             </div>
             <div>
@@ -270,10 +271,12 @@
               </span>
               <span class="font-mono text-xs text-slate-400">02</span>
             </div>
-            <div class="aspect-[16/10] bg-slate-950 rounded-xl overflow-hidden relative flex flex-col items-center justify-center p-4 border border-slate-800 font-mono text-center">
-              <div class="text-[#00E5FF] text-xl font-bold">E = -3.0981</div>
-              <div class="text-slate-400 text-[10px] mt-1">IBM Heron 156Q Ising Ground State</div>
-              <div class="mt-2 text-emerald-400 text-xs font-semibold">2.3× Stability Lift</div>
+            <div class="aspect-[16/10] bg-slate-950 rounded-xl overflow-hidden relative border border-slate-800 group">
+              <img src="assets/topics/ibm_quantum_heron.jpg" alt="IBM Quantum Dilution Refrigerator" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+              <div class="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded bg-black/75 backdrop-blur-sm text-[10px] font-mono text-[#00E5FF] font-medium">
+                E = -3.0981 • IBM Heron 156Q QPU
+              </div>
             </div>
             <div>
               <h3 class="font-editorial text-2xl font-medium text-slate-950 leading-snug">
@@ -302,10 +305,12 @@
               </span>
               <span class="font-mono text-xs text-slate-400">03</span>
             </div>
-            <div class="aspect-[16/10] bg-slate-950 rounded-xl overflow-hidden relative flex flex-col items-center justify-center p-4 border border-slate-800 font-mono text-center">
-              <div class="text-white text-lg font-medium font-editorial">dim(ℋ) = 512</div>
-              <div class="text-slate-400 text-[10px] mt-1">512D Complex Hilbert Space</div>
-              <div class="mt-2 text-[#00E5FF] text-xs">ZZFeatureMap Kernel</div>
+            <div class="aspect-[16/10] bg-slate-950 rounded-xl overflow-hidden relative border border-slate-800 flex items-center justify-center p-2 group">
+              <img src="assets/topics/quantum_hilbert_bloch.png" alt="Bloch Sphere Hilbert Space" class="max-h-full object-contain filter invert brightness-90 group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+              <div class="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded bg-black/75 backdrop-blur-sm text-[10px] font-mono text-cyan-300 font-medium">
+                dim(ℋ) = 512 • 9Q QSVM Kernel
+              </div>
             </div>
             <div>
               <h3 class="font-editorial text-2xl font-medium text-slate-950 leading-snug">
@@ -334,10 +339,12 @@
               </span>
               <span class="font-mono text-xs text-slate-400">04</span>
             </div>
-            <div class="aspect-[16/10] bg-slate-950 rounded-xl overflow-hidden relative flex flex-col items-center justify-center p-4 border border-slate-800 font-mono text-center">
-              <div class="text-amber-400 text-sm font-semibold">3D Grad-CAM + TreeSHAP</div>
-              <div class="text-slate-400 text-[10px] mt-1">Spatial Voxel & Feature Push</div>
-              <div class="mt-2 text-slate-300 text-xs">NRCES FHIR Bundle</div>
+            <div class="aspect-[16/10] bg-slate-950 rounded-xl overflow-hidden relative border border-slate-800 group">
+              <img src="assets/explainability/BraTS-GLI-00001-000_explainability.png" alt="3D Grad-CAM Voxel Attention Heatmap" class="w-full h-full object-cover filter contrast-125 group-hover:scale-105 transition-transform duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+              <div class="absolute bottom-2.5 left-2.5 px-2 py-0.5 rounded bg-black/75 backdrop-blur-sm text-[10px] font-mono text-amber-300 font-medium">
+                3D Grad-CAM • Voxel Proof
+              </div>
             </div>
             <div>
               <h3 class="font-editorial text-2xl font-medium text-slate-950 leading-snug">
@@ -691,8 +698,11 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       
       <!-- ARTICLE 1 -->
-      <div class="deepmind-card p-6 flex flex-col justify-between space-y-6">
+      <div class="deepmind-card p-6 flex flex-col justify-between space-y-6 overflow-hidden group">
         <div class="space-y-3">
+          <div class="aspect-[16/9] rounded-xl overflow-hidden relative border border-slate-200/80 mb-2">
+            <img src="assets/topics/ibm_quantum_heron.jpg" alt="156-Qubit IBM Heron Benchmark" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
           <div class="flex items-center space-x-2 font-mono text-[10px] text-slate-500">
             <span class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-medium">Quantum Hardware</span>
             <span>•</span>
@@ -715,8 +725,11 @@
       </div>
 
       <!-- ARTICLE 2 -->
-      <div class="deepmind-card p-6 flex flex-col justify-between space-y-6">
+      <div class="deepmind-card p-6 flex flex-col justify-between space-y-6 overflow-hidden group">
         <div class="space-y-3">
+          <div class="aspect-[16/9] rounded-xl overflow-hidden relative border border-slate-200/80 mb-2">
+            <img src="assets/topics/dna_gel_electrophoresis.jpg" alt="Agarose Gel DNA Electrophoresis" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
           <div class="flex items-center space-x-2 font-mono text-[10px] text-slate-500">
             <span class="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 font-medium">Health Economics</span>
             <span>•</span>
@@ -739,8 +752,11 @@
       </div>
 
       <!-- ARTICLE 3 -->
-      <div class="deepmind-card p-6 flex flex-col justify-between space-y-6">
+      <div class="deepmind-card p-6 flex flex-col justify-between space-y-6 overflow-hidden group">
         <div class="space-y-3">
+          <div class="aspect-[16/9] rounded-xl overflow-hidden relative border border-slate-200/80 mb-2">
+            <img src="assets/topics/mri_scanner_clinical.jpg" alt="Hospital 3T MRI Scanner Suite" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
           <div class="flex items-center space-x-2 font-mono text-[10px] text-slate-500">
             <span class="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 font-medium">Clinical Decision</span>
             <span>•</span>
@@ -844,7 +860,10 @@
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         
-        <div class="deepmind-card p-7 space-y-3">
+        <div class="deepmind-card p-7 space-y-4 overflow-hidden group">
+          <div class="aspect-[16/9] rounded-xl overflow-hidden border border-slate-200/80 relative">
+            <img src="assets/topics/radiologist_workstation.jpg" alt="Radiologist Diagnostic PACS Workstation" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
           <div class="font-mono text-xs text-slate-400 font-semibold uppercase tracking-wider">PILLAR 01</div>
           <h3 class="font-editorial text-2xl text-slate-950 font-medium">Turnaround Compression</h3>
           <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-light">
@@ -852,7 +871,10 @@
           </p>
         </div>
 
-        <div class="deepmind-card p-7 space-y-3">
+        <div class="deepmind-card p-7 space-y-4 overflow-hidden group">
+          <div class="aspect-[16/9] rounded-xl overflow-hidden border border-slate-200/80 relative">
+            <img src="assets/topics/dna_gel_electrophoresis.jpg" alt="Molecular PCR vs Edge AI Health Economics" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
           <div class="font-mono text-xs text-slate-400 font-semibold uppercase tracking-wider">PILLAR 02</div>
           <h3 class="font-editorial text-2xl text-slate-950 font-medium">Health Economics</h3>
           <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-light">
@@ -860,7 +882,10 @@
           </p>
         </div>
 
-        <div class="deepmind-card p-7 space-y-3">
+        <div class="deepmind-card p-7 space-y-4 overflow-hidden group">
+          <div class="aspect-[16/9] rounded-xl overflow-hidden border border-slate-200/80 relative">
+            <img src="assets/topics/neurosurgery_suite.jpg" alt="Advanced Neurosurgical Suite" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
           <div class="font-mono text-xs text-slate-400 font-semibold uppercase tracking-wider">PILLAR 03</div>
           <h3 class="font-editorial text-2xl text-slate-950 font-medium">ABDM & eSanjeevani Rails</h3>
           <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-light">
