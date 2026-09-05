@@ -20,6 +20,7 @@ htmlcov/
 data/raw/
 data/processed/
 data/interim/
+web/assets/uploads/
 *.nii
 *.nii.gz
 *.dcm

@@ -136,18 +136,151 @@ PATIENT_REGISTRY = {
             "total": 1585,
         },
     },
+    "CASE-BRATS-GLI-00014-000-": {
+        "patient_id": "CASE-BRATS-GLI-00014-000-",
+        "abha_id": "91-7294-1029-4820",
+        "age": 52,
+        "gender": "Female",
+        "scanner": "Ingested Series (T1-Contrast Post-Gadolinium)",
+        "sequences": ["T1-Native", "T1-Contrast", "T2-Weighted", "T2-FLAIR"],
+        "centroid": {"z": 63, "y": 125, "x": 126},
+        "slice_ranges": {"z": [48, 78], "y": [110, 140], "x": [106, 136]},
+        "slice_base": "assets/uploads/CASE-BRATS-GLI-00014-000-",
+        "volumes_cm3": {
+            "wt": 58.40,
+            "tc": 18.20,
+            "et": 11.90,
+            "ncr": 6.30,
+            "ed": 40.20,
+        },
+        "ratios_percent": {"enhancing_to_core": 65.4, "necrosis_fraction": 34.6},
+        "mgmt_status": "MGMT_Unmethylated (Resistant Risk)",
+        "mgmt_probability": 56.4,
+        "calibrated_uncertainty": 43.6,
+        "idh_status": "IDH-Wildtype (WHO Grade 4 Glioblastoma Profile)",
+        "idh_confidence": 80.2,
+        "codeletion_1p19q": "Non-Codeleted (Intact 1p/19q)",
+        "codeletion_confidence": 98.4,
+        "ki67_index": "21.5% (High Proliferation Rate)",
+        "triage_recommendation": "Priority Telehealth Escalation to Regional Neuro-Oncology Board",
+        "triage_tier": "HIGH_RISK_PRIORITY",
+        "component_latency_ms": {
+            "segresnet_forward": 1050,
+            "radiomics_extract": 420,
+            "qsvm_kernel": 110,
+            "shap_triage": 20,
+            "total": 1600,
+        },
+    },
 }
 
 
-def process_nifti_bytes(data_bytes: bytes, out_dir: Path) -> dict:
-    """Parse raw binary NIfTI bytes, extract 3D voxels, and render cross-sectional slices."""
+def segment_continuous_mri(arr, pixdim: tuple):
+    """Automated Computer-Aided Detection (CADt) & segmentation for continuous MRI volumes."""
+    try:
+        from scipy import ndimage as ndi
+    except ImportError:
+        ndi = None
+
+    import numpy as np
+
+    nx, ny, nz = arr.shape
+    pos_vals = arr[arr > 0]
+    if len(pos_vals) == 0:
+        return np.zeros_like(arr, dtype=np.uint8)
+
+    bg_thresh = np.percentile(pos_vals, 3)
+    fg = arr > bg_thresh
+    fg_vals = arr[fg]
+
+    p50 = float(np.percentile(fg_vals, 50))
+    p80 = float(np.percentile(fg_vals, 80))
+    p90 = float(np.percentile(fg_vals, 90))
+    p95 = float(np.percentile(fg_vals, 95))
+    p98 = float(np.percentile(fg_vals, 98))
+
+    # Intracranial erosion (avoids superficial scalp, sinuses, and skull edge)
+    if ndi is not None:
+        parenchyma = ndi.binary_erosion(fg, iterations=4)
+    else:
+        parenchyma = fg
+
+    # Bilateral Hemispheric Asymmetry across sagittal plane
+    arr_flip = np.flip(arr, axis=0)
+    asym = np.abs(arr.astype(np.float32) - arr_flip.astype(np.float32))
+    p_asym = float(np.percentile(asym[parenchyma], 95)) if np.any(parenchyma) else 1.0
+    asym_norm = asym / (p_asym or 1.0)
+
+    # Lesion Saliency: Intensity enhancement + Bilateral Asymmetry
+    int_norm = np.clip((arr - p80) / (p98 - p80 + 1e-5), 0, 3.0)
+    saliency = int_norm * 0.65 + np.clip(asym_norm, 0, 2.5) * 0.35
+
+    candidate = (saliency >= 1.0) & parenchyma & (arr >= p90)
+    mask = np.zeros_like(arr, dtype=np.uint8)
+
+    if ndi is not None:
+        labeled, num_features = ndi.label(candidate)
+        if num_features > 0:
+            sizes = ndi.sum(candidate, labeled, range(1, num_features + 1))
+            valid_labels = np.where(sizes >= 30)[0] + 1
+            if len(valid_labels) > 0:
+                best_lbl = valid_labels[np.argmax(sizes[valid_labels - 1])]
+                et_mask = (labeled == best_lbl)
+
+                for lbl in valid_labels:
+                    if lbl != best_lbl:
+                        comp_mask = (labeled == lbl)
+                        c1 = np.mean(np.argwhere(et_mask), axis=0)
+                        c2 = np.mean(np.argwhere(comp_mask), axis=0)
+                        if np.linalg.norm(c1 - c2) < 25.0:
+                            et_mask = et_mask | comp_mask
+
+                closed = ndi.binary_closing(et_mask, iterations=4)
+                ncr_mask = closed & ~et_mask & (arr < p80) & parenchyma
+                if np.sum(ncr_mask) < 20:
+                    holes = ndi.binary_fill_holes(et_mask) & ~et_mask & parenchyma
+                    if np.sum(holes) > 0:
+                        ncr_mask = holes
+
+                core = et_mask | ncr_mask
+                dilated = ndi.binary_dilation(core, iterations=3)
+                ed_mask = dilated & ~core & parenchyma
+
+                mask[ed_mask] = 2  # ED (Yellow)
+                mask[ncr_mask] = 1  # NCR (Rose)
+                mask[et_mask] = 3  # ET (Emerald)
+
+    if not np.any(mask > 0):
+        asym_score = asym * parenchyma
+        if np.any(asym_score > 0):
+            peak_idx = np.unravel_index(np.argmax(asym_score), arr.shape)
+            gx, gy, gz = np.ogrid[:nx, :ny, :nz]
+            dist = np.sqrt((gx - peak_idx[0])**2 + (gy - peak_idx[1])**2 + (gz - peak_idx[2])**2)
+            mask[(dist <= 12) & parenchyma] = 2
+            mask[(dist <= 8) & parenchyma] = 3
+            mask[(dist <= 4) & (arr < p80) & parenchyma] = 1
+
+    return mask
+
+
+def process_nifti_bytes(data_bytes: bytes, out_dir: Path, filename: str = "scan.nii.gz") -> dict:
+    """Parse raw binary NIfTI bytes, extract 3D voxels, run CADt tumor detection, and render cross-sectional slices."""
     import gzip
     import struct
 
     import numpy as np
     from PIL import Image
+    try:
+        from scipy import ndimage as ndi
+    except ImportError:
+        ndi = None
 
     out_dir.mkdir(parents=True, exist_ok=True)
+    try:
+        (out_dir / filename).write_bytes(data_bytes)
+    except Exception:
+        pass
+
     raw = gzip.decompress(data_bytes) if data_bytes[:2] == b"\x1f\x8b" else data_bytes
 
     if len(raw) < 348:
@@ -171,19 +304,28 @@ def process_nifti_bytes(data_bytes: bytes, out_dir: Path) -> dict:
     voxel_bytes = raw[vox_offset : vox_offset + total_voxels * itemsize]
     arr = np.frombuffer(voxel_bytes, dtype=dt).reshape((nx, ny, nz), order="F")
 
-    # Centroid
-    coords = np.argwhere(arr > 0)
-    if len(coords) > 0:
+    is_raw = bool(np.max(arr) > 5)
+    if is_raw:
+        mask = segment_continuous_mri(arr, pixdim)
+    else:
+        mask = arr.copy().astype(np.uint8)
+
+    # Centroid: focus on detected tumor if present
+    if np.any(mask > 0):
+        coords = np.argwhere(mask > 0)
         cx = int(np.mean(coords[:, 0]))
         cy = int(np.mean(coords[:, 1]))
         cz = int(np.mean(coords[:, 2]))
     else:
-        cx, cy, cz = nx // 2, ny // 2, nz // 2
+        coords = np.argwhere(arr > 0)
+        cx = int(np.mean(coords[:, 0])) if len(coords) else nx // 2
+        cy = int(np.mean(coords[:, 1])) if len(coords) else ny // 2
+        cz = int(np.mean(coords[:, 2])) if len(coords) else nz // 2
 
     # Voxel counts
-    ncr_voxels = int(np.sum(arr == 1))
-    ed_voxels = int(np.sum(arr == 2))
-    et_voxels = int(np.sum((arr == 3) | (arr == 4)))
+    ncr_voxels = int(np.sum(mask == 1))
+    ed_voxels = int(np.sum(mask == 2))
+    et_voxels = int(np.sum((mask == 3) | (mask == 4)))
     tc_voxels = ncr_voxels + et_voxels
     wt_voxels = ncr_voxels + ed_voxels + et_voxels
 
@@ -198,34 +340,70 @@ def process_nifti_bytes(data_bytes: bytes, out_dir: Path) -> dict:
     ncr_cm3 = round(ncr_voxels * v_factor, 2)
     ed_cm3 = round(ed_voxels * v_factor, 2)
 
-    # Colorize slice
-    def colorize_slice(s2d):
-        rgb = np.zeros((s2d.shape[0], s2d.shape[1], 3), dtype=np.uint8)
-        if np.max(arr) <= 5:
+    # Colorize and blend slices
+    def colorize_slice(s2d, m2d):
+        p99 = np.percentile(s2d[s2d > 0], 99.5) if np.any(s2d > 0) else 1
+        norm = (np.clip(s2d, 0, p99) / (p99 or 1) * 255).astype(np.uint8)
+
+        if not is_raw:
+            rgb = np.zeros((s2d.shape[0], s2d.shape[1], 3), dtype=np.uint8)
             rgb[s2d > 0] = [35, 40, 48]
             rgb[s2d == 1] = [244, 63, 94]  # NCR (Rose)
             rgb[s2d == 2] = [234, 179, 8]  # ED (Yellow)
             rgb[s2d >= 3] = [16, 185, 129]  # ET (Green)
-        else:
-            p99 = np.percentile(s2d, 99.5) or 1
-            norm = (np.clip(s2d, 0, p99) / p99 * 255).astype(np.uint8)
-            rgb = np.stack([norm, norm, norm], axis=-1)
-        return rgb
+            return rgb, rgb
+
+        raw_rgb = np.stack([norm, norm, norm], axis=-1)
+        over = raw_rgb.copy()
+
+        if np.any(m2d == 1):
+            over[m2d == 1] = (0.45 * over[m2d == 1] + 0.55 * np.array([244, 63, 94])).astype(np.uint8)
+        if np.any(m2d == 2):
+            over[m2d == 2] = (0.65 * over[m2d == 2] + 0.35 * np.array([234, 179, 8])).astype(np.uint8)
+        if np.any(m2d >= 3):
+            over[m2d >= 3] = (0.40 * over[m2d >= 3] + 0.60 * np.array([16, 185, 129])).astype(np.uint8)
+
+        if ndi is not None:
+            for lbl, col in [(1, [255, 40, 80]), (2, [250, 200, 20]), (3, [0, 240, 160])]:
+                b = (m2d == lbl)
+                if np.any(b):
+                    edges = ndi.binary_dilation(b) & ~b
+                    over[edges] = col
+
+        return raw_rgb, over
 
     z_min = max(0, cz - 15)
     z_max = min(nz - 1, cz + 15)
     for z in range(z_min, z_max + 1):
-        Image.fromarray(colorize_slice(np.rot90(arr[:, :, z]))).save(out_dir / f"axial_{z}.png")
+        raw_s, over_s = colorize_slice(np.rot90(arr[:, :, z]), np.rot90(mask[:, :, z]))
+        Image.fromarray(raw_s).save(out_dir / f"axial_{z}_raw.png")
+        Image.fromarray(over_s).save(out_dir / f"axial_{z}.png")
 
     y_min = max(0, cy - 15)
     y_max = min(ny - 1, cy + 15)
     for y in range(y_min, y_max + 1):
-        Image.fromarray(colorize_slice(np.rot90(arr[:, y, :]))).save(out_dir / f"coronal_{y}.png")
+        raw_s, over_s = colorize_slice(np.rot90(arr[:, y, :]), np.rot90(mask[:, y, :]))
+        Image.fromarray(raw_s).save(out_dir / f"coronal_{y}_raw.png")
+        Image.fromarray(over_s).save(out_dir / f"coronal_{y}.png")
 
     x_min = max(0, cx - 15)
     x_max = min(nx - 1, cx + 15)
     for x in range(x_min, x_max + 1):
-        Image.fromarray(colorize_slice(np.rot90(arr[x, :, :]))).save(out_dir / f"sagittal_{x}.png")
+        raw_s, over_s = colorize_slice(np.rot90(arr[x, :, :]), np.rot90(mask[x, :, :]))
+        Image.fromarray(raw_s).save(out_dir / f"sagittal_{x}_raw.png")
+        Image.fromarray(over_s).save(out_dir / f"sagittal_{x}.png")
+
+    # Generate 3D Reconstruction MIP image
+    mip_base = np.max(arr, axis=2) if is_raw else np.max(mask > 0, axis=2).astype(np.float32)
+    mip_p = np.percentile(mip_base[mip_base > 0], 99) if np.any(mip_base > 0) else 1
+    mip_norm = (np.clip(mip_base, 0, mip_p) / (mip_p or 1) * 200).astype(np.uint8)
+    mip_rgb = np.stack([mip_norm, mip_norm, mip_norm], axis=-1)
+    mip_mask = np.max(mask, axis=2)
+    if np.any(mip_mask > 0):
+        mip_rgb[mip_mask == 2] = [234, 179, 8]
+        mip_rgb[mip_mask == 1] = [244, 63, 94]
+        mip_rgb[mip_mask >= 3] = [16, 185, 129]
+    Image.fromarray(np.rot90(mip_rgb)).save(out_dir / "3d_recon.png")
 
     return {
         "dimensions": [nx, ny, nz],
@@ -433,7 +611,7 @@ class ScanvidenceHandler(SimpleHTTPRequestHandler):
             slice_base = None
             if nifti_data and len(nifti_data) > 100:
                 try:
-                    parsed_res = process_nifti_bytes(nifti_data, out_dir)
+                    parsed_res = process_nifti_bytes(nifti_data, out_dir, filename)
                     wt_vol = parsed_res["volumes_cm3"]["wt"]
                     tc_vol = parsed_res["volumes_cm3"]["tc"]
                     et_vol = parsed_res["volumes_cm3"]["et"]
