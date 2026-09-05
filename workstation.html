@@ -195,6 +195,7 @@
           <div class="flex items-center space-x-2 mt-1">
             <select id="case-selector" onchange="onCaseSwitch()" class="bg-white border border-slate-300 text-slate-900 rounded px-3 py-1.5 text-xs font-semibold focus:outline-none focus:border-cyan-600 cursor-pointer shadow-xs">
             <option value="BraTS-GLI-00002-000">BraTS-GLI-00002-000 (Glioblastoma, High-Risk Profile)</option>
+            <option value="CASE-BRATS-GLI-00014-000-">★ BraTS-GLI-00014-000 (Uploaded T1c - Contrast Rim Delineated)</option>
             <option value="BraTS-GLI-00003-000">BraTS-GLI-00003-000 (Astrocytoma, Moderate-Risk Profile)</option>
             <option value="BraTS-GLI-00000-000">BraTS-GLI-00000-000 (Infiltrative Intra-Axial Lesion)</option>
             <option value="BraTS-GLI-00015-001">BraTS-GLI-00015-001 (Large Supratentorial Infiltrative Mass)</option>
@@ -983,11 +984,24 @@
         triageDesc: "Occipital lesion with active rim and marked surrounding edema.",
         critic: "Occipital visual cortex proximity. Multi-agent review recommends functional MRI correlation.",
         reconImg: "assets/explainability/BraTS-GLI-00129-000_explainability.png"
+      },
+      "CASE-BRATS-GLI-00014-000-": {
+        cz: 63, cy: 125, cx: 126,
+        zRange: [48, 78], yRange: [110, 140], xRange: [106, 136],
+        name: "Patient 00014 (Uploaded T1c)", abha: "91-7294-1029-4820", docId: "SR-2026-0014", ageSex: "52 Yrs / Female",
+        sliceBase: "assets/uploads/CASE-BRATS-GLI-00014-000-",
+        wt: 58.40, tc: 18.20, et: 11.90, ncr: 6.30, ed: 40.20, nec: 34.6,
+        mgmt: "MGMT_Unmethylated (56.4% Probability)", unc: "± 43.6%", idh: "IDH-Wildtype (80.2% Confidence)", p19q: "Non-Codeleted (98.4%)", ki67: "21.5% (High Proliferation Rate)",
+        tier: "PRIORITY SURGICAL REVIEW",
+        triageDesc: "Post-contrast T1c series ingested. Contrast-enhancing margins and peritumoral infiltration zone delineated.",
+        critic: "Direct raw T1c volume segmentation: Contrast-enhancing rim and peritumoral margin isolated. Confirmatory biopsy advised.",
+        reconImg: "assets/uploads/CASE-BRATS-GLI-00014-000-/axial_71.png"
       }
     };
 
     let activeCase = "BraTS-GLI-00002-000";
     let curZ = 79, curY = 95, curX = 140;
+    let activeLevel = 2;
 
     function switchTab(tabId) {
       const tabs = ['pacs', 'findings', 'report'];
@@ -1010,10 +1024,21 @@
       const ySnap = Math.min(Math.max(curY, p.yRange[0]), p.yRange[1]);
       const xSnap = Math.min(Math.max(curX, p.xRange[0]), p.xRange[1]);
 
+      const suffix = (activeLevel === 1) ? "_raw.png" : ".png";
+
       if (p.sliceBase) {
-        document.getElementById("img-axial").src = `${p.sliceBase}/axial_${zSnap}.png`;
-        document.getElementById("img-coronal").src = `${p.sliceBase}/coronal_${ySnap}.png`;
-        document.getElementById("img-sagittal").src = `${p.sliceBase}/sagittal_${xSnap}.png`;
+        const axImg = document.getElementById("img-axial");
+        const corImg = document.getElementById("img-coronal");
+        const sagImg = document.getElementById("img-sagittal");
+
+        axImg.src = `${p.sliceBase}/axial_${zSnap}${suffix}`;
+        axImg.onerror = () => { axImg.src = `${p.sliceBase}/axial_${zSnap}.png`; };
+
+        corImg.src = `${p.sliceBase}/coronal_${ySnap}${suffix}`;
+        corImg.onerror = () => { corImg.src = `${p.sliceBase}/coronal_${ySnap}.png`; };
+
+        sagImg.src = `${p.sliceBase}/sagittal_${xSnap}${suffix}`;
+        sagImg.onerror = () => { sagImg.src = `${p.sliceBase}/sagittal_${xSnap}.png`; };
       } else {
         document.getElementById("img-axial").src = `assets/slices/${activeCase}/axial_${zSnap}.png`;
         document.getElementById("img-coronal").src = `assets/slices/${activeCase}/coronal_${ySnap}.png`;
@@ -1172,6 +1197,7 @@
     }
 
     function setLevel(lvl) {
+      activeLevel = lvl;
       const crosshairs = document.querySelectorAll('.crosshair-h, .crosshair-v');
       const recon = document.getElementById("img-3d-recon");
       
@@ -1197,6 +1223,7 @@
         if (recon) recon.style.opacity = '1.0';
         switchTab('findings');
       }
+      updateSlices();
     }
 
     // LIVE REAL-TIME INFERENCE STREAM CONSOLE
@@ -1489,7 +1516,7 @@
         tier: rec.triage_tier,
         triageDesc: rec.triage_recommendation,
         critic: "Volume Ingested: High-grade morphometric signature verified from raw binary 3D voxels. 9-qubit quantum state overlap predicts MGMT unmethylated status. Mandatory tissue biopsy guardrail active.",
-        reconImg: "assets/explainability/BraTS-GLI-00001-000_explainability.png"
+        reconImg: rec.slice_base ? `${rec.slice_base}/3d_recon.png` : "assets/explainability/BraTS-GLI-00001-000_explainability.png"
       };
 
       // If user uploaded an actual image file (png/jpg), preview it in the axial canvas
