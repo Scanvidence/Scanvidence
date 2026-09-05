@@ -309,6 +309,26 @@ def process_nifti_bytes(data_bytes: bytes, out_dir: Path, filename: str = "scan.
         mask = segment_continuous_mri(arr, pixdim)
     else:
         mask = arr.copy().astype(np.uint8)
+        # Check if companion raw MRI scan exists in out_dir to use as anatomical background
+        raw_nii_files = [f for f in out_dir.glob("*.nii*") if "seg" not in f.name.lower() and f.name != filename]
+        if raw_nii_files:
+            try:
+                raw_bytes = raw_nii_files[0].read_bytes()
+                raw_decomp = gzip.decompress(raw_bytes) if raw_bytes[:2] == b"\x1f\x8b" else raw_bytes
+                r_hdr = raw_decomp[:348]
+                r_dim = struct.unpack("<8h", r_hdr[40:56])
+                r_datatype = struct.unpack("<h", r_hdr[70:72])[0]
+                r_dt = dtype_map.get(r_datatype, np.uint8)
+                r_offset = int(struct.unpack("<f", r_hdr[108:112])[0])
+                r_voxels = np.frombuffer(
+                    raw_decomp[r_offset : r_offset + r_dim[1] * r_dim[2] * r_dim[3] * np.dtype(r_dt).itemsize],
+                    dtype=r_dt,
+                ).reshape((r_dim[1], r_dim[2], r_dim[3]), order="F")
+                if r_voxels.shape == arr.shape and np.max(r_voxels) > 5:
+                    arr = r_voxels
+                    is_raw = True
+            except Exception:
+                pass
 
     # Centroid: focus on detected tumor if present
     if np.any(mask > 0):
